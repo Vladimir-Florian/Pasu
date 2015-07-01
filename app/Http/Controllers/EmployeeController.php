@@ -1,9 +1,12 @@
 <?php namespace App\Http\Controllers;
 
+use App\Profile;
+use App\Industry;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use Auth;
 
 class EmployeeController extends Controller {
 
@@ -14,7 +17,9 @@ class EmployeeController extends Controller {
 	 */
 	public function index()
 	{
-		//
+		
+		return view('employees.index');
+		
 	}
 
 	/**
@@ -26,6 +31,7 @@ class EmployeeController extends Controller {
 	{
 		$industries = Industry::lists("slug", "id"); 
 		return view('employees.create', compact('industries'));
+		
 	}
 
 	/**
@@ -44,7 +50,7 @@ class EmployeeController extends Controller {
 		$profile->industry_id = $request->input('specialization');
 
 		$profile->save();
-		return redirect('employees');
+		return redirect('home');
 	}
 
 	/**
