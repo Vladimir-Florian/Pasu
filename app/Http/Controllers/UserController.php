@@ -26,10 +26,18 @@ class UserController extends Controller {
      */
     public function register(Request $request) {
         //$credentials = $request->all();
-		$credentials = $request->only('name', 'email', 'password');
+		//$credentials = $request->only('name', 'email', 'password');
 
 		try {
-			$user = User::create($credentials);
+			//$user = User::create($credentials);
+			
+			$user = User::create([
+			'name' => $request->input('name'),
+			'email' => $request->input('email'),
+			'password' => bcrypt($request->input('name')),
+			]);
+			
+			
 		} catch (Exception $e) {
 			return response()->json(['error' => 'User already exists.'], HttpResponse::HTTP_CONFLICT);
 		}

@@ -13,7 +13,7 @@
                     <div class="row">
                         <div class="col-md-3">
                             <h4>
-                                <strong><a href="{{route('about')}}"> Maps </a></strong>
+                                <strong><a href="{{route('about')}}"> Locations </a></strong>
                             </h4>
                         </div>					
 					
