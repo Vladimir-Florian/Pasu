@@ -23,17 +23,16 @@ use App\User;
 
 //Route::get('/', 'WelcomeController@index');
 
-/*
 Route::get('/', [
     'as' => 'home',
     'uses' => 'PagesController@home'
 ]);
-*/
+/*
 Route::get('/', [
     'as' => 'home',
     'uses' => 'HomeController@index'
 ]);
-//Route::get('/', 'HomeController@index');
+*/
 //Route::get('home', 'HomeController@index');
 
 Route::get('about', [

@@ -7,10 +7,26 @@ use Illuminate\Http\Request;
 
 class PagesController extends Controller {
 
+	/*
+	|
+	| This controller renders your application's "dashboard" for users that
+	| are authenticated. It is just here to get your app started!
+	|
+	*/
+
+	/**
+	 * Create a new controller instance.
+	 *
+	 * @return void
+	 */
+	public function __construct()
+	{
+		//$this->middleware('auth');
+	}
+
     public function home()
     {
 		return view('pages.home');;
-		//return view('pages.about', compact('people'));
     }
 
 

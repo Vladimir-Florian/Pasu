@@ -57,6 +57,7 @@ class UserController extends Controller {
         
 		$credentials = $request->only('email', 'password');
 		//$credentials = $request->all();
+		
 	
 		$query = $user->newQuery();
 
@@ -65,10 +66,12 @@ class UserController extends Controller {
 			 $query->where($key, $value);
 		}
 
-				//return $query->first();
+		
 		try {
-			//$token = JWTAuth::attempt($credentials);
-			$user = $query->first();
+			$token = JWTAuth::attempt($credentials);
+			//dd($token);
+			//$user = $query->first();
+			//dd($user);
 		} catch (Exception $e) {
 			return response()->json(['error' => 'invalid_credentials'], 401);
 		}
@@ -137,10 +140,10 @@ class UserController extends Controller {
 	
 		try {
 
-			$user = JWTAuth::parseToken()->toUser();
-			/*if (! $user = JWTAuth::parseToken()->authenticate()) {
+			//$user = JWTAuth::parseToken()->toUser();
+			if (! $user = JWTAuth::parseToken()->authenticate()) {
 				return response()->json(['user_not_found'], 404);
-			}*/
+			}
 
 		} catch (Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
 

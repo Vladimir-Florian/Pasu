@@ -35,7 +35,7 @@
                                     class="fa fa-sign-in"></i> Login</a></li>
                     <li class="{{ (Request::is('auth/register') ? 'active' : '') }}"><a
                                 href="{!! URL::to('auth/register') !!}">Register</a></li>
-                @else
+				@else
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                            aria-expanded="false"><i class="fa fa-user"></i> {{ Auth::user()->name }} <i
