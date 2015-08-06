@@ -17,7 +17,7 @@
 
 
 	<p>
-      {!! link_to_route('industries.profiles.index', 'Back to Profiles', $industry->id) !!} 
+      {!! link_to_route('employees.index', 'Back to Profiles') !!} 
 	</p>
  
 

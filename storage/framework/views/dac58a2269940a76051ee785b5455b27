@@ -1,0 +1,28 @@
+<!doctype html>
+
+ <html lang="en">
+    
+ <head>
+ 
+  <meta charset="UTF-8">
+  <title> Document </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>   
+   
+ </head>
+
+ <body>
+ 
+	<?php echo $__env->make('partials.nav', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+ 
+     <div class="container">
+        <?php echo $__env->yieldContent('content'); ?>		
+     </div>
+	 
+	<?php echo $__env->make('partials.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>	 
+
+ </body>
+</html>
+

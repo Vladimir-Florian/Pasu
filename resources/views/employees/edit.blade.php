@@ -5,8 +5,8 @@
     <h2> Edit Profile: {{ $profile->name }} </h2>
 
 
-	{!! Form::model($profile, ['method' => 'PATCH','action' => ['ProfilesController@update', $industry->id, $profile->id]]) !!}
-		@include ('profiles.form', ['submitButtonText' => 'Edit Profile'])
+	{!! Form::model($profile, ['method' => 'PATCH','action' => ['EmployeeController@update', $profile->id]]) !!}
+		@include ('profiles.form', ['submitButtonText' => 'Update Profile'])
     {!! Form::close() !!}
 
 	

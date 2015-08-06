@@ -17,8 +17,19 @@ class EmployeeController extends Controller {
 	 */
 	public function index()
 	{
-		
-		return view('employees.index');
+		$user = Auth::user();
+		//$profile = new Profile;
+		//dd($profile->user_id);
+		//dd($user->profile->user_id);
+		try {
+			$id = $user->profile->user_id;
+		} catch(\Exception $e) {
+			return redirect('employees/create');
+		}
+		$profile = $user->profile;
+		//dd($profile->name);
+		//return view('employees.show', compact('profile'));
+		return view('employees.index', compact('profile'));
 		
 	}
 
@@ -50,7 +61,7 @@ class EmployeeController extends Controller {
 		$profile->industry_id = $request->input('specialization');
 
 		$profile->save();
-		return redirect('home');
+		return view('employees.index', compact('profile'));
 	}
 
 	/**
@@ -61,7 +72,8 @@ class EmployeeController extends Controller {
 	 */
 	public function show($id)
 	{
-		//
+		$profile = Profile::findOrFail($id);
+		return view('employees.show', compact('profile'));
 	}
 
 	/**
@@ -72,7 +84,8 @@ class EmployeeController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+		$profile = Profile::findOrFail($id);
+		return view('employees.edit', compact('profile'));
 	}
 
 	/**
@@ -81,11 +94,20 @@ class EmployeeController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($id, Request $request)
 	{
-		//
-	}
+		$profile = Profile::findOrFail($id);
+		$profile->name = $request->input('name');
+		$profile->phone_no = $request->input('phone_no');
+		$profile->birthdate = $request->input('birthdate');
+		$profile->experience = $request->input('experience');
+		//$profile->industry_id = $iid; pentru update industry_id se sterge si se creaza nou profil
 
+		$profile->save();
+		
+		return view('employees.index', compact('profile'));
+	}
+	
 	/**
 	 * Remove the specified resource from storage.
 	 *
@@ -94,7 +116,10 @@ class EmployeeController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		$profile = Profile::findOrFail($id);
+		$profile->delete();
+		//return view('employees.index', compact('profile'));
+		return redirect('/');
 	}
 
 }

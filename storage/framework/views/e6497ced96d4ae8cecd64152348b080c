@@ -1,0 +1,20 @@
+<?php $__env->startSection('content'); ?>
+
+<h1> About </h1>
+
+<h3> People I like: </h3>
+
+<ul>
+	<?php foreach($people as $person): ?>
+		<li> <?php echo e($person); ?></li>
+	<?php endforeach; ?>
+</ul>
+	
+		<h2>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fermentum metus velit, sit amet vestibulum dui finibus at. Mauris sodales vestibulum lacus nec porta.
+		</h2>
+
+<?php $__env->stopSection(); ?>		
+		
+
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
