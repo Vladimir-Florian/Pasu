@@ -24,11 +24,22 @@ class Profile extends Model {
 	/**
 	 * A profile belongs to an industry.
 	 *
-	 * @return 
+	 * @return \IlluminateDatabase\Eloquent\Relations\BelongsTo
 	 */
 
-	public function industry(){
+	public function industry()
+	{
 		return $this->belongsTo('App\Industry');
 	}
-	
+
+	/**
+	 *  Get the certificates of the given profile
+	 *  
+	 *  @return \IlluminateDatabase\Eloquent\Relations\BelongsToMany
+	 *  
+	 */
+	public function certificates()
+	{
+		return $this->belongsToMany('App\Certificate')->withTimestamps();
+	}
 }
