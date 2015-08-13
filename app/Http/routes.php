@@ -64,6 +64,7 @@ Route::resource('industries', 'IndustriesController');
 Route::resource('industries.profiles', 'ProfilesController');
 
 Route::resource('employees', 'EmployeeController');
+Route::resource('employees.certificates', 'CertificatesController');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
