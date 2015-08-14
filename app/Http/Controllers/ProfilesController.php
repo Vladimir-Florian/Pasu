@@ -12,7 +12,7 @@ class ProfilesController extends Controller {
 	/**
 	 * Display a listing of the resource.
 	 *
-	 * @param  int $iid
+	 * @param  int $iid 	industry_id
 	 * @return Response
 	 */
 	public function index($iid)
@@ -39,6 +39,7 @@ class ProfilesController extends Controller {
 	/**
 	 * Store a newly created resource in storage.
 	 *
+	 * @param  int  $iid		industry_id
 	 * @param Request $request
 	 * @return Response
 	 */

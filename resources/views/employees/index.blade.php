@@ -30,6 +30,21 @@
 							</h4>
                         </div>
 						
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-3">
+                            <h4>
+                                <strong><a href="{{route('employees.show', ['id' => $profile->id])}}"> Certificates </a></strong>
+                            </h4>
+                        </div>					
+					
+                        <div class="col-md-3">
+							<h4>
+                                <strong><a href="{{route('employees.edit', ['id' => $profile->id])}}"> Locations </a></strong>
+							</h4>
+                        </div>
+					
                         <div class="col-md-3">
 							<h4>
                             <strong> Apply </strong>
@@ -40,10 +55,9 @@
                                 <a class="btn btn-mini btn-default"
                                    href="{{route('about')}}">Apply</a>
                             </p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
+                        </div>					
+					
+                        <div class="col-md-3">
                             <p></p>
 
                             <p>

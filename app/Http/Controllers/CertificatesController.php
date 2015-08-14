@@ -5,6 +5,10 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
+use App\Certificate;
+//use App\Http\Requests;
+//use Illuminate\HttpResponse;
+
 class CertificatesController extends Controller {
 
 	/**
@@ -14,7 +18,9 @@ class CertificatesController extends Controller {
 	 */
 	public function index()
 	{
-		//
+		$certificates = Certificate::all();
+		
+		return view('certificates.index', compact('certificates'));
 	}
 
 	/**
@@ -24,17 +30,20 @@ class CertificatesController extends Controller {
 	 */
 	public function create()
 	{
-		//
+		return view('certificates.create');
 	}
 
 	/**
 	 * Store a newly created resource in storage.
 	 *
+	 * @param  Request $request
 	 * @return Response
 	 */
-	public function store()
+	public function store(Request $request)
 	{
-		//
+		
+		Certificate::create($request->all());
+		return redirect('certificates');
 	}
 
 	/**
@@ -45,7 +54,9 @@ class CertificatesController extends Controller {
 	 */
 	public function show($id)
 	{
-		//
+		$certificate = Certificate::findOrFail($id);
+		
+		return view('certificates.show', compact('certificate'));
 	}
 
 	/**
@@ -56,7 +67,8 @@ class CertificatesController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+		$certificate = Certificate::findOrFail($id);
+		return view('certificates.edit', compact('certificate'));
 	}
 
 	/**
@@ -65,9 +77,11 @@ class CertificatesController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($id, Request $request)
 	{
-		//
+		$certificate = Certificate::findOrFail($id);
+		$certificate->update($request->all());
+		return redirect('certificates');
 	}
 
 	/**
@@ -78,7 +92,9 @@ class CertificatesController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		$certificate = Certificate::findOrFail($id);
+		$certificate->delete();
+		return redirect('certificates');
 	}
 
 }

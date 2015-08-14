@@ -10,6 +10,13 @@ class Certificate extends Model {
 	 * @var string
 	 */
 	protected $table = 'certificates';
+	
+    protected $guarded = [];
+
+	protected $fillable = [
+		'slug',
+		'description'
+	];
 
 
 	/**
