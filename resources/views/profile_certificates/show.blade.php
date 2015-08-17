@@ -14,15 +14,6 @@
 		{{ $profile->experience}}
 	</article>
 
-    @if ( !$profile->certificates->count() )
-        No certificates
-    @else
-        <ul>
-            @foreach( $profile->certificates as $certificate )
-                <li><a href="{{ route('certificates.show', $certificate->id) }}">{{ $certificate->slug }}</a></li>
-            @endforeach
-        </ul>
-    @endif
 
 
 	<p>

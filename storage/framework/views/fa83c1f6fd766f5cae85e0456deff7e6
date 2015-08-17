@@ -1,0 +1,28 @@
+<?php $__env->startSection('content'); ?>
+
+	<h3> <?php echo e($industry->slug); ?> </h3>
+
+	<article>
+		<?php echo e($industry->name); ?>
+
+	</article>
+
+    <?php if( !$industry->profiles->count()): ?>
+        Specialization has no profiles.
+    <?php else: ?>
+        <ul>
+            <?php foreach( $industry->profiles as $profile ): ?>
+				<li><a href="<?php echo e(route('industries.profiles.show', array($industry->id, $profile->id))); ?>"><?php echo e($profile->name); ?></a></li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
+
+	
+	<p>
+      <?php echo link_to_route('industries.index', 'Back to Specializations'); ?> |
+	</p>
+
+<?php $__env->stopSection(); ?>		
+		
+
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

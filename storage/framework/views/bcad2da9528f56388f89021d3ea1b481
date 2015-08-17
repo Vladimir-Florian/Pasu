@@ -15,6 +15,15 @@
 
 	</article>
 
+    <?php if( !$profile->certificates->count() ): ?>
+        No certificates
+    <?php else: ?>
+        <ul>
+            <?php foreach( $profile->certificates as $certificate ): ?>
+                <li><a href="<?php echo e(route('certificates.show', $certificate->id)); ?>"><?php echo e($certificate->slug); ?></a></li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
 
 
 	<p>

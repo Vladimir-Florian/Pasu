@@ -35,7 +35,7 @@
 
                         <div class="col-md-3">
                             <h4>
-                                <strong><a href="{{route('employees.show', ['id' => $profile->id])}}"> Certificates </a></strong>
+                                <strong><a href="{{route('profile_certificates.index', ['id' => $profile->id])}}"> Certificates </a></strong>
                             </h4>
                         </div>					
 					

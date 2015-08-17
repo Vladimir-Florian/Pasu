@@ -36,7 +36,7 @@
 
                         <div class="col-md-3">
                             <h4>
-                                <strong><a href="<?php echo e(route('employees.show', ['id' => $profile->id])); ?>"> Certificates </a></strong>
+                                <strong><a href="<?php echo e(route('profile_certificates.index', ['id' => $profile->id])); ?>"> Certificates </a></strong>
                             </h4>
                         </div>					
 					
