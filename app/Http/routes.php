@@ -65,7 +65,13 @@ Route::resource('industries.profiles', 'ProfilesController');
 
 Route::resource('employees', 'EmployeeController');
 Route::resource('certificates', 'CertificatesController');
-Route::resource('profile_certificates', 'Profile_certificates');
+Route::get('profile_certificates/{id}', [
+	'as' => 'profile_certificates.index',
+	'uses' => 'Profile_certificates@index'
+]);
+Route::resource('profile_certificates', 'Profile_certificates',
+                ['except' => ['index']]);
+//Route::resource('profile_certificates', 'Profile_certificates');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',

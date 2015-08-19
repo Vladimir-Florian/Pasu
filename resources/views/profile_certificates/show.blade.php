@@ -4,20 +4,25 @@
 
  <h2> {{ $profile->name }} </h2>
  
-	<article>
-		{{ $profile->phone_no}}
-	</article>
-	<article>
-		{{ $profile->birthdate}}
-	</article>
-	<article>
-		{{ $profile->experience}}
-	</article>
+
+    @if ( !$profile->certificates->count())
+        Profile has no certificates.
+    @else
+        <ul>
+            @foreach( $$profile->certificates as $certificate )
+
+				<li> {{ $certificate->slug}}</li>
+				<li> {{ $certificate->description}}</li>
+				<li> {{ $certificate->pivot->details}}</li>
+
+            @endforeach
+        </ul>
+    @endif
 
 
 
 	<p>
-      {!! link_to_route('employees.index', 'Back to Profiles') !!} 
+		<a href="{{route('profile_certificates.index', ['id' => $profile->id])}}"> Back to Profile_Certificates </a>	
 	</p>
  
 

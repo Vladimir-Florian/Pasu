@@ -1,28 +1,29 @@
         <!-- Form Input Partial -->
-        <div class="form-group">
-            {!! Form::label('name', 'Full Name:') !!}
-			{!! Form::text('name', null, ['class' => 'form-control']) !!}
-            <!-- {!! Form::textarea('name', null, ['class' => 'form-control']) !!} -->
-        </div>
-        <div class="form-group">
-            {!! Form::label('phone_no', 'Phone:') !!}
-			{!! Form::text('phone_no', null, ['class' => 'form-control']) !!}
-        </div>			
-        <div class="form-group">
-            {!! Form::label('birthdate', 'Birth date:') !!}
-			{!! Form::input('date', 'birthdate', date('Y-m-d'), ['class' => 'form-control']) !!}
-        </div>			
-        <div class="form-group">
-            {!! Form::label('experience', 'Experience (years):') !!}
-			{!! Form::text('experience', null, ['class' => 'form-control']) !!}
-        </div>			
-		<div class="form-group">
-			{!! Form::label('specialization', 'Specialization:') !!}<br />
-			{!! Form::select('specialization',
-				(['0' => 'Select a specialization'] + $industries), 
-					null, 
-					['class' => 'form-control']) !!}
-		</div>
+
+    @if ( !$profile->certificates->count())
+        Profile has no certificates.
+    @else
+        <ul>
+            @foreach( $profile->certificates as $certificate )
+
+			  <div class="form-group">
+				  {!! Form::label('certificate'.$certificate->id, 'Certificate:') !!}<br />
+				  {!! Form::select('certificate'.$certificate->id,
+					  (['0' => 'Select a certificate'] + $fields), 
+						  null, 
+						  ['class' => 'form-control']) !!}
+			  </div>
+
+			
+			  <div class="form-group">
+				  {!! Form::label('details'.$certificate->id, 'Details:') !!}
+				  {!! Form::textarea('details'.$certificate->id, $certificate->pivot->details, ['class' => 'form-control']) !!}
+			  </div>			
+			  
+            @endforeach
+        </ul>
+    @endif
+
 		
         <!-- Submit Button -->
         <div class="form-group">

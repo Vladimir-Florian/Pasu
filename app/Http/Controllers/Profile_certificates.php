@@ -18,7 +18,8 @@ class Profile_certificates extends Controller {
 	 */
 	public function index($id)
 	{
-		$profile = App\Profile::findOrFail($id);
+		$profile = Profile::findOrFail($id);
+		return view('profile_certificates.index', compact('profile'));
 		
 	}
 
@@ -45,34 +46,54 @@ class Profile_certificates extends Controller {
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param  int  $id
+	 * @param  int  $id	profile_id
 	 * @return Response
 	 */
 	public function show($id)
 	{
-		//
+		$profile = Profile::findOrFail($id);
+		return view('profile_certificates.show', compact('profile'));
 	}
 
 	/**
 	 * Show the form for editing the specified resource.
 	 *
-	 * @param  int  $id
+	 * @param  int  $id	profile_id
 	 * @return Response
 	 */
 	public function edit($id)
 	{
-		//
+		//$industries = Industry::lists("slug", "id"); 
+		$profile = Profile::findOrFail($id);
+		$fields = [];
+		foreach ($profile->certificates as $certificate->id => $certificate->slug)
+		{
+			$fields[$certificate->id] = $certificate->slug;
+		}
+		return view('profile_certificates.edit', compact('fields','profile'));
+
 	}
 
 	/**
 	 * Update the specified resource in storage.
 	 *
-	 * @param  int  $id
+	 * @param  int  $id	profile_id
 	 * @return Response
 	 */
 	public function update($id)
 	{
-		//
+		$profile = Profile::findOrFail($id);
+		foreach ($profile->certificates as $certificate)
+		{
+			$certificate->pivot->certificate->id = $request->input('certificate'.$certificate->id);
+			$certificate->pivot->details = $request->input('details'.$certificate->id);
+		}
+		
+		$certificate->pivot->save();
+		
+		return view('profile_certificates.index', compact('profile'));
+		
+		
 	}
 
 	/**

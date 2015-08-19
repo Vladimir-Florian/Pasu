@@ -40,6 +40,6 @@ class Profile extends Model {
 	 */
 	public function certificates()
 	{
-		return $this->belongsToMany('App\Certificate')->withTimestamps();
+		return $this->belongsToMany('App\Certificate')->withPivot('details')->withTimestamps();
 	}
 }
