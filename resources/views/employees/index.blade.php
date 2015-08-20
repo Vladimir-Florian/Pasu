@@ -4,7 +4,7 @@
 
 	<div class="row">
 		<div class="page-header">
-			<h2>Profiles Home Page</h2>
+			<h2>Profile Home Page</h2>
 		</div>
 	</div>
 

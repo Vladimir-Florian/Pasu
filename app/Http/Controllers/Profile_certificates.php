@@ -66,7 +66,7 @@ class Profile_certificates extends Controller {
 		//$industries = Industry::lists("slug", "id"); 
 		$profile = Profile::findOrFail($id);
 		$fields = [];
-		foreach ($profile->certificates as $certificate->id => $certificate->slug)
+		foreach ($profile->certificates as $certificate)
 		{
 			$fields[$certificate->id] = $certificate->slug;
 		}
@@ -80,12 +80,13 @@ class Profile_certificates extends Controller {
 	 * @param  int  $id	profile_id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($id, Request $request)
 	{
 		$profile = Profile::findOrFail($id);
 		foreach ($profile->certificates as $certificate)
 		{
-			$certificate->pivot->certificate->id = $request->input('certificate'.$certificate->id);
+			//dd($certificate->pivot->details);
+			//$certificate->pivot->certificate->id = $request->input('certificate'.$certificate->id);
 			$certificate->pivot->details = $request->input('details'.$certificate->id);
 		}
 		

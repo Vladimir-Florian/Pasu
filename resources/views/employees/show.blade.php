@@ -19,14 +19,14 @@
     @else
         <ul>
             @foreach( $profile->certificates as $certificate )
-                <li><a href="{{ route('certificates.show', $certificate->id) }}">{{ $certificate->slug }}</a></li>
-            @endforeach
+                <li> {{ $certificate->description }}</li>
+			@endforeach
         </ul>
     @endif
 
 
 	<p>
-      {!! link_to_route('employees.index', 'Back to Profiles') !!} 
+      {!! link_to_route('employees.index', 'Back to Profile Home page') !!} 
 	</p>
  
 
