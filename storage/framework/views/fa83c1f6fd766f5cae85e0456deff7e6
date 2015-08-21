@@ -19,7 +19,7 @@
 
 	
 	<p>
-      <?php echo link_to_route('industries.index', 'Back to Specializations'); ?> |
+      <?php echo link_to_route('industries.index', 'Back to Specializations'); ?> 
 	</p>
 
 <?php $__env->stopSection(); ?>		

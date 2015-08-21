@@ -1,7 +1,7 @@
 <?php $__env->startSection('content'); ?>
 
  <h2> Certificates for Profile "<?php echo e($profile->name); ?>" </h2>
- 
+
    <?php if(!$profile->certificates->count()): ?>
 	   No certificates
    <?php else: ?>
@@ -9,9 +9,10 @@
 		<?php foreach($profile->certificates as $certificate): ?>
 		 <li>
 			
-			<?php echo Form::open(array('class' => 'form-inline', 'method'=>'DELETE', 'route'=>array('profile_certificates.destroy', $profile->id))); ?>
+			<?php echo Form::open(array('class' => 'form-inline', 'method'=>'DELETE', 'route'=>array('profile_certificates.destroy', $profile->id, $profile->id))); ?>
 
                 <a href="<?php echo e(route('profile_certificates.show', array($profile->id))); ?>"><?php echo e($certificate->slug); ?></a>
+
 				(
                   <?php echo link_to_route('profile_certificates.edit', 'Edit', array($profile->id), array('class' => 'btn btn-info')); ?>,
                   <?php echo Form::submit('Delete', array('class' => 'btn btn-danger')); ?>				

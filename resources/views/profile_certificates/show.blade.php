@@ -9,7 +9,7 @@
         Profile has no certificates.
     @else
         <ul>
-            @foreach( $$profile->certificates as $certificate )
+            @foreach( $profile->certificates as $certificate )
 
 				<li> {{ $certificate->slug}}</li>
 				<li> {{ $certificate->description}}</li>
@@ -22,7 +22,7 @@
 
 
 	<p>
-		<a href="{{route('profile_certificates.index', ['id' => $profile->id])}}"> Back to Profile_Certificates </a>	
+		<a href="{{route('profile_certificates.index', ['id' => $profile->id])}}"> Back to Certificates for Profile </a>	
 	</p>
  
 

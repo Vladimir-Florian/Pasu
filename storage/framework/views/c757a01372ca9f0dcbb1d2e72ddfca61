@@ -7,7 +7,7 @@
         Profile has no certificates.
     <?php else: ?>
         <ul>
-            <?php foreach( $$profile->certificates as $certificate ): ?>
+            <?php foreach( $profile->certificates as $certificate ): ?>
 
 				<li> <?php echo e($certificate->slug); ?></li>
 				<li> <?php echo e($certificate->description); ?></li>
@@ -20,7 +20,7 @@
 
 
 	<p>
-		<a href="<?php echo e(route('profile_certificates.index', ['id' => $profile->id])); ?>"> Back to Profile_Certificates </a>	
+		<a href="<?php echo e(route('profile_certificates.index', ['id' => $profile->id])); ?>"> Back to Certificates for Profile </a>	
 	</p>
  
 

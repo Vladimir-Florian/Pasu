@@ -20,7 +20,7 @@
 
 	
 	<p>
-      {!! link_to_route('industries.index', 'Back to Specializations') !!} |
+      {!! link_to_route('industries.index', 'Back to Specializations') !!} 
 	</p>
 
 @stop		

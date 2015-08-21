@@ -3,7 +3,7 @@
 @section('content')
 
  <h2> Certificates for Profile "{{$profile->name}}" </h2>
- 
+
    @if(!$profile->certificates->count())
 	   No certificates
    @else
@@ -11,8 +11,9 @@
 		@foreach ($profile->certificates as $certificate)
 		 <li>
 			
-			{!! Form::open(array('class' => 'form-inline', 'method'=>'DELETE', 'route'=>array('profile_certificates.destroy', $profile->id))) !!}
+			{!! Form::open(array('class' => 'form-inline', 'method'=>'DELETE', 'route'=>array('profile_certificates.destroy', $profile->id, $profile->id))) !!}
                 <a href="{{ route('profile_certificates.show', array($profile->id)) }}">{{ $certificate->slug }}</a>
+
 				(
                   {!! link_to_route('profile_certificates.edit', 'Edit', array($profile->id), array('class' => 'btn btn-info')) !!},
                   {!! Form::submit('Delete', array('class' => 'btn btn-danger')) !!}				

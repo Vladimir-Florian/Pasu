@@ -1,11 +1,12 @@
 @extends('app')
 
 @section('content')
-	<h2> Create a Profile for "{{Auth::user()->name}}"</h2>
+	<h2> Add a Certificate for Profile {{ $profile->name }} </h2>
 	
 	
 	{!! Form::open(['route' => ['employees.store']]) !!}
-		@include ('employees.form', ['submitButtonText' => 'Add employee profile'])
+		@include ('profile_certificates.form_v0', ['submitButtonText' => 'Add Certificate'])
+		
     {!! Form::close() !!}
 	
 	@include ('errors.list')

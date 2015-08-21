@@ -26,11 +26,14 @@ class Profile_certificates extends Controller {
 	/**
 	 * Show the form for creating a new resource.
 	 *
+	 * @param  int $id 	profile_id
 	 * @return Response
 	 */
-	public function create()
+	public function create($id)
 	{
-		//
+		dd($id);
+		$profile = Profile::findOrFail($id);
+		return view('profile_certificates.create', compact('profile'));
 	}
 
 	/**

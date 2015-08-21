@@ -6,13 +6,8 @@
         <ul>
             <?php foreach( $profile->certificates as $certificate ): ?>
 
-			  <div class="form-group">
-				  <?php echo Form::label('certificate'.$certificate->id, 'Certificate:'); ?><br />
-				  <?php echo Form::select('certificate'.$certificate->id,
-					  (['0' => 'Select a certificate'] + $fields), 
-						  null, 
-						  ['class' => 'form-control']); ?>
-
+  			  <div class="form-group">
+				<h3> Certificate: <?php echo e($certificate->description); ?></h3>
 			  </div>
 
 			
