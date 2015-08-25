@@ -5,13 +5,18 @@
     <?php else: ?>
 
 		<div class="form-group">
-			<h3> Certificate: <?php echo e($certificate->description); ?></h3>
+			<?php echo Form::label('certificate', 'Certificate:'); ?> <br />
+			<?php echo Form::select('certificate',
+				(['0' => 'Select a certificate'] + $fields), 
+					null, 
+					['class' => 'form-control']); ?>
+
 		</div>
 			
 		<div class="form-group">
 			<?php echo Form::label('details', 'Details:'); ?>
 
-			<?php echo Form::textarea('details', $certificate->pivot->details, ['class' => 'form-control']); ?>
+			<?php echo Form::textarea('details', null, ['class' => 'form-control']); ?>
 
 		</div>			
 			  

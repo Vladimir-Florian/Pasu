@@ -6,12 +6,8 @@
         <ul>
             @foreach( $profile->certificates as $certificate )
 
-			  <div class="form-group">
-				  {!! Form::label('certificate'.$certificate->id, 'Certificate:') !!}<br />
-				  {!! Form::select('certificate'.$certificate->id,
-					  (['0' => 'Select a certificate'] + $certs), 
-						  null, 
-						  ['class' => 'form-control']) !!}
+  			  <div class="form-group">
+				<h3> Certificate: {{ $certificate->description}}</h3>
 			  </div>
 
 			

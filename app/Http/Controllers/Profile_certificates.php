@@ -31,70 +31,96 @@ class Profile_certificates extends Controller {
 	 */
 	public function create($id)
 	{
-		dd($id);
 		$profile = Profile::findOrFail($id);
-		return view('profile_certificates.create', compact('profile'));
+		$fields = Certificate::lists("description", "id"); 
+		
+		return view('profile_certificates.create', compact('profile', 'fields'));
 	}
 
 	/**
 	 * Store a newly created resource in storage.
 	 *
+	 * @param  int $id 	profile_id
 	 * @return Response
 	 */
-	public function store()
+	public function store($id, Request $request)
 	{
-		//
+		
+		$profile = Profile::findOrFail($id);
+
+		/*
+		$certificate = $profile->certificates()->where('id', $id)->first();
+		//dd($request->input('details'));
+		$certificate->pivot->certificate_id = $request->input('certificate');
+		$certificate->pivot->details = $request->input('details');
+		*/
+		
+		$c_id = $request->input('certificate');
+		try {
+			$profile->certificates()->attach($c_id, ['details' => $request->input('details')]);
+		} catch(\Exception $e) {
+			//dd($e);
+			return redirect()->route('profile_certificates.create', [$profile]);
+		}
+		
+		return view('profile_certificates.index', compact('profile'));
+		
 	}
 
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param  int  $id	profile_id
+	 * @param  int  $iid	profile_id
+	 * @param  int  $id		certificate_id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show($iid, $id)
 	{
-		$profile = Profile::findOrFail($id);
-		return view('profile_certificates.show', compact('profile'));
+		$profile = Profile::findOrFail($iid);
+		$certificate = $profile->certificates()->where('id', $id)->first();
+		return view('profile_certificates.show', compact('profile', 'certificate'));
 	}
 
 	/**
 	 * Show the form for editing the specified resource.
 	 *
 	 * @param  int  $id	profile_id
+	 * @param  int  $id		certificate_id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit($iid, $id)
 	{
-		//$industries = Industry::lists("slug", "id"); 
-		$profile = Profile::findOrFail($id);
-		$fields = [];
-		foreach ($profile->certificates as $certificate)
-		{
-			$fields[$certificate->id] = $certificate->slug;
-		}
-		return view('profile_certificates.edit', compact('fields','profile'));
+		$profile = Profile::findOrFail($iid);
+		$certificate = $profile->certificates()->where('id', $id)->first();
+		//$fields = [];
+		//foreach ($profile->certificates as $certificate)
+		//{
+			//$fields[$certificate->id] = $certificate->slug;
+		//}
+		//$fields = Certificate::lists("slug", "id"); 
+
+		//return view('profile_certificates.edit', compact('fields','profile', 'certificate'));
+		return view('profile_certificates.edit', compact('profile', 'certificate'));
 
 	}
 
 	/**
 	 * Update the specified resource in storage.
 	 *
-	 * @param  int  $id	profile_id
+	 * @param  int  $iid		profile_id
+	 * @param  int  $id		certificate_id
 	 * @return Response
 	 */
-	public function update($id, Request $request)
+	public function update($iid, $id, Request $request)
 	{
-		$profile = Profile::findOrFail($id);
-		foreach ($profile->certificates as $certificate)
-		{
-			//dd($certificate->pivot->details);
-			//$certificate->pivot->certificate->id = $request->input('certificate'.$certificate->id);
-			$certificate->pivot->details = $request->input('details'.$certificate->id);
-		}
+		$profile = Profile::findOrFail($iid);
+		$certificate = $profile->certificates()->where('id', $id)->first();
+		//dd($request->input('details'));
+		//$certificate->pivot->certificate_id = $request->input('certificate');
+		$certificate->pivot->details = $request->input('details');
 		
 		$certificate->pivot->save();
-		
+		//$profile->certificates()->save($certificate);
 		return view('profile_certificates.index', compact('profile'));
 		
 		
@@ -106,9 +132,14 @@ class Profile_certificates extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy($iid, $id)
 	{
-		//
+		$profile = Profile::findOrFail($iid);
+		$certificate = $profile->certificates()->where('id', $id)->first();
+		$profile->certificates()->detach($certificate);
+
+		return view('profile_certificates.index', compact('profile'));
+		
 	}
 
 }

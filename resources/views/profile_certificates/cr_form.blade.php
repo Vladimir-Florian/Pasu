@@ -5,12 +5,16 @@
     @else
 
 		<div class="form-group">
-			<h3> Certificate: {{ $certificate->description}}</h3>
+			{!! Form::label('certificate', 'Certificate:') !!} <br />
+			{!! Form::select('certificate',
+				(['0' => 'Select a certificate'] + $fields), 
+					null, 
+					['class' => 'form-control']) !!}
 		</div>
 			
 		<div class="form-group">
 			{!! Form::label('details', 'Details:') !!}
-			{!! Form::textarea('details', $certificate->pivot->details, ['class' => 'form-control']) !!}
+			{!! Form::textarea('details', null, ['class' => 'form-control']) !!}
 		</div>			
 			  
     @endif

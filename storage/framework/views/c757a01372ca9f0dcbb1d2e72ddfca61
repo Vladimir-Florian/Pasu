@@ -2,21 +2,18 @@
 
  <h2> <?php echo e($profile->name); ?> </h2>
  
+	<article>
+		<?php echo e($certificate->slug); ?>
 
-    <?php if( !$profile->certificates->count()): ?>
-        Profile has no certificates.
-    <?php else: ?>
-        <ul>
-            <?php foreach( $profile->certificates as $certificate ): ?>
+	</article>
+	<article>
+		<?php echo e($certificate->description); ?>
 
-				<li> <?php echo e($certificate->slug); ?></li>
-				<li> <?php echo e($certificate->description); ?></li>
-				<li> <?php echo e($certificate->pivot->details); ?></li>
+	</article>
+	<article>
+		<?php echo e($certificate->pivot->details); ?>
 
-            <?php endforeach; ?>
-        </ul>
-    <?php endif; ?>
-
+	</article>
 
 
 	<p>

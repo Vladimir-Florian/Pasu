@@ -65,14 +65,50 @@ Route::resource('industries.profiles', 'ProfilesController');
 
 Route::resource('employees', 'EmployeeController');
 Route::resource('certificates', 'CertificatesController');
+
 Route::get('p_certificates/{id}', [
 	'as' => 'profile_certificates.index',
 	'uses' => 'Profile_certificates@index'
 ]);
-Route::resource('profile_certificates', 'Profile_certificates',
-                ['except' => ['index']]);
-//Route::resource('profile_certificates', 'Profile_certificates');
 
+
+
+Route::get('profiles_certificates/{id}/create', [
+	'as' => 'profile_certificates.create',
+	'uses' => 'Profile_certificates@create'
+]);
+Route::get('profiles_certificates/{iid}/{id}', [
+	'as' => 'profile_certificates.show',
+	'uses' => 'Profile_certificates@show'
+]);
+Route::get('profiles_certificates/{iid}/{id}/edit', [
+	'as' => 'profile_certificates.edit',
+	'uses' => 'Profile_certificates@edit'
+]);
+
+Route::put('profiles_certificates/{iid}/{id}', [
+	'as' => 'profile_certificates.update',
+	'uses' => 'Profile_certificates@update'
+]);
+Route::patch('profiles_certificates/{iid}/{id}', [
+	'as' => 'profile_certificates.update',
+	'uses' => 'Profile_certificates@update'
+]);
+
+Route::post('profile_certificates/{id}', [
+	'as' => 'profile_certificates.store',
+	'uses' => 'Profile_certificates@store'
+]);
+
+Route::delete('profiles_certificates/{iid}/{id}', [
+	'as' => 'profile_certificates.destroy',
+	'uses' => 'Profile_certificates@destroy'
+]);
+/*
+Route::resource('profile_certificates', 'Profile_certificates',
+                ['except' => ['index', 'create', 'show', 'edit', 'update', 'store']]);
+//Route::resource('profile_certificates', 'Profile_certificates');
+*/
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',

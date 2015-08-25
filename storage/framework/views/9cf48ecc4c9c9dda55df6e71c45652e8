@@ -9,12 +9,12 @@
 		<?php foreach($profile->certificates as $certificate): ?>
 		 <li>
 			
-			<?php echo Form::open(array('class' => 'form-inline', 'method'=>'DELETE', 'route'=>array('profile_certificates.destroy', $profile->id, $profile->id))); ?>
+			<?php echo Form::open(array('class' => 'form-inline', 'method'=>'DELETE', 'route'=>array('profile_certificates.destroy', $profile->id, $certificate->id))); ?>
 
-                <a href="<?php echo e(route('profile_certificates.show', array($profile->id))); ?>"><?php echo e($certificate->slug); ?></a>
+                <a href="<?php echo e(route('profile_certificates.show', array($profile->id, $certificate->id))); ?>"><?php echo e($certificate->slug); ?></a>
 
 				(
-                  <?php echo link_to_route('profile_certificates.edit', 'Edit', array($profile->id), array('class' => 'btn btn-info')); ?>,
+                  <?php echo link_to_route('profile_certificates.edit', 'Edit', array($profile->id, $certificate->id), array('class' => 'btn btn-info')); ?>,
                   <?php echo Form::submit('Delete', array('class' => 'btn btn-danger')); ?>				
 				)
             <?php echo Form::close(); ?>

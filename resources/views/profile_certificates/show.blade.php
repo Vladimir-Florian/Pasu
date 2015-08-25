@@ -4,21 +4,15 @@
 
  <h2> {{ $profile->name }} </h2>
  
-
-    @if ( !$profile->certificates->count())
-        Profile has no certificates.
-    @else
-        <ul>
-            @foreach( $profile->certificates as $certificate )
-
-				<li> {{ $certificate->slug}}</li>
-				<li> {{ $certificate->description}}</li>
-				<li> {{ $certificate->pivot->details}}</li>
-
-            @endforeach
-        </ul>
-    @endif
-
+	<article>
+		{{ $certificate->slug }}
+	</article>
+	<article>
+		{{ $certificate->description }}
+	</article>
+	<article>
+		{{ $certificate->pivot->details }}
+	</article>
 
 
 	<p>
