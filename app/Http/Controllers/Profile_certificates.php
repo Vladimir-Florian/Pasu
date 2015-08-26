@@ -59,8 +59,9 @@ class Profile_certificates extends Controller {
 		try {
 			$profile->certificates()->attach($c_id, ['details' => $request->input('details')]);
 		} catch(\Exception $e) {
-			//dd($e);
-			return redirect()->route('profile_certificates.create', [$profile]);
+			return redirect()->route('profile_certificates.create', [$profile])->withErrors(['error' => $e->getMessage()]);
+			//return \Response::view('errors.503', [], 404);
+			//return redirect()->route('profile_certificates.create', [$profile]);
 		}
 		
 		return view('profile_certificates.index', compact('profile'));

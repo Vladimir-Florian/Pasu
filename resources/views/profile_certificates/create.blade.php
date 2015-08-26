@@ -10,4 +10,9 @@
     {!! Form::close() !!}
 	
 	@include ('errors.list')
+	
+	<p>
+	<a href="{{route('profile_certificates.index', ['id' => $profile->id])}}"> Back to Certificates </a>
+	</p>
+	
 @stop
