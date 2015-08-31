@@ -42,4 +42,23 @@ class Profile extends Model {
 	{
 		return $this->belongsToMany('App\Certificate')->withPivot('details')->withTimestamps();
 	}
+
+	/**
+	 * A Profile has many LocationProfiles
+	 *
+	 * @return
+	 */
+	public function location_profiles() {
+		return $this->hasMany('App\LocationProfile');
+	}
+
+    /**
+     * Get all of the locations for the profile.
+     */
+    public function locations()
+    {
+        return $this->hasManyThrough('App\Location', 'App\LocationProfile');
+    }
+
+	
 }
