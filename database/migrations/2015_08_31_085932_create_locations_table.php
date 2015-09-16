@@ -19,7 +19,8 @@ class CreateLocationsTable extends Migration {
 			$table->string('postal_code');
 			$table->string('city');
 			$table->string('province');
-			$table->integer('country_id')->unsigned()->nullable();
+			$table->string('country_code');			
+			//$table->integer('country_id')->unsigned()->nullable();
 			$table->float('latitude');
 			$table->float('longitude');
 			

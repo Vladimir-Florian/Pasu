@@ -20,7 +20,8 @@ class CreateLocationProfilesTable extends Migration {
 			$table->integer('profile_id')->unsigned()->index();
 			$table->foreign('profile_id')->references('id')->on('profiles')->onDelete('cascade');
 			$table->unique(['location_id', 'profile_id']);
-			$table->integer('location_type_id')->unsigned()->nullable();
+			$table->string('location_type');			
+			//$table->integer('location_type_id')->unsigned()->nullable();
 			
 			$table->date('start_date');
 			$table->date('end_date');

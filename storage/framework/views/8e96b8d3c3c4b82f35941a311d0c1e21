@@ -10,8 +10,10 @@
 	
 	<?php echo $__env->make('errors.list', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 	
+	<p>
 	<a href="<?php echo e(route('profile_certificates.index', ['id' => $profile->id])); ?>"> Back to Certificates </a>
-
+	</p>
+	
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
