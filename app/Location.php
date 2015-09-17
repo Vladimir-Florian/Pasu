@@ -19,7 +19,7 @@ class Location extends Model {
 		'postal_code',
 		'city',
 		'province',
-		'country_id',
+		'country_code',
 		'latitude',
 		'longitude'
 	];

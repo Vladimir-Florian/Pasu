@@ -109,6 +109,10 @@ Route::resource('profile_certificates', 'Profile_certificates',
                 ['except' => ['index', 'create', 'show', 'edit', 'update', 'store']]);
 //Route::resource('profile_certificates', 'Profile_certificates');
 */
+
+Route::resource('locations', 'LocationsController');
+
+
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
