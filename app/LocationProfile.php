@@ -16,7 +16,7 @@ class LocationProfile extends Model {
 	protected $fillable = [
 		'location_id',
 		'profile_id',
-		'location_type_id',
+		'location_type',
 		'start_date',
 		'end_date'
 	];

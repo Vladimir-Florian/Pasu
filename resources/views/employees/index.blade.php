@@ -41,7 +41,7 @@
 					
                         <div class="col-md-3">
 							<h4>
-                                <strong><a href="{{route('employees.edit', ['id' => $profile->id])}}"> Locations </a></strong>
+                                <strong><a href="{{route('profile_locations.index', ['id' => $profile->id])}}"> Locations </a></strong>
 							</h4>
                         </div>
 					

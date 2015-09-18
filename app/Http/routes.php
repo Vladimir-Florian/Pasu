@@ -71,8 +71,6 @@ Route::get('p_certificates/{id}', [
 	'uses' => 'Profile_certificates@index'
 ]);
 
-
-
 Route::get('profiles_certificates/{id}/create', [
 	'as' => 'profile_certificates.create',
 	'uses' => 'Profile_certificates@create'
@@ -111,6 +109,21 @@ Route::resource('profile_certificates', 'Profile_certificates',
 */
 
 Route::resource('locations', 'LocationsController');
+
+Route::get('profile_locations/{id}', [
+	'as' => 'profile_locations.index',
+	'uses' => 'Profile_locations@index'
+]);
+Route::get('profiles_locations/{id}/create', [
+	'as' => 'profile_locations.create',
+	'uses' => 'Profile_locations@create'
+]);
+Route::post('profile_locations/{id}', [
+	'as' => 'profile_locations.store',
+	'uses' => 'Profile_locations@store'
+]);
+
+
 
 
 Route::controllers([

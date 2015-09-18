@@ -1,4 +1,6 @@
         <!-- Form Input Partial -->
+
+
         <div class="form-group">
             <?php echo Form::label('address', 'Address:'); ?>
 
@@ -42,6 +44,26 @@
 			<?php echo Form::text('longitude', null, ['class' => 'form-control']); ?>
 
         </div>			
+			
+        <div class="form-group">
+            <?php echo Form::label('location_type', 'Location Type:'); ?>
+
+			<?php echo Form::text('location_type', null, ['class' => 'form-control']); ?>
+
+        </div>			
+        <div class="form-group">
+            <?php echo Form::label('start_date', 'Start date:'); ?>
+
+			<?php echo Form::text('start_date', null, ['class' => 'form-control']); ?>
+
+        </div>			
+        <div class="form-group">
+            <?php echo Form::label('end_date', 'End date:'); ?>
+
+			<?php echo Form::text('end_date', null, ['class' => 'form-control']); ?>
+
+        </div>			
+			  
 
 		
         <!-- Submit Button -->

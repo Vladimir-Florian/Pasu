@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLocationProfilesTable extends Migration {
+class CreateLocationProfileTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,9 +12,9 @@ class CreateLocationProfilesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('location_profiles', function(Blueprint $table)
+		Schema::create('location_profile', function(Blueprint $table)
 		{
-			$table->increments('id');
+			$table->increments('id');			
 			$table->integer('location_id')->unsigned()->index();
 			$table->foreign('location_id')->references('id')->on('locations')->onDelete('cascade');
 			$table->integer('profile_id')->unsigned()->index();
@@ -24,7 +24,7 @@ class CreateLocationProfilesTable extends Migration {
 			//$table->integer('location_type_id')->unsigned()->nullable();
 			
 			$table->date('start_date');
-			$table->date('end_date');
+			$table->date('end_date');	
 			
 			$table->timestamps();
 		});
@@ -37,7 +37,7 @@ class CreateLocationProfilesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('location_profiles');
+		Schema::drop('location_profile');
 	}
 
 }

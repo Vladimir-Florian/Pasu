@@ -1,0 +1,35 @@
+<?php $__env->startSection('content'); ?>
+
+ <h2> Locations for Profile "<?php echo e($profile->name); ?>" </h2>
+
+   <?php if(!$profile->locations->count()): ?>
+	   No locations
+   <?php else: ?>
+	   <ul>
+		<?php foreach($profile->locations as $location): ?>
+		 <li>
+			
+			<?php echo Form::open(array('class' => 'form-inline', 'method'=>'DELETE', 'route'=>array('profile_locations.destroy', $profile->id, $location->id))); ?>
+
+                <a href="<?php echo e(route('profile_locations.show', array($profile->id, $location->id))); ?>"> Address </a>
+
+				(
+                  <?php echo link_to_route('profile_locations.edit', 'Edit', array($profile->id, $location->id), array('class' => 'btn btn-info')); ?>,
+                  <?php echo Form::submit('Delete', array('class' => 'btn btn-danger')); ?>				
+				)
+            <?php echo Form::close(); ?>
+
+		 </li>
+		<?php endforeach; ?>
+	   </ul>
+   <?php endif; ?>
+		 
+	<p>
+		<a href="<?php echo e(route('employees.index', ['id' => $profile->id])); ?>"> Back to Profile </a>
+		<a href="<?php echo e(route('profile_locations.create', ['id' => $profile->id])); ?>"> Add Location </a>	
+	</p>
+		 
+<?php $__env->stopSection(); ?>		
+		
+
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

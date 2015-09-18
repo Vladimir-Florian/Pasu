@@ -25,12 +25,13 @@ class Location extends Model {
 	];
 	
 	/**
-	 * A Location has many LocationProfiles
-	 *
-	 * @return
+	 *  Get the profiles associated with the location.
+	 *  
+	 *  @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
 	 */
-	public function location_profiles() {
-		return $this->hasMany('App\LocationProfile');
+	public function profiles()
+	{
+		return $this->belongsToMany('App\Profile');
 	}
 
 }

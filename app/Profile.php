@@ -43,21 +43,16 @@ class Profile extends Model {
 		return $this->belongsToMany('App\Certificate')->withPivot('details')->withTimestamps();
 	}
 
-	/**
-	 * A Profile has many LocationProfiles
-	 *
-	 * @return
-	 */
-	public function location_profiles() {
-		return $this->hasMany('App\LocationProfile');
-	}
 
     /**
-     * Get all of the locations for the profile.
+     *  Get the locations for the profile.
+	 *  @return \IlluminateDatabase\Eloquent\Relations\BelongsToMany
+	 *  
      */
     public function locations()
     {
-        return $this->hasManyThrough('App\Location', 'App\LocationProfile');
+		return $this->belongsToMany('App\Location')->withPivot('location_type', 'start_date', 'end_date')->withTimestamps();
+		
     }
 
 	
