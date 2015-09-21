@@ -25,7 +25,8 @@
    <?php endif; ?>
 		 
 	<p>
-		<a href="<?php echo e(route('employees.index', ['id' => $profile->id])); ?>"> Back to Profile </a>
+      <?php echo link_to_route('employees.index', 'Back to Profile'); ?> 
+	   <!--	<a href="<?php echo e(route('employees.index', ['id' => $profile->id])); ?>"> Back to Profile </a> -->
 		<a href="<?php echo e(route('profile_locations.create', ['id' => $profile->id])); ?>"> Add Location </a>	
 	</p>
 		 

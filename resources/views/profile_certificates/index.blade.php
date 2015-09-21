@@ -25,7 +25,8 @@
    @endif
 		 
 	<p>
-		<a href="{{route('employees.index', ['id' => $profile->id])}}"> Back to Profile </a>
+      {!! link_to_route('employees.index', 'Back to Profile') !!} 
+	  <!--	<a href="{{route('employees.index', ['id' => $profile->id])}}"> Back to Profile </a> -->
 		<a href="{{route('profile_certificates.create', ['id' => $profile->id])}}"> Add Certificate </a>	
 	</p>
 		 

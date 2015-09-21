@@ -31,7 +31,7 @@ class Location extends Model {
 	 */
 	public function profiles()
 	{
-		return $this->belongsToMany('App\Profile');
+		return $this->belongsToMany('App\Profile')->withPivot('location_type', 'start_date', 'end_date')->withTimestamps();
 	}
 
 }

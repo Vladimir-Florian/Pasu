@@ -122,8 +122,22 @@ Route::post('profile_locations/{id}', [
 	'as' => 'profile_locations.store',
 	'uses' => 'Profile_locations@store'
 ]);
-
-
+Route::get('profile_locations/{iid}/{id}', [
+	'as' => 'profile_locations.show',
+	'uses' => 'Profile_locations@show'
+]);
+Route::get('profile_locations/{iid}/{id}/edit', [
+	'as' => 'profile_locations.edit',
+	'uses' => 'Profile_locations@edit'
+]);
+Route::patch('profile_locations/{iid}/{id}', [
+	'as' => 'profile_locations.update',
+	'uses' => 'Profile_locations@update'
+]);
+Route::delete('profile_locations/{iid}/{id}', [
+	'as' => 'profile_locations.destroy',
+	'uses' => 'Profile_locations@destroy'
+]);
 
 
 Route::controllers([

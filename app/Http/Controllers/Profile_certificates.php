@@ -41,6 +41,7 @@ class Profile_certificates extends Controller {
 	 * Store a newly created resource in storage.
 	 *
 	 * @param  int $id 	profile_id
+	 * @param Request $request
 	 * @return Response
 	 */
 	public function store($id, Request $request)
@@ -110,6 +111,7 @@ class Profile_certificates extends Controller {
 	 *
 	 * @param  int  $iid		profile_id
 	 * @param  int  $id		certificate_id
+	 * @param Request $request
 	 * @return Response
 	 */
 	public function update($iid, $id, Request $request)
@@ -130,7 +132,8 @@ class Profile_certificates extends Controller {
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  int  $id
+	 * @param  int  $iid		profile_id
+	 * @param  int  $id		certificate_id
 	 * @return Response
 	 */
 	public function destroy($iid, $id)
