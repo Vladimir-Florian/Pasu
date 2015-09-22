@@ -3,44 +3,45 @@
 
         <div class="form-group">
             {!! Form::label('address', 'Address:') !!}
-			{!! Form::text('address', $location->address, ['class' => 'form-control']) !!}
+			{!! Form::text('address', null, ['class' => 'form-control']) !!}
         </div>			
         <div class="form-group">
             {!! Form::label('postal_code', 'Zip Code:') !!}
-			{!! Form::text('postal_code', $location->postal_code, ['class' => 'form-control']) !!}
+			{!! Form::text('postal_code', null, ['class' => 'form-control']) !!}
+            <!-- {!! Form::textarea('name', null, ['class' => 'form-control']) !!} -->
         </div>
         <div class="form-group">
             {!! Form::label('city', 'City:') !!}
-			{!! Form::text('city', $location->city, ['class' => 'form-control']) !!}
+			{!! Form::text('city', null, ['class' => 'form-control']) !!}
         </div>			
         <div class="form-group">
             {!! Form::label('province', 'Province:') !!}
-			{!! Form::text('province', $location->province, ['class' => 'form-control']) !!}
+			{!! Form::text('province', null, ['class' => 'form-control']) !!}
         </div>			
         <div class="form-group">
             {!! Form::label('country_code', 'Country Code:') !!}
-			{!! Form::text('country_code', $location->country_code, ['class' => 'form-control']) !!}
+			{!! Form::text('country_code', null, ['class' => 'form-control']) !!}
         </div>			
         <div class="form-group">
             {!! Form::label('latitude', 'Latitude:') !!}
-			{!! Form::text('latitude', $location->latitude, ['class' => 'form-control']) !!}
+			{!! Form::text('latitude', null, ['class' => 'form-control']) !!}
         </div>			
         <div class="form-group">
             {!! Form::label('longitude', 'Longitude:') !!}
-			{!! Form::text('longitude', $location->longitude, ['class' => 'form-control']) !!}
+			{!! Form::text('longitude', null, ['class' => 'form-control']) !!}
         </div>			
 			
         <div class="form-group">
             {!! Form::label('location_type', 'Location Type:') !!}
-			{!! Form::text('location_type', $location->pivot->location_type, ['class' => 'form-control']) !!}
+			{!! Form::text('location_type', null, ['class' => 'form-control']) !!}
         </div>			
         <div class="form-group">
             {!! Form::label('start_date', 'Start date:') !!}
-			{!! Form::text('start_date', $location->pivot->start_date, ['class' => 'form-control']) !!}
+			{!! Form::text('start_date', null, ['class' => 'form-control']) !!}
         </div>			
         <div class="form-group">
             {!! Form::label('end_date', 'End date:') !!}
-			{!! Form::text('end_date', $location->pivot->end_date, ['class' => 'form-control']) !!}
+			{!! Form::text('end_date', null, ['class' => 'form-control']) !!}
         </div>			
 			  
 

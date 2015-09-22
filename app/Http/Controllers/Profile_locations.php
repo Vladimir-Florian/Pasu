@@ -53,9 +53,11 @@ class Profile_locations extends Controller {
 		$location->country_code = $request->input('country_code');
 		$location->latitude = $request->input('latitude');
 		$location->longitude = $request->input('longitude');
+
 		
 		try {
-			$profile->locations()->save($location);
+			//$profile->locations()->save($location);
+			$location->save();
 		} catch(\Exception $e) {
 			return redirect()->route('profile_locations.create', [$profile])->withErrors(['error' => $e->getMessage()]);
 		}
@@ -121,10 +123,24 @@ class Profile_locations extends Controller {
 		$location->latitude = $request->input('latitude');
 		$location->longitude = $request->input('longitude');
 		
-		$location->pivot->details = $request->input('details');
+		$location->pivot->location_type = $request->input('location_type');
+		$location->pivot->start_date = $request->input('start_date');
+		$location->pivot->end_date = $request->input('end_date');
+
+		try {
+			//$profile->locations()->save($location);
+			$location->save();
+		} catch(\Exception $e) {
+			return redirect()->route('profile_locations.create', [$profile])->withErrors(['error' => $e->getMessage()]);
+		}
+
 		
-		//$location->pivot->save();
-		$profile->locations()->save($location);
+		try {
+			$location->pivot->save();
+		} catch(\Exception $e) {
+			return redirect()->route('profile_locations.create', [$profile])->withErrors(['error' => $e->getMessage()]);
+		}
+		
 		return view('profile_locations.index', compact('profile'));
 	}
 
@@ -139,7 +155,7 @@ class Profile_locations extends Controller {
 	{
 		$profile = Profile::findOrFail($iid);
 		$location = $profile->locations()->where('id', $id)->first();
-		$profile->locations()->detach($certificate);
+		$profile->locations()->detach($location);
 		$location->delete();
 
 		return view('profile_locations.index', compact('profile'));

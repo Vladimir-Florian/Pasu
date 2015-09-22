@@ -4,62 +4,63 @@
         <div class="form-group">
             <?php echo Form::label('address', 'Address:'); ?>
 
-			<?php echo Form::text('address', $location->address, ['class' => 'form-control']); ?>
+			<?php echo Form::text('address', null, ['class' => 'form-control']); ?>
 
         </div>			
         <div class="form-group">
             <?php echo Form::label('postal_code', 'Zip Code:'); ?>
 
-			<?php echo Form::text('postal_code', $location->postal_code, ['class' => 'form-control']); ?>
+			<?php echo Form::text('postal_code', null, ['class' => 'form-control']); ?>
 
+            <!-- <?php echo Form::textarea('name', null, ['class' => 'form-control']); ?> -->
         </div>
         <div class="form-group">
             <?php echo Form::label('city', 'City:'); ?>
 
-			<?php echo Form::text('city', $location->city, ['class' => 'form-control']); ?>
+			<?php echo Form::text('city', null, ['class' => 'form-control']); ?>
 
         </div>			
         <div class="form-group">
             <?php echo Form::label('province', 'Province:'); ?>
 
-			<?php echo Form::text('province', $location->province, ['class' => 'form-control']); ?>
+			<?php echo Form::text('province', null, ['class' => 'form-control']); ?>
 
         </div>			
         <div class="form-group">
             <?php echo Form::label('country_code', 'Country Code:'); ?>
 
-			<?php echo Form::text('country_code', $location->country_code, ['class' => 'form-control']); ?>
+			<?php echo Form::text('country_code', null, ['class' => 'form-control']); ?>
 
         </div>			
         <div class="form-group">
             <?php echo Form::label('latitude', 'Latitude:'); ?>
 
-			<?php echo Form::text('latitude', $location->latitude, ['class' => 'form-control']); ?>
+			<?php echo Form::text('latitude', null, ['class' => 'form-control']); ?>
 
         </div>			
         <div class="form-group">
             <?php echo Form::label('longitude', 'Longitude:'); ?>
 
-			<?php echo Form::text('longitude', $location->longitude, ['class' => 'form-control']); ?>
+			<?php echo Form::text('longitude', null, ['class' => 'form-control']); ?>
 
         </div>			
 			
         <div class="form-group">
             <?php echo Form::label('location_type', 'Location Type:'); ?>
 
-			<?php echo Form::text('location_type', $location->pivot->location_type, ['class' => 'form-control']); ?>
+			<?php echo Form::text('location_type', null, ['class' => 'form-control']); ?>
 
         </div>			
         <div class="form-group">
             <?php echo Form::label('start_date', 'Start date:'); ?>
 
-			<?php echo Form::text('start_date', $location->pivot->start_date, ['class' => 'form-control']); ?>
+			<?php echo Form::text('start_date', null, ['class' => 'form-control']); ?>
 
         </div>			
         <div class="form-group">
             <?php echo Form::label('end_date', 'End date:'); ?>
 
-			<?php echo Form::text('end_date', $location->pivot->end_date, ['class' => 'form-control']); ?>
+			<?php echo Form::text('end_date', null, ['class' => 'form-control']); ?>
 
         </div>			
 			  

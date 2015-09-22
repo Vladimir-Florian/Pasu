@@ -5,7 +5,7 @@
 	
 	
 	{!! Form::open(['route'=> ['profile_locations.store', $profile->id]]) !!}	
-		@include ('profile_locations.form', ['submitButtonText' => 'Add Location'])
+		@include ('profile_locations.cr_form', ['submitButtonText' => 'Add Location'])
 		
     {!! Form::close() !!}
 	
