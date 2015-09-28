@@ -2,14 +2,14 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class Profile extends Model {
+class Employer extends Model {
 
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table = 'employers';
+	protected $table = 'profiles';
 	
     protected $guarded = [];	
 
@@ -22,7 +22,7 @@ class Profile extends Model {
 	
 	
 	/**
-	 * An employer belongs to an industry.
+	 * A profile belongs to an industry.
 	 *
 	 * @return \IlluminateDatabase\Eloquent\Relations\BelongsTo
 	 */
