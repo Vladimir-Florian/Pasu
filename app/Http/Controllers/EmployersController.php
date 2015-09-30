@@ -1,15 +1,14 @@
 <?php namespace App\Http\Controllers;
 
+use App\Employer;
+use App\Industry;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use Auth;
 
-use App\Certificate;
-//use App\Http\Requests;
-//use Illuminate\HttpResponse;
-
-class CertificatesController extends Controller {
+class EmployersController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
@@ -18,9 +17,14 @@ class CertificatesController extends Controller {
 	 */
 	public function index()
 	{
-		$certificates = Certificate::all();
-		
-		return view('certificates.index', compact('certificates'));
+		$user = Auth::user();
+		try {
+			$id = $user->employer->user_id;
+		} catch(\Exception $e) {
+			return redirect('employers/create');
+		}
+		$employer = $user->employer;
+		return view('employers.index', compact('employer'));
 	}
 
 	/**
@@ -30,20 +34,17 @@ class CertificatesController extends Controller {
 	 */
 	public function create()
 	{
-		return view('certificates.create');
+		//
 	}
 
 	/**
 	 * Store a newly created resource in storage.
 	 *
-	 * @param  Request $request
 	 * @return Response
 	 */
-	public function store(Request $request)
+	public function store()
 	{
-		
-		Certificate::create($request->all());
-		return redirect('certificates');
+		//
 	}
 
 	/**
@@ -54,9 +55,7 @@ class CertificatesController extends Controller {
 	 */
 	public function show($id)
 	{
-		$certificate = Certificate::findOrFail($id);
-		
-		return view('certificates.show', compact('certificate'));
+		//
 	}
 
 	/**
@@ -67,22 +66,18 @@ class CertificatesController extends Controller {
 	 */
 	public function edit($id)
 	{
-		$certificate = Certificate::findOrFail($id);
-		return view('certificates.edit', compact('certificate'));
+		//
 	}
 
 	/**
 	 * Update the specified resource in storage.
 	 *
-	 * @param  Request $request
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id, Request $request)
+	public function update($id)
 	{
-		$certificate = Certificate::findOrFail($id);
-		$certificate->update($request->all());
-		return redirect('certificates');
+		//
 	}
 
 	/**
@@ -93,9 +88,7 @@ class CertificatesController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		$certificate = Certificate::findOrFail($id);
-		$certificate->delete();
-		return redirect('certificates');
+		//
 	}
 
 }

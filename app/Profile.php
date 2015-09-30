@@ -20,9 +20,20 @@ class Profile extends Model {
 		'experience'
 	];
 	
+
+	/**
+	 * An profile belongs to an user.
+	 *
+	 * @return \IlluminateDatabase\Eloquent\Relations\BelongsTo
+	 */
+
+	public function user()
+	{
+		return $this->belongsTo('App\User');
+	}
 	
 	/**
-	 * An employer belongs to an industry.
+	 * An profile belongs to an industry.
 	 *
 	 * @return \IlluminateDatabase\Eloquent\Relations\BelongsTo
 	 */

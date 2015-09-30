@@ -40,5 +40,13 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 		return $this->hasOne('App\Profile');
 	}
 
+	/**
+	 * A User has one employer
+	 *
+	 * @return
+	 */
+	public function employer() {
+		return $this->hasOne('App\Employer');
+	}
 	 
 }
