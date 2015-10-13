@@ -34,17 +34,29 @@ class EmployersController extends Controller {
 	 */
 	public function create()
 	{
-		//
+		$industries = Industry::lists("slug", "id"); 
+		return view('employers.create', compact('industries'));
 	}
 
 	/**
 	 * Store a newly created resource in storage.
 	 *
+	 *	Request $request
 	 * @return Response
 	 */
-	public function store()
+	public function store(Request $request)
 	{
-		//
+		$employer = new Employer;
+		$employer->user_id = Auth::user()->id;
+		$employer->company_name = $request->input('company_name');
+		$employer->phone_no = $request->input('phone_no');
+		$employer->company_j = $request->input('company_j');
+		$employer->company_cui = $request->input('company_cui');
+		$employer->company_account = $request->input('company_account');		
+		$employer->industry_id = $request->input('industry');
+
+		$employer->save();
+		return view('employers.index', compact('employer'));
 	}
 
 	/**
@@ -55,7 +67,8 @@ class EmployersController extends Controller {
 	 */
 	public function show($id)
 	{
-		//
+		$employer = Employer::findOrFail($id);
+		return view('employers.show', compact('employer'));
 	}
 
 	/**
@@ -66,7 +79,8 @@ class EmployersController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+		$employer = Employer::findOrFail($id);
+		return view('employers.edit', compact('employer'));
 	}
 
 	/**
@@ -77,7 +91,17 @@ class EmployersController extends Controller {
 	 */
 	public function update($id)
 	{
-		//
+		$employer = Employer::findOrFail($id);
+		//$employer->user_id = Auth::user()->id;
+		$employer->company_name = $request->input('company_name');
+		$employer->phone_no = $request->input('phone_no');
+		$employer->company_j = $request->input('company_j');
+		$employer->company_cui = $request->input('company_cui');
+		$employer->company_account = $request->input('company_account');		
+		//$employer->industry_id = $request->input('industry'); pentru update industry_id se sterge si se creaza nou 
+
+		$employer->save();
+		return view('employers.index', compact('employer'));
 	}
 
 	/**
@@ -88,7 +112,10 @@ class EmployersController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		$employer = Employer::findOrFail($id);
+		$employer->delete();
+		//return view('employers.index', compact('employer'));
+		return redirect('/');
 	}
 
 }
