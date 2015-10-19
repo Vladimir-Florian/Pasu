@@ -15,7 +15,7 @@
 					<a href="<?php echo e(route('employees.index')); ?>" class="btn btn-info">Candidates</a>
                     </li>
                     <li >
-					<a href="<?php echo e(route('about')); ?>" class="btn btn-info">Employers</a>
+					<a href="<?php echo e(route('employers.index')); ?>" class="btn btn-info">Employers</a>
                     </li>
 					
                 <?php endif; ?>

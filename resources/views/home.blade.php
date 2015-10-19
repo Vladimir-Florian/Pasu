@@ -18,7 +18,7 @@
 	<div class="row">
 
 	  <div class="col-md-3 col-md-offset-1">
-		<div class="title"> <a href="{{route('about')}}" class="btn btn-primary pull-right"> Employers </a>
+		<div class="title"> <a href="{{route('employers.index')}}" class="btn btn-primary pull-right"> Employers </a>
 		</div>
 		<div> </div>
 		<div class="title"> <a href="{{route('employees.index')}}" class="btn btn-primary pull-right"> Employees </a>

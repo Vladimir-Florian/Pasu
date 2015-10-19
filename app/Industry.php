@@ -27,5 +27,23 @@ class Industry extends Model {
 		return $this->hasMany('App\Profile');
 	}
 
+	/**
+	 * An industry has many employers
+	 *
+	 * @return
+	 */
+	public function employers() {
+		return $this->hasMany('App\Employer');
+	}
+
+	/**
+	 * An industry has many jobtypes
+	 *
+	 * @return
+	 */
+	public function jobtypes() {
+		return $this->hasMany('App\Jobtype');
+	}
+	
 	
 }

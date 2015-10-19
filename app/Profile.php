@@ -9,7 +9,7 @@ class Profile extends Model {
 	 *
 	 * @var string
 	 */
-	protected $table = 'employers';
+	protected $table = 'profiles';
 	
     protected $guarded = [];	
 

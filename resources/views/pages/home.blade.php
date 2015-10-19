@@ -16,7 +16,7 @@
 					<a href="{{ route('employees.index') }}" class="btn btn-info">Candidates</a>
                     </li>
                     <li >
-					<a href="{{ route('about') }}" class="btn btn-info">Employers</a>
+					<a href="{{ route('employers.index') }}" class="btn btn-info">Employers</a>
                     </li>
 					
                 @endif

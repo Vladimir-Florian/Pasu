@@ -65,6 +65,7 @@ Route::resource('industries.profiles', 'ProfilesController');
 
 Route::resource('employees', 'EmployeeController');
 Route::resource('certificates', 'CertificatesController');
+Route::resource('employers', 'EmployersController');
 
 Route::get('p_certificates/{id}', [
 	'as' => 'profile_certificates.index',
