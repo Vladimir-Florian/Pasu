@@ -32,5 +32,13 @@ class Jobtype extends Model {
 		return $this->belongsTo('App\Industry');
 	}
 
+	/**
+	 * A jobtype has many jobposts
+	 *
+	 * @return
+	 */
+	public function jobposts() {
+		return $this->hasMany('App\Jobpost');
+	}
 
 }

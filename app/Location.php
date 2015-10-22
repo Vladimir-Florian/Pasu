@@ -34,4 +34,14 @@ class Location extends Model {
 		return $this->belongsToMany('App\Profile')->withPivot('location_type', 'start_date', 'end_date')->withTimestamps();
 	}
 
+	/**
+	 * A location has many jobposts
+	 *
+	 * @return
+	 */
+	public function jobposts() {
+		return $this->hasMany('App\Jobpost');
+	}
+	
+	
 }

@@ -44,6 +44,15 @@ class Employer extends Model {
 		return $this->belongsTo('App\Industry');
 	}
 
+	/**
+	 * An employer has many jobposts
+	 *
+	 * @return
+	 */
+	public function jobposts() {
+		return $this->hasMany('App\Jobpost');
+	}
+	
 	
 	/**
 	 *  Get the certificates of the given profile

@@ -15,4 +15,14 @@ class Employment_type extends Model {
 
 	protected $fillable = [ 'name' ];
 
+	/**
+	 * An employment_type has many jobposts
+	 *
+	 * @return
+	 */
+	public function jobposts() {
+		return $this->hasMany('App\Jobpost');
+	}
+	
+	
 }
