@@ -1,0 +1,35 @@
+<?php $__env->startSection('content'); ?>
+
+ <h2> Profiles for Specialization "<?php echo e($industry->slug); ?>" </h2>
+ 
+   <?php if(!$industry->profiles->count()): ?>
+	   No profiles
+   <?php else: ?>
+	   <ul>
+		<?php foreach($industry->profiles as $profile): ?>
+		 <li>
+			
+			<?php echo Form::open(array('class' => 'form-inline', 'method'=>'DELETE', 'route'=>array('industries.profiles.destroy', $industry->id, $profile->id))); ?>
+
+                <a href="<?php echo e(route('industries.profiles.show', array($industry->id, $profile->id))); ?>"><?php echo e($profile->name); ?></a>
+				(
+                  <?php echo link_to_route('industries.profiles.edit', 'Edit', array($industry->id, $profile->id), array('class' => 'btn btn-info')); ?>,
+                  <?php echo Form::submit('Delete', array('class' => 'btn btn-danger')); ?>				
+				)
+            <?php echo Form::close(); ?>
+
+		 </li>
+		<?php endforeach; ?>
+	   </ul>
+   <?php endif; ?>
+		 
+	<p>
+	    <?php echo link_to_route('industries.index', 'Back to Specializations'); ?> |
+		<?php echo link_to_route('industries.profiles.create', 'Create Profile', $industry->id); ?>
+
+	</p>
+		 
+<?php $__env->stopSection(); ?>		
+		
+
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

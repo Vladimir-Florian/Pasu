@@ -65,7 +65,7 @@ Route::resource('industries.profiles', 'ProfilesController');
 
 Route::resource('employees', 'EmployeeController');
 Route::resource('certificates', 'CertificatesController');
-Route::resource('employers', 'EmployersController');
+
 
 Route::get('p_certificates/{id}', [
 	'as' => 'profile_certificates.index',
@@ -139,6 +139,10 @@ Route::delete('profile_locations/{iid}/{id}', [
 	'as' => 'profile_locations.destroy',
 	'uses' => 'Profile_locations@destroy'
 ]);
+
+Route::resource('employers', 'EmployersController');
+Route::resource('industries.jobtypes', 'JobtypesController');
+
 
 
 Route::controllers([

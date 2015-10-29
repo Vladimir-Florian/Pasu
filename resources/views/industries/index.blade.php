@@ -19,6 +19,10 @@
                   {!! Form::submit('Delete', array('class' => 'btn btn-danger')) !!}
                 )
             {!! Form::close() !!}
+
+			{!! link_to_route('industries.profiles.index', 'Profiles', $industry->id) !!}
+			{!! link_to_route('industries.jobtypes.index', 'Jobtypes', $industry->id) !!}
+			
 		 </li>
 		@endforeach
 	   </ul>
