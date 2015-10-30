@@ -29,7 +29,7 @@ class JobtypesController extends Controller {
 	 * @param  int $iid 	industry_id
 	 * @return Response
 	 */
-	public function create()
+	public function create($iid)
 	{
 		$industry = Industry::findOrFail($iid);
 
@@ -39,55 +39,94 @@ class JobtypesController extends Controller {
 	/**
 	 * Store a newly created resource in storage.
 	 *
+	 * @param  int  $iid		industry_id
+	 * @param Request $request
 	 * @return Response
 	 */
-	public function store()
+	public function store($iid, Request $request)
 	{
-		//
+		$industry = Industry::findOrFail($iid);
+		
+		$jobtype = new Jobtype;
+		$jobtype->name = $request->input('name');
+		$jobtype->description = $request->input('description');
+		$jobtype->occupational_category = $request->input('occupational_category');
+		$jobtype->industry_id = $iid;
+
+		$jobtype->save();
+		//$input = $request->all();
+		//$input['industry_id'] = $iid;
+		//jobtype::create($input);
+		
+		return view('jobtypes.index', compact('industry'));
 	}
 
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param  int  $id
+	 * @param  int  $iid 	industry_id
+	 * @param  int  $id		jobtype id
 	 * @return Response
 	 */
 	public function show($id)
 	{
-		//
+		$industry = Industry::findOrFail($iid);
+		$jobtype = Jobtype::findOrFail($id);
+		//dd($iid, $id);
+		return view('jobtypes.show', compact('industry','jobtype'));
 	}
 
 	/**
 	 * Show the form for editing the specified resource.
 	 *
-	 * @param  int  $id
+	 * @param  int  $iid 	industry_id
+	 * @param  int  $id		jobtype_id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit($iid, $id)
 	{
-		//
+		$industry = Industry::findOrFail($iid);
+		$jobtype = Jobtype::findOrFail($id);
+		return view('jobtypes.edit', compact('industry', 'jobtype'));
 	}
 
 	/**
 	 * Update the specified resource in storage.
 	 *
-	 * @param  int  $id
+	 * @param  int  $iid 	industry_id
+	 * @param  int  $id		jobtype_id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($iid, $id, Request $request)
 	{
-		//
+		$industry = Industry::findOrFail($iid);
+		
+		$jobtype = Jobtype::findOrFail($id);
+		$jobtype->name = $request->input('name');
+		$jobtype->description = $request->input('description');
+		$jobtype->occupational_category = $request->input('occupational_category');
+		$jobtype->industry_id = $iid;
+
+		$jobtype->save();
+		
+		return view('jobtypes.index', compact('industry'));
 	}
 
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  int  $id
+	 * @param  int  $iid 	industry_id
+	 * @param  int  $id		jobtype_id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy($iid, $id)
 	{
-		//
+		$industry = Industry::findOrFail($iid);
+		$jobtype = Jobtype::findOrFail($id);
+		
+		$jobtype->delete();
+		//dd($iid, $id);
+		return view('jobtypes.index', compact('industry'));
 	}
 
 }

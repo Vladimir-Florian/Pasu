@@ -2,22 +2,19 @@
 
 @section('content')
 
- <h2> {{ $profile->name }} </h2>
+ <h2> {{ $jobtype->name }} </h2>
  
 	<article>
-		{{ $profile->phone_no}}
+		{{ $jobtype->description}}
 	</article>
 	<article>
-		{{ $profile->birthdate}}
-	</article>
-	<article>
-		{{ $profile->experience}}
+		{{ $jobtype->occupational_category}}
 	</article>
 
 
 
 	<p>
-      {!! link_to_route('industries.profiles.index', 'Back to Profiles', $industry->id) !!} 
+      {!! link_to_route('industries.jobtypes.index', 'Back to Jobtypes', $industry->id) !!} 
 	</p>
  
 

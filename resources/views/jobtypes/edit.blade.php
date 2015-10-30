@@ -2,11 +2,11 @@
 
 @section('content')
 
-    <h2> Edit Profile: {{ $profile->name }} </h2>
+    <h2> Edit Jobtype: {{ $jobtype->name }} </h2>
 
 
-	{!! Form::model($profile, ['method' => 'PATCH','action' => ['ProfilesController@update', $industry->id, $profile->id]]) !!}
-		@include ('profiles.form', ['submitButtonText' => 'Edit Profile'])
+	{!! Form::model($jobtype, ['method' => 'PATCH','action' => ['JobtypesController@update', $industry->id, $jobtype->id]]) !!}
+		@include ('jobtypes.form', ['submitButtonText' => 'Edit Jobtype'])
     {!! Form::close() !!}
 
 	

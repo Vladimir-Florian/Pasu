@@ -95,7 +95,8 @@ class ProfilesController extends Controller {
 	/**
 	 * Update the specified resource in storage.
 	 *
-	 * @param  int  $id
+	 * @param  int  $iid 	industry_id
+	 * @param  int  $id		profile_id
 	 * @return Response
 	 */
 	public function update($iid, $id, Request $request)
