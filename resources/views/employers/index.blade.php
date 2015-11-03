@@ -35,7 +35,7 @@
 
                         <div class="col-md-3">
                             <h4>
-                                <strong><a href="{{route('about', ['id' => $employer->id])}}"> Certificates </a></strong>
+                                <strong><a href="{{route('employers.jobposts.index', ['id' => $employer->id])}}"> Job Posts </a></strong>
                             </h4>
                         </div>					
 					

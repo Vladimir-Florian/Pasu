@@ -89,7 +89,7 @@ class EmployersController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($id, Request $request)
 	{
 		$employer = Employer::findOrFail($id);
 		//$employer->user_id = Auth::user()->id;
