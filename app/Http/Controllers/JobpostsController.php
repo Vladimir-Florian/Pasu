@@ -39,9 +39,9 @@ class JobpostsController extends Controller {
 
 		$jobtypes = Jobtype::lists("name", "id"); 
 		$employment_types = Employment_type::lists("name", "id"); 
-		$locations = Location::lists("postal_code", "id"); 
+		//$locations = Location::lists("postal_code", "id"); 
 
-		return view('jobposts.create', compact('employer', ));
+		return view('jobposts.create', compact('employer', 'jobtypes', 'employment_types'));
 
 
 	}

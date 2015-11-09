@@ -143,7 +143,7 @@ Route::delete('profile_locations/{iid}/{id}', [
 Route::resource('employers', 'EmployersController');
 Route::resource('industries.jobtypes', 'JobtypesController');
 Route::resource('employers.jobposts', 'JobpostsController');
-
+Route::resource('employment_types', 'Employment_typesController');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',

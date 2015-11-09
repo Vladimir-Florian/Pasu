@@ -1,0 +1,35 @@
+<?php $__env->startSection('content'); ?>
+
+ <h2> Job Posts for Employer "<?php echo e($employer->company_name); ?>" </h2>
+ 
+   <?php if(!$employer->jobposts->count()): ?>
+	   No Job Posts
+   <?php else: ?>
+	   <ul>
+		<?php foreach($employer->jobposts as $jobpost): ?>
+		 <li>
+			
+			<?php echo Form::open(array('class' => 'form-inline', 'method'=>'DELETE', 'route'=>array('employers.jobposts.destroy', $employer->id, $jobpost->id))); ?>
+
+                <a href="<?php echo e(route('employers.jobposts.show', array($employer->id, $jobpost->id))); ?>"><?php echo e($jobpost->request_date); ?></a>
+				(
+                  <?php echo link_to_route('employers.jobposts.edit', 'Edit', array($employer->id, $jobpost->id), array('class' => 'btn btn-info')); ?>,
+                  <?php echo Form::submit('Delete', array('class' => 'btn btn-danger')); ?>				
+				)
+            <?php echo Form::close(); ?>
+
+		 </li>
+		<?php endforeach; ?>
+	   </ul>
+   <?php endif; ?>
+		 
+	<p>
+	    <?php echo link_to_route('employers.index', 'Back to Employer'); ?> |
+		<?php echo link_to_route('employers.jobposts.create', 'Create Job Post', $employer->id); ?>
+
+	</p>
+		 
+<?php $__env->stopSection(); ?>		
+		
+
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
