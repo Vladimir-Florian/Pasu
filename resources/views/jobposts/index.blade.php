@@ -16,6 +16,10 @@
 				(
                   {!! link_to_route('employers.jobposts.edit', 'Edit', array($employer->id, $jobpost->id), array('class' => 'btn btn-info')) !!},
                   {!! Form::submit('Delete', array('class' => 'btn btn-danger')) !!}				
+
+				  {!! link_to_route('jobpost_locations.create', 'Create Location', array($employer->id, $jobpost->id)) !!}	
+				  {!! link_to_route('jobpost_locations.edit', 'Update Location', array($employer->id, $jobpost->id)) !!}	
+
 				)
             {!! Form::close() !!}
 		 </li>

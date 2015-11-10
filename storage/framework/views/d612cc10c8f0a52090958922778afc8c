@@ -1,0 +1,69 @@
+<?php $__env->startSection('content'); ?>
+
+ <h2> Post </h2>
+
+	<article>
+		<?php echo e($jobpost->jobtype_id); ?>
+
+	</article>
+	<article>
+		<?php echo e($jobpost->employment_type_id); ?>
+
+	</article>
+ 
+	<article>
+		<?php echo e($jobpost->experience); ?>
+
+	</article>
+	<article>
+		<?php echo e($jobpost->education); ?>
+
+	</article>
+	<article>
+		<?php echo e($jobpost->benefits); ?>
+
+	</article>
+	<article>
+		<?php echo e($jobpost->incentives); ?>
+
+	</article>
+	<article>
+		<?php echo e($jobpost->responsabilities); ?>
+
+	</article>
+	<article>
+		<?php echo e($jobpost->salary); ?>
+
+	</article>
+	<article>
+		<?php echo e($jobpost->currency); ?>
+
+	</article>
+	<article>
+		<?php echo e($jobpost->workhours); ?>
+
+	</article>
+	<article>
+		<?php echo e($jobpost->request_date); ?>
+
+	</article>
+	<article>
+		<?php echo e($jobpost->award_date); ?>
+
+	</article>
+	<article>
+		<?php echo e($jobpost->winner_id); ?>
+
+	</article>
+
+
+
+	<p>
+      <?php echo link_to_route('employers.jobposts.index', 'Back to Job Posts', $employer->id); ?> 
+	</p>
+ 
+
+<?php $__env->stopSection(); ?>		
+		
+
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

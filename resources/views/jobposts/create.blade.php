@@ -8,5 +8,6 @@
 		@include ('jobposts.form', ['submitButtonText' => 'Add Post'])
     {!! Form::close() !!}
 	
+	
 	@include ('errors.list')
 @stop

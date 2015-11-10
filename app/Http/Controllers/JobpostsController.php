@@ -23,7 +23,6 @@ class JobpostsController extends Controller {
 	{
 		$employer = Employer::findOrFail($id);
 
-		//$profiles = Profile::all();
 		return view('jobposts.index', compact('employer'));
 	}
 
@@ -49,55 +48,111 @@ class JobpostsController extends Controller {
 	/**
 	 * Store a newly created resource in storage.
 	 *
+	 * @param  int  $id		employer id
+	 * @param Request $request
 	 * @return Response
 	 */
-	public function store()
+	public function store($id, Request $request)
 	{
-		//
+		$employer = Employer::findOrFail($id);
+		
+		$jobpost = new Jobpost;
+		$jobpost->jobtype_id = $request->input('jobtype');
+		$jobpost->employment_type_id = $request->input('employment_type');
+		$jobpost->experience = $request->input('experience');
+		$jobpost->education = $request->input('education');
+		$jobpost->benefits = $request->input('benefits');
+		$jobpost->incentives = $request->input('incentives');
+		$jobpost->responsabilities = $request->input('responsabilities');
+		$jobpost->salary = $request->input('salary');
+		$jobpost->currency = $request->input('currency');
+		$jobpost->workhours = $request->input('workhours');
+		$jobpost->request_date = $request->input('request_date');
+
+		$jobpost->employer_id = $id;
+		$jobpost->save();
+		return view('jobposts.index', compact('employer'));		
+
 	}
 
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param  int  $id
+	 * @param  int  $eid 	employer_id
+	 * @param  int  $id		jobpost_id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show($eid, $id)
 	{
-		//
+		$employer = Employer::findOrFail($eid);
+		$jobpost = Jobpost::findOrFail($id);
+		return view('jobposts.show', compact('employer','jobpost'));
+
+		
 	}
 
 	/**
 	 * Show the form for editing the specified resource.
 	 *
-	 * @param  int  $id
+	 * @param  int  $eid 	employer_id
+	 * @param  int  $id		jobpost_id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit($eid, $id)
 	{
-		//
+		$employer = Employer::findOrFail($eid);
+		$jobpost = Jobpost::findOrFail($id);
+		$jobtypes = Jobtype::lists("name", "id"); 
+		$employment_types = Employment_type::lists("name", "id"); 
+		return view('jobposts.edit', compact('employer', 'jobpost', 'jobtypes', 'employment_types'));
+
 	}
 
 	/**
 	 * Update the specified resource in storage.
 	 *
-	 * @param  int  $id
+	 * @param  int  $eid 	employer_id
+	 * @param  int  $id		jobpost_id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($eid, $id, Request $request)
 	{
-		//
+		$employer = Employer::findOrFail($eid);
+		$jobpost = Jobpost::findOrFail($id);
+
+		$jobpost->jobtype_id = $request->input('jobtype');
+		$jobpost->employment_type_id = $request->input('employment_type');
+		$jobpost->experience = $request->input('experience');
+		$jobpost->education = $request->input('education');
+		$jobpost->benefits = $request->input('benefits');
+		$jobpost->incentives = $request->input('incentives');
+		$jobpost->responsabilities = $request->input('responsabilities');
+		$jobpost->salary = $request->input('salary');
+		$jobpost->currency = $request->input('currency');
+		$jobpost->workhours = $request->input('workhours');
+		$jobpost->request_date = $request->input('request_date');
+
+		//$jobpost->employer_id = $eid;
+		$jobpost->save();
+		return view('jobposts.index', compact('employer'));		
+		
 	}
 
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  int  $id
+	 * @param  int  $eid 	employer_id
+	 * @param  int  $id		jobpost_id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy($eid, $id)
 	{
-		//
+		$employer = Employer::findOrFail($eid);
+		$jobpost = Jobpost::findOrFail($id);
+
+		$jobpost->delete();
+		return view('jobposts.index', compact('employer'));		
+	 
 	}
 
 }

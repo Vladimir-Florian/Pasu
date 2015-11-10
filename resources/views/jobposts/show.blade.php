@@ -5,7 +5,10 @@
  <h2> Post </h2>
 
 	<article>
-		{{ $jobpost->request_date }}
+		{{ $jobpost->jobtype_id}}
+	</article>
+	<article>
+		{{ $jobpost->employment_type_id}}
 	</article>
  
 	<article>
@@ -31,6 +34,15 @@
 	</article>
 	<article>
 		{{ $jobpost->workhours}}
+	</article>
+	<article>
+		{{ $jobpost->request_date }}
+	</article>
+	<article>
+		{{ $jobpost->award_date }}
+	</article>
+	<article>
+		{{ $jobpost->winner_id }}
 	</article>
 
 
