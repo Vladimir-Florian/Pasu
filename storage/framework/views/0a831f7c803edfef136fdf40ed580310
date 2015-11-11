@@ -1,0 +1,51 @@
+        <!-- Form Input Partial -->
+        <div class="form-group">
+            <?php echo Form::label('address', 'Address:'); ?>
+
+			<?php echo Form::text('address', null, ['class' => 'form-control']); ?>
+
+        </div>			
+        <div class="form-group">
+            <?php echo Form::label('postal_code', 'Zip Code:'); ?>
+
+			<?php echo Form::text('postal_code', null, ['class' => 'form-control']); ?>
+
+            <!-- <?php echo Form::textarea('name', null, ['class' => 'form-control']); ?> -->
+        </div>
+        <div class="form-group">
+            <?php echo Form::label('city', 'City:'); ?>
+
+			<?php echo Form::text('city', null, ['class' => 'form-control']); ?>
+
+        </div>			
+        <div class="form-group">
+            <?php echo Form::label('province', 'Province:'); ?>
+
+			<?php echo Form::text('province', null, ['class' => 'form-control']); ?>
+
+        </div>			
+        <div class="form-group">
+            <?php echo Form::label('country_code', 'Country Code:'); ?>
+
+			<?php echo Form::text('country_code', null, ['class' => 'form-control']); ?>
+
+        </div>			
+        <div class="form-group">
+            <?php echo Form::label('latitude', 'Latitude:'); ?>
+
+			<?php echo Form::text('latitude', null, ['class' => 'form-control']); ?>
+
+        </div>			
+        <div class="form-group">
+            <?php echo Form::label('longitude', 'Longitude:'); ?>
+
+			<?php echo Form::text('longitude', null, ['class' => 'form-control']); ?>
+
+        </div>			
+
+		
+        <!-- Submit Button -->
+        <div class="form-group">
+            <?php echo Form::submit($submitButtonText, ['class'=>'btn btn-primary form-control']); ?>
+
+        </div> 

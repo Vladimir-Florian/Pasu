@@ -2,10 +2,10 @@
 
 @section('content')
 
-    <h1> Edit Location </h1>
+    <h1> Edit Location for the job post </h1>
 
 
-	{!! Form::model($location, ['method' => 'PATCH','action' => ['LocationsController@update', $location->id]]) !!}
+	{!! Form::model($location, ['method' => 'PATCH','action' => ['Jobpost_locationsController@update', $jobpost->id]]) !!}
 		@include ('locations.form', ['submitButtonText' => 'Update Location'])
     {!! Form::close() !!}
 

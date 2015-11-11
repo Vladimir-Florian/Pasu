@@ -144,9 +144,22 @@ Route::resource('employers', 'EmployersController');
 Route::resource('industries.jobtypes', 'JobtypesController');
 Route::resource('employers.jobposts', 'JobpostsController');
 Route::resource('employment_types', 'Employment_typesController');
+
 Route::get('jobpost_locations/{id}/create', [
 	'as' => 'jobpost_locations.create',
 	'uses' => 'Jobpost_locationsController@create'
+]);
+Route::get('jobpost_locations/{id}/edit', [
+	'as' => 'jobpost_locations.edit',
+	'uses' => 'Jobpost_locationsController@edit'
+]);
+Route::post('jobpost_locations/{id}', [
+	'as' => 'jobpost_locations.store',
+	'uses' => 'Jobpost_locationsController@store'
+]);
+Route::patch('jobpost_locations/{id}', [
+	'as' => 'jobpost_locations.update',
+	'uses' => 'Jobpost_locationsController@update'
 ]);
 
 

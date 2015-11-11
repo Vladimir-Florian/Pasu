@@ -15,10 +15,10 @@
                 <a href="{{ route('employers.jobposts.show', array($employer->id, $jobpost->id)) }}">{{ $jobpost->request_date }}</a>
 				(
                   {!! link_to_route('employers.jobposts.edit', 'Edit', array($employer->id, $jobpost->id), array('class' => 'btn btn-info')) !!},
-                  {!! Form::submit('Delete', array('class' => 'btn btn-danger')) !!}				
+                  {!! Form::submit('Delete', array('class' => 'btn btn-danger')) !!},				
 
-				  {!! link_to_route('jobpost_locations.create', 'Create Location', array($employer->id, $jobpost->id)) !!}	
-				  {!! link_to_route('jobpost_locations.edit', 'Update Location', array($employer->id, $jobpost->id)) !!}	
+				  {!! link_to_route('jobpost_locations.create', 'Create Location', $jobpost->id, array('class' => 'btn btn-info')) !!},	
+				  {!! link_to_route('jobpost_locations.edit', 'Update Location', $jobpost->id, array('class' => 'btn btn-info')) !!}	
 
 				)
             {!! Form::close() !!}

@@ -14,10 +14,11 @@
                 <a href="<?php echo e(route('employers.jobposts.show', array($employer->id, $jobpost->id))); ?>"><?php echo e($jobpost->request_date); ?></a>
 				(
                   <?php echo link_to_route('employers.jobposts.edit', 'Edit', array($employer->id, $jobpost->id), array('class' => 'btn btn-info')); ?>,
+                  <?php echo Form::submit('Delete', array('class' => 'btn btn-danger')); ?>,				
 
-				  <?php echo link_to_route('jobpost_locations.create', 'Create Location', $jobpost->id); ?>	
+				  <?php echo link_to_route('jobpost_locations.create', 'Create Location', $jobpost->id, array('class' => 'btn btn-info')); ?>,	
+				  <?php echo link_to_route('jobpost_locations.edit', 'Update Location', $jobpost->id, array('class' => 'btn btn-info')); ?>	
 
-                  <?php echo Form::submit('Delete', array('class' => 'btn btn-danger')); ?>				
 				)
             <?php echo Form::close(); ?>
 

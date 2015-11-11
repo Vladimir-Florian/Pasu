@@ -1,10 +1,10 @@
 @extends('app')
 
 @section('content')
-	<h1> Create a new Location</h1>
+	<h1> Create a Location for the job post </h1>
 	
 	
-	{!! Form::open(['route' => ['jobpost_locations.store', array($employer->id, $jobpost->id)]]) !!}
+	{!! Form::open(['route' => ['jobpost_locations.store', $jobpost->id]]) !!}
 		@include ('jobpost_locations.form', ['submitButtonText' => 'Add Location'])
     {!! Form::close() !!}
 	
