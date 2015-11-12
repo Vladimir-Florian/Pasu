@@ -9,7 +9,7 @@ class LocationProfile extends Model {
 	 *
 	 * @var string
 	 */
-	protected $table = 'location_profiles';
+	protected $table = 'location_profile';
 	
     protected $guarded = [];
 

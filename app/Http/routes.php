@@ -162,6 +162,36 @@ Route::patch('jobpost_locations/{id}', [
 	'uses' => 'Jobpost_locationsController@update'
 ]);
 
+Route::get('jobpost_jobtags/{id}', [
+	'as' => 'jobpost_jobtags.index',
+	'uses' => 'Jobpost_jobtagsController@index'
+]);
+Route::get('jobpost_jobtags/{id}/create', [
+	'as' => 'jobpost_jobtags.create',
+	'uses' => 'Jobpost_jobtagsController@create'
+]);
+Route::post('jobpost_jobtags/{id}', [
+	'as' => 'jobpost_jobtags.store',
+	'uses' => 'Jobpost_jobtagsController@store'
+]);
+Route::get('jobpost_jobtags/{iid}/{id}', [
+	'as' => 'jobpost_jobtags.show',
+	'uses' => 'Jobpost_jobtagsController@show'
+]);
+Route::get('jobpost_jobtags/{iid}/{id}/edit', [
+	'as' => 'jobpost_jobtags.edit',
+	'uses' => 'Jobpost_jobtagsController@edit'
+]);
+Route::patch('jobpost_jobtags/{iid}/{id}', [
+	'as' => 'jobpost_jobtags.update',
+	'uses' => 'Jobpost_jobtagsController@update'
+]);
+Route::delete('jobpost_jobtags/{iid}/{id}', [
+	'as' => 'jobpost_jobtags.destroy',
+	'uses' => 'Jobpost_jobtagsController@destroy'
+]);
+
+
 
 
 Route::controllers([

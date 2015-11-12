@@ -68,5 +68,17 @@ class Jobpost extends Model {
 	{
 		return $this->belongsTo('App\Location');
 	}
+
+	/**
+	 *  Get the jobtags of the given jobpost
+	 *  
+	 *  @return \IlluminateDatabase\Eloquent\Relations\BelongsToMany
+	 *  
+	 */
+	public function jobtags()
+	{
+		return $this->belongsToMany('App\Jobtag')->withTimestamps();
+	}
+
 	
 }

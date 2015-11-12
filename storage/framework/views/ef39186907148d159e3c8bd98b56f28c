@@ -19,6 +19,8 @@
 				  <?php echo link_to_route('jobpost_locations.create', 'Create Location', $jobpost->id, array('class' => 'btn btn-info')); ?>,	
 				  <?php echo link_to_route('jobpost_locations.edit', 'Update Location', $jobpost->id, array('class' => 'btn btn-info')); ?>	
 
+				  <?php echo link_to_route('jobpost_jobtags.index', 'Tags', $jobpost->id, array('class' => 'btn btn-info')); ?>	
+				  
 				)
             <?php echo Form::close(); ?>
 

@@ -66,5 +66,14 @@ class Profile extends Model {
 		
     }
 
+	/**
+	 * A Profile has one resume
+	 *
+	 * @return
+	 */
+	public function resume() {
+		return $this->hasOne('App\Resume');
+	}
+
 	
 }

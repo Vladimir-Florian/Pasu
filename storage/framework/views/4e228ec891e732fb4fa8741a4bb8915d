@@ -1,0 +1,19 @@
+<?php $__env->startSection('content'); ?>
+	<h2> Add a tag to Job Post </h2>
+	
+	
+	<?php echo Form::open(['route'=> ['jobpost_jobtags.store', $jobpost->id]]); ?>	
+		<?php echo $__env->make('jobpost_jobtags.cr_form', ['submitButtonText' => 'Add Tag'], array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+		
+    <?php echo Form::close(); ?>
+
+	
+	<?php echo $__env->make('errors.list', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+	
+	<p>
+	<a href="<?php echo e(route('jobpost_jobtags.index', ['id' => $jobpost->id])); ?>"> Back to Tags </a>
+	</p>
+	
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

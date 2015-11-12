@@ -20,6 +20,8 @@
 				  {!! link_to_route('jobpost_locations.create', 'Create Location', $jobpost->id, array('class' => 'btn btn-info')) !!},	
 				  {!! link_to_route('jobpost_locations.edit', 'Update Location', $jobpost->id, array('class' => 'btn btn-info')) !!}	
 
+				  {!! link_to_route('jobpost_jobtags.index', 'Tags', $jobpost->id, array('class' => 'btn btn-info')) !!}	
+				  
 				)
             {!! Form::close() !!}
 		 </li>

@@ -1,0 +1,36 @@
+<?php $__env->startSection('content'); ?>
+
+ <h2> Tags for Job Post "<?php echo e($jobpost->employer->company_name); ?>" "<?php echo e($jobpost->request_date); ?>" </h2>
+
+   <?php if(!$jobpost->jobtags->count()): ?>
+	   No tags
+   <?php else: ?>
+	   <ul>
+		<?php foreach($jobpost->jobtags as $jobtag): ?>
+		 <li>
+			
+			<?php echo Form::open(array('class' => 'form-inline', 'method'=>'DELETE', 'route'=>array('jobpost_jobtags.destroy', $jobpost->id, $jobtag->id))); ?>
+
+                <a href="<?php echo e(route('jobpost_jobtags.show', array($jobpost->id, $jobtag->id))); ?>"> show </a>
+
+				(
+                  <?php echo link_to_route('jobpost_jobtags.edit', 'Edit', array($jobpost->id, $jobtag->id), array('class' => 'btn btn-info')); ?>,
+                  <?php echo Form::submit('Delete', array('class' => 'btn btn-danger')); ?>				
+				)
+            <?php echo Form::close(); ?>
+
+		 </li>
+		<?php endforeach; ?>
+	   </ul>
+   <?php endif; ?>
+		 
+	<p>
+      <?php echo link_to_route('employers.jobposts.index', 'Back to Job Post', $jobpost->employer->id); ?> 
+
+	  <a href="<?php echo e(route('jobpost_jobtags.create', ['id' => $jobpost->id])); ?>"> Add Tag </a>	
+	</p>
+		 
+<?php $__env->stopSection(); ?>		
+		
+
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
