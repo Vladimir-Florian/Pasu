@@ -1,19 +1,12 @@
         <!-- Form Input Partial -->
 
-    @if ( !$profile->certificates->count())
-        Profile has no certificates.
-    @else
-
 		<div class="form-group">
-			<h3> Certificate: {{ $certificate->description}}</h3>
+			{!! Form::label('tag', 'Tag:') !!} <br />
+			{!! Form::select('tag',
+				(['0' => $jobtag->name] + $fields), 
+					null, 
+					['class' => 'form-control']) !!}
 		</div>
-			
-		<div class="form-group">
-			{!! Form::label('details', 'Details:') !!}
-			{!! Form::textarea('details', $certificate->pivot->details, ['class' => 'form-control']) !!}
-		</div>			
-			  
-    @endif
 
 		
         <!-- Submit Button -->

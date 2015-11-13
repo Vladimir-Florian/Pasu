@@ -2,9 +2,9 @@
 
     <h2> Change Tag  </h2>
 
-	<?php echo Form::model($jobpost, ['method' => 'PATCH','action' => ['Jobpost_jobtagsController@update', $jobpost->id]]); ?>
+	<?php echo Form::model($jobpost, ['method' => 'PATCH','action' => ['Jobpost_jobtagsController@update', $jobpost->id, $jobtag->id]]); ?>
 
-		<?php echo $__env->make('jobpost_jobtags.cr_form', ['submitButtonText' => 'Update Post'], array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+		<?php echo $__env->make('jobpost_jobtags.form', ['submitButtonText' => 'Update Post'], array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
     <?php echo Form::close(); ?>
 
 

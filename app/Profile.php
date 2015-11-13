@@ -75,5 +75,32 @@ class Profile extends Model {
 		return $this->hasOne('App\Resume');
 	}
 
+	/**
+	 * A Profile has many applications
+	 *
+	 * @return
+	 */
+	public function applications() {
+		return $this->hasMany('App\Application');
+	}
+	
+	/**
+	 * A Profile has many requests
+	 *
+	 * @return
+	 */
+	public function requests() {
+		return $this->hasMany('App\Request');
+	}
+	
+	/**
+	 * A Profile has many markedjobposts
+	 *
+	 * @return
+	 */
+	public function markedjobposts() {
+		return $this->hasMany('App\Markedjobposts');
+	}
+	
 	
 }

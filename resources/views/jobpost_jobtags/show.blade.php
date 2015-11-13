@@ -2,7 +2,7 @@
 
 @section('content')
 
- <h2> {{$jobpost->employer->name}}" "{{$jobpost->request_date}} </h2>
+ <h2> {{$jobpost->employer->company_name}}  {{$jobpost->request_date}} </h2>
  
 	<article>
 		{{ $jobtag->name }}

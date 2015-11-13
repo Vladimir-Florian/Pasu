@@ -12,7 +12,7 @@
 		 <li>
 			
 			{!! Form::open(array('class' => 'form-inline', 'method'=>'DELETE', 'route'=>array('employers.jobposts.destroy', $employer->id, $jobpost->id))) !!}
-                <a href="{{ route('employers.jobposts.show', array($employer->id, $jobpost->id)) }}">{{ $jobpost->request_date }}</a>
+                <a href="{{ route('employers.jobposts.show', array($employer->id, $jobpost->id)) }}"> Show </a>
 				(
                   {!! link_to_route('employers.jobposts.edit', 'Edit', array($employer->id, $jobpost->id), array('class' => 'btn btn-info')) !!},
                   {!! Form::submit('Delete', array('class' => 'btn btn-danger')) !!},				

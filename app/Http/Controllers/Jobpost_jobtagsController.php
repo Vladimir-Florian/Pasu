@@ -81,10 +81,11 @@ class Jobpost_jobtagsController extends Controller {
 	 */
 	public function edit($iid, $id)
 	{
-		$jobpost = Jobpost::findOrFail($iid);
-		$jobtag = $jobpost->jobtags()->where('id', $id)->first();
+		$jobpost = 	Jobpost::findOrFail($iid);
+		$jobtag = 	$jobpost->jobtags()->where('id', $id)->first();
+		$fields = 	Jobtag::lists("name", "id"); 
 
-		return view('jobpost_jobtags.edit', compact('jobpost', 'jobtag'));
+		return view('jobpost_jobtags.edit', compact('jobpost', 'jobtag', 'fields'));
 	}
 
 	/**

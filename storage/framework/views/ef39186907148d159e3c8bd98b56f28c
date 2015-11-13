@@ -11,7 +11,7 @@
 			
 			<?php echo Form::open(array('class' => 'form-inline', 'method'=>'DELETE', 'route'=>array('employers.jobposts.destroy', $employer->id, $jobpost->id))); ?>
 
-                <a href="<?php echo e(route('employers.jobposts.show', array($employer->id, $jobpost->id))); ?>"><?php echo e($jobpost->request_date); ?></a>
+                <a href="<?php echo e(route('employers.jobposts.show', array($employer->id, $jobpost->id))); ?>"> Show </a>
 				(
                   <?php echo link_to_route('employers.jobposts.edit', 'Edit', array($employer->id, $jobpost->id), array('class' => 'btn btn-info')); ?>,
                   <?php echo Form::submit('Delete', array('class' => 'btn btn-danger')); ?>,				

@@ -80,5 +80,23 @@ class Jobpost extends Model {
 		return $this->belongsToMany('App\Jobtag')->withTimestamps();
 	}
 
+	/**
+	 * A jobpost has many applications
+	 *
+	 * @return
+	 */
+	public function applications() {
+		return $this->hasMany('App\Application');
+	}
+
+	/**
+	 * A jobpost has many markedjobposts
+	 *
+	 * @return
+	 */
+	public function markedjobposts() {
+		return $this->hasMany('App\Markedjobposts');
+	}
+	
 	
 }
