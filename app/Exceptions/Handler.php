@@ -37,12 +37,13 @@ class Handler extends ExceptionHandler {
 	public function render($request, Exception $e)
 	{
 		if($request->route()->getAction()["controller"] == "App\Http\Controllers\UserController@register"){
-			
+		
 			//$statusCode = $e->getStatusCode();
             //return response($response, $statusCode);
 			//return response()->json(["error" => $e->getMessage()], $e->getStatusCode());
-			return response()->json(["error" => $e->getCode()], 401);
-			}
+		   return response()->json(["error" => $e->getCode()], 500);
+			
+		}
 
 
 		

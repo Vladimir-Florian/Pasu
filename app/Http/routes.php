@@ -202,6 +202,7 @@ Route::controllers([
 Route::group(['prefix' => 'api'], function() {
     Route::post('/register', 			          	array('uses' => 'UserController@register'));
     Route::post('/login', 			          		array('uses' => 'UserController@login'));
+    Route::post('/reset', 			          		array('uses' => 'UserController@updatePassword'));
     Route::get('/test', 			          		array('uses' => 'UserController@AuthenticatedUser'));
     Route::get('/test2', 			          		array('uses' => 'UserController@TestedUser'));
 	Route::get('/industries',						array('uses' => 'aIndustriesController@index'));

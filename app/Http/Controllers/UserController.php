@@ -8,7 +8,8 @@ use App\User;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Http\Response as HttpResponse;
 use Tymon\JWTAuth\Exceptions\JWTException;
-//use DB;
+
+use Hash;
 
 class UserController extends Controller {
 
@@ -34,12 +35,14 @@ class UserController extends Controller {
 			$user = User::create([
 			'name' => $request->input('name'),
 			'email' => $request->input('email'),
-			'password' => bcrypt($request->input('name')),
+			'password' => bcrypt($request->input('password')),
 			]);
 			
 			
 		} catch (Exception $e) {
-			return response()->json(['error' => 'User already exists.'], HttpResponse::HTTP_CONFLICT);
+
+            return response()->json(['error' => 'could_not_create_token'], HttpResponse::HTTP_CONFLICT);		
+			//return response()->json(['error' => 'User already exists.'], HttpResponse::HTTP_CONFLICT);
 		}
 
 		$token = JWTAuth::fromUser($user);
@@ -49,7 +52,7 @@ class UserController extends Controller {
 		
     }
 
-	    /**
+    /**
      * Login a user
      * @return Response
      */
@@ -68,12 +71,15 @@ class UserController extends Controller {
 
 		
 		try {
-			$token = JWTAuth::attempt($credentials);
-			//dd($token);
-			//$user = $query->first();
-			//dd($user);
+			//$token = JWTAuth::attempt($credentials);
+
+            // verify the credentials and create a token for the user
+            if (! $token = JWTAuth::attempt($credentials)) {
+                return response()->json(['error' => 'invalid_credentials'], 401);
+            }			
 		} catch (Exception $e) {
-			return response()->json(['error' => 'invalid_credentials'], 401);
+            return response()->json(['error' => 'could_not_create_token'], 500);
+			
 		}
 
 		//$token = JWTAuth::fromUser($user);
@@ -95,6 +101,35 @@ class UserController extends Controller {
     }
 
 
+    /**
+     * Update the password for the user.
+     *
+     * @param  Request  $request
+     * @return Response
+     */
+    public function updatePassword(Request $request) {
+		/*
+		$this->validate($request, [
+			'id' => 'required',
+			'email' => 'required|email',
+			'password' => 'required|confirmed',
+		]);
+		*/
+		$id = $request->input('id');
+
+        $user = User::findOrFail($id);
+		
+		//$user->password = bcrypt($request->input('password'));
+		//$user->save();
+		
+        $user->fill([
+            'password' => Hash::make($request->input('password'))
+        ])->save();
+		
+		return response()->json(['success' => 'password changed'], 200);
+	}	
+	
+	
 	public function AuthenticatedUser() {
 
 		//$user = JWTAuth::parseToken()->authenticate();
@@ -169,5 +204,7 @@ class UserController extends Controller {
 		
 	}	
 
+
+}	
 	
-}
+
