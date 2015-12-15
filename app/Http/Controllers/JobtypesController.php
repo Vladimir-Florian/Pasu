@@ -68,7 +68,7 @@ class JobtypesController extends Controller {
 	 * @param  int  $id		jobtype id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show($iid, $id)
 	{
 		$industry = Industry::findOrFail($iid);
 		$jobtype = Jobtype::findOrFail($id);

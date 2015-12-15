@@ -47,12 +47,10 @@ class aIndustriesController extends Controller {
 		}
 
 		// the token is valid and we have found the user via the sub claim
-		//return response()->json(compact('user'));
-
-		//$industries = Industry::latest()->get();
+		//$industry = Industry::latest()->get();
 		$industries = Industry::all();
+		return response()->json(compact('industries'));
 		
-		return response()->json($industries);
 	}
 
 }

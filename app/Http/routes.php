@@ -206,6 +206,8 @@ Route::group(['prefix' => 'api'], function() {
     Route::get('/test', 			          		array('uses' => 'UserController@AuthenticatedUser'));
     Route::get('/test2', 			          		array('uses' => 'UserController@TestedUser'));
 	Route::get('/industries',						array('uses' => 'aIndustriesController@index'));
+	Route::get('/jobtypes/{iid}',					array('uses' => 'aJobTypesController@index'));
+	
 });
 
 

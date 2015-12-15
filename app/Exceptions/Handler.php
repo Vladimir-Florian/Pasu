@@ -36,6 +36,7 @@ class Handler extends ExceptionHandler {
 	 */
 	public function render($request, Exception $e)
 	{
+		/*
 		if($request->route()->getAction()["controller"] == "App\Http\Controllers\UserController@register"){
 		
 			//$statusCode = $e->getStatusCode();
@@ -45,7 +46,6 @@ class Handler extends ExceptionHandler {
 			
 		}
 
-
 		
 		if($request->route()->getAction()["controller"] == "App\Http\Controllers\UserController@login"){
 			//return response()->json(["error" => $e->getCode()], 401);
@@ -53,17 +53,28 @@ class Handler extends ExceptionHandler {
 			//return response()->json(["error" => $e->getMessage()], $e->getStatusCode());
 
 		}
+		*/
 
 		
+		if($request->route()->getAction()["controller"] == "App\Http\Controllers\UserController@updatePassword"){
+		
+			//$statusCode = $e->getStatusCode();
+			//return response()->json(["error" => $e->getMessage()], $e->getStatusCode());
+		   return response()->json(["error" => $e->getCode()], 500);
+			
+		}
+		
+		
 		if($request->route()->getAction()["controller"] == "App\Http\Controllers\UserController@TestedUser"){		
+			if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException) {
+				return response()->json(['error' => 'token_invalid'], $e->getStatusCode());
+			}
 			if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException) {
 				return response()->json(["error" => $e->getMessage()], $e->getStatusCode());
-			} else if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException) {
-				return response()->json(["error" => 'token_invalid'], $e->getStatusCode());				
 			}
 			if ($e instanceof \Tymon\JWTAuth\Exceptions\JWTException) {
-			//return response()->json(["error" => 'token_absent'], $e->getStatusCode());
-			return response()->json(['error' => $e->getMessage()], $e->getStatusCode());
+				//return response()->json(["error" => 'token_absent'], $e->getStatusCode());
+				return response()->json(['error' => $e->getMessage()], $e->getStatusCode());
 			}
 			
 		}

@@ -39,10 +39,10 @@ class UserController extends Controller {
 			]);
 			
 			
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 
-            return response()->json(['error' => 'could_not_create_token'], HttpResponse::HTTP_CONFLICT);		
-			//return response()->json(['error' => 'User already exists.'], HttpResponse::HTTP_CONFLICT);
+            //return response()->json(['error' => 'could_not_create_token'], HttpResponse::HTTP_CONFLICT);		
+			return response()->json(['error' => 'User already exists'], HttpResponse::HTTP_CONFLICT);
 		}
 
 		$token = JWTAuth::fromUser($user);
@@ -61,41 +61,18 @@ class UserController extends Controller {
 		$credentials = $request->only('email', 'password');
 		//$credentials = $request->all();
 		
-	
-		$query = $user->newQuery();
-
-		foreach ($credentials as $key => $value)
-		{
-			 $query->where($key, $value);
-		}
-
 		
 		try {
-			//$token = JWTAuth::attempt($credentials);
-
-            // verify the credentials and create a token for the user
+            // attempt to verify the credentials and create a token for the user
             if (! $token = JWTAuth::attempt($credentials)) {
-                return response()->json(['error' => 'invalid_credentials'], 401);
+                return response()->json(['error' => 'invalid_credentials'], 400);
             }			
-		} catch (Exception $e) {
+		} catch (JWTException $e) {
+            // something went wrong whilst attempting to encode the token
             return response()->json(['error' => 'could_not_create_token'], 500);
 			
 		}
 
-		//$token = JWTAuth::fromUser($user);
-	
-/*		
-        try {
-            // attempt to verify the credentials and create a token for the user
-            if (! $token = JWTAuth::attempt($credentials)) {
-                return response()->json(['error' => 'invalid_credentials'], 401);
-            }
-        } catch (JWTException $e) {
-            // something went wrong whilst attempting to encode the token
-            return response()->json(['error' => 'could_not_create_token'], 500);
-        }
-*/
-		
 		return response()->json(compact('token'));
 		
     }
@@ -129,7 +106,10 @@ class UserController extends Controller {
 		return response()->json(['success' => 'password changed'], 200);
 	}	
 	
-	
+    /**
+     * verify token using the jwt.auth middleware
+     * @return Response
+     */	
 	public function AuthenticatedUser() {
 
 		//$user = JWTAuth::parseToken()->authenticate();
@@ -164,6 +144,11 @@ class UserController extends Controller {
 		
 	}	
 
+
+    /**
+     * Verify token using app\Exceptions\Handler
+     * @return Response
+     */	
 	public function TestedUser() {
 
 		//$user = JWTAuth::parseToken()->authenticate();
@@ -179,11 +164,6 @@ class UserController extends Controller {
 				return response()->json(['token error'], 403);
 			}
 			
-			/*
-			if (! $user = JWTAuth::parseToken()->authenticate()) {
-				return response()->json(['user_not_found'], 404);
-			}
-			*/
 
 		} catch (Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
 
