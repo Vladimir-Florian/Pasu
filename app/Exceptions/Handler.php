@@ -78,6 +78,14 @@ class Handler extends ExceptionHandler {
 			}
 			
 		}
+
+		if($request->route()->getAction()["controller"] == "App\Http\Controllers\aJobTypesController@index"){
+			if ($e instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {
+					return response()->json(['error' => "ModelNotFoundException"], 404);
+			}			
+			return response()->json(["error" => $e->getMessage()], 404);
+		}
+
 		
 		
 		return parent::render($request, $e);

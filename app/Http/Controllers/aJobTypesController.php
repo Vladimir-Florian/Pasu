@@ -18,7 +18,7 @@ class aJobTypesController extends Controller {
 
 
 	/**
-	 * Display a listing of the resource.
+	 * Returns a json list of jobtypes.
 	 *
 	 * @param  int $iid 	industry_id
 	 * @return Response
@@ -26,10 +26,6 @@ class aJobTypesController extends Controller {
 	public function index($iid)
 	{
 		$industry = Industry::findOrFail($iid);
-		// handle errors
-		//$lists->each(function($list) {
-		// echo $list->name;
-		//});
 		$jobtypes = $industry->jobtypes;
 		return response()->json(compact('jobtypes'));		
 	}
