@@ -208,6 +208,7 @@ Route::group(['prefix' => 'api'], function() {
 	Route::get('/industries',						array('uses' => 'aIndustriesController@index'));
 	Route::get('/jobtypes/{iid}',					array('uses' => 'aJobTypesController@index'));
 	Route::get('/jobposts/forjobtype/{id}',			array('uses' => 'aJobPostsController@forjobtype'));
+	Route::resource('/profiles', 'aProfilesController');
 	
 });
 
