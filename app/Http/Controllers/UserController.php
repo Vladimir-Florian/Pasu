@@ -26,7 +26,6 @@ class UserController extends Controller {
      * @return Response
      */
     public function register(Request $request) {
-		dd($request);
         //$credentials = $request->all();
 		//$credentials = $request->only('name', 'email', 'password');
 
