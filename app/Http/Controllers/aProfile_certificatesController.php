@@ -18,7 +18,7 @@ class aProfile_certificatesController extends Controller {
 
 
 	/**
-	 * Display a listing of the resource.
+	 * Get a listing of the Certificates for Profile.
 	 *
 	 * @param  int $id 	profile_id
 	 * @return Response
@@ -27,8 +27,46 @@ class aProfile_certificatesController extends Controller {
 	{
 		$profile = Profile::findOrFail($id);
 		$certificates = $profile->certificates;
-		//dd($certificates);
-		return response()->json(compact('certificates'));		
+		$certs = collect([]);
+		foreach($certificates as $certificate){
+			$certs->push(['id' => $certificate->id, 'slug' => $certificate->slug, 'description' => $certificate->description, 'details' => $certificate->pivot->details]);
+		}
+		//dd(compact('certs'));
+		return response()->json(compact('certs'));		
+	}
+
+	/**
+	 * Get a listing of the Certificates for Profile.
+	 *
+	 * @return Response
+	 */
+	public function cert_list()
+	{
+		try {
+
+			if (! $user = JWTAuth::parseToken()->authenticate()) {
+				return response()->json(['user_not_found'], 404);
+			}
+
+		} catch (Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
+
+			return response()->json(['token_expired'], $e->getStatusCode());
+
+		} catch (Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
+
+			return response()->json(['token_invalid'], $e->getStatusCode());
+
+		} catch (Tymon\JWTAuth\Exceptions\JWTException $e) {
+
+			return response()->json(['token_absent'], $e->getStatusCode());
+
+		}
+		// the token is valid and we have found the user via the sub claim
+
+		//$certificates = Certificate::all()->select('id', 'slug', 'description');
+		$certificates = Certificate::select('id', 'slug', 'description')->get();
+		return response()->json(compact('certificates'));
+	
 	}
 
 	/**
@@ -50,6 +88,28 @@ class aProfile_certificatesController extends Controller {
 	 */
 	public function store($id, Request $request)
 	{
+
+		try {
+
+			if (! $user = JWTAuth::parseToken()->authenticate()) {
+				return response()->json(['user_not_found'], 404);
+			}
+
+		} catch (Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
+
+			return response()->json(['token_expired'], $e->getStatusCode());
+
+		} catch (Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
+
+			return response()->json(['token_invalid'], $e->getStatusCode());
+
+		} catch (Tymon\JWTAuth\Exceptions\JWTException $e) {
+
+			return response()->json(['token_absent'], $e->getStatusCode());
+
+		}
+		// the token is valid and we have found the user 
+	
 		$profile = Profile::findOrFail($id);
 
 		
@@ -58,11 +118,8 @@ class aProfile_certificatesController extends Controller {
 			$profile->certificates()->attach($c_id, ['details' => $request->input('details')]);
 		} catch(\Exception $e) {
 			return redirect()->route('profile_certificates.create', [$profile])->withErrors(['error' => $e->getMessage()]);
-			//return \Response::view('errors.503', [], 404);
-			//return redirect()->route('profile_certificates.create', [$profile]);
 		}
 		
-		return view('profile_certificates.index', compact('profile'));
 		return response()->json(['success  profile'. $profile->id], 200);
 		
 	}
