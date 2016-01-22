@@ -63,7 +63,6 @@ class aProfile_certificatesController extends Controller {
 		}
 		// the token is valid and we have found the user via the sub claim
 
-		//$certificates = Certificate::all()->select('id', 'slug', 'description');
 		$certificates = Certificate::select('id', 'slug', 'description')->get();
 		return response()->json(compact('certificates'));
 	
@@ -111,16 +110,15 @@ class aProfile_certificatesController extends Controller {
 		// the token is valid and we have found the user 
 	
 		$profile = Profile::findOrFail($id);
-
-		
-		$c_id = $request->input('certificate');
+		$c_id = $request->input('cert_id');
 		try {
 			$profile->certificates()->attach($c_id, ['details' => $request->input('details')]);
 		} catch(\Exception $e) {
-			return redirect()->route('profile_certificates.create', [$profile])->withErrors(['error' => $e->getMessage()]);
+			return response()->json(['Cannot Add Certificate'], $e->getStatusCode());
+			
 		}
 		
-		return response()->json(['success  profile'. $profile->id], 200);
+		return response()->json(['success profile'. $profile->id], 200);
 		
 	}
 
