@@ -87,7 +87,6 @@ class aProfile_certificatesController extends Controller {
 	 */
 	public function store($id, Request $request)
 	{
-
 		try {
 
 			if (! $user = JWTAuth::parseToken()->authenticate()) {
@@ -108,13 +107,16 @@ class aProfile_certificatesController extends Controller {
 
 		}
 		// the token is valid and we have found the user 
-	
+		
 		$profile = Profile::findOrFail($id);
+
 		$c_id = $request->input('cert_id');
 		try {
 			$profile->certificates()->attach($c_id, ['details' => $request->input('details')]);
 		} catch(\Exception $e) {
-			return response()->json(['Cannot Add Certificate'], $e->getStatusCode());
+			//return response()->json(['Cannot Add Certificate'], $e->getStatusCode());
+		    //return response()->json(["error" => $e->getMessage()], 500);
+		    return response()->json(["error" => $e->getCode()], 500);
 			
 		}
 		
@@ -147,23 +149,42 @@ class aProfile_certificatesController extends Controller {
 	/**
 	 * Update the specified resource in storage.
 	 *
-	 * @param  int  $id
+	 * @param  int  $iid		profile_id
+	 * @param  int  $id		certificate_id
+	 * @param Request $request
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($iid, $id, Request $request)
 	{
-		//
+		$profile = Profile::findOrFail($iid);
+		$certificate = $profile->certificates()->where('id', $id)->first();
+		//dd($request->input('details'));
+		//$certificate->pivot->certificate_id = $request->input('certificate');
+		$certificate->pivot->details = $request->input('details');
+		
+		$certificate->pivot->save();
+		return response()->json(['success profile'. $profile->id], 200);
 	}
 
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  int  $id
+	 * @param  int  $iid		profile_id
+	 * @param  int  $id		certificate_id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy($iid, $id)
 	{
-		//
+		$profile = Profile::findOrFail($iid);
+		$certificate = $profile->certificates()->where('id', $id)->first();
+		try {
+			$profile->certificates()->detach($certificate);
+		} catch(\Exception $e) {
+			return response()->json(['Cannot Delete Certificate'], $e->getStatusCode());
+			
+		}
+		
+		return response()->json(['success profile'. $profile->id], 200);		
 	}
 
 }

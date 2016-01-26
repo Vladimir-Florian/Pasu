@@ -212,7 +212,10 @@ Route::group(['prefix' => 'api'], function() {
 	//Route::resource('/profile_certificates', 'aProfile_certificatesController');
 	Route::get('/profile_certificates/{id}', 		['uses' => 'aProfile_certificatesController@index']);	
 	Route::get('/cert_list', 						['uses' => 'aProfile_certificatesController@cert_list']);	
-	Route::post('profile_certificates/{id}', ['as' => '/profile_certificates.store', 'uses' => 'aProfile_certificatesController@store']);
+	Route::post('/profile_certificates/{id}', ['as' => '/profile_certificates.store', 'uses' => 'aProfile_certificatesController@store']);
+	Route::put('/profile_certificates/{iid}/{id}', ['as' => '/profile_certificates.update', 'uses' => 'aProfile_certificatesController@update']);
+	Route::delete('/profile_certificates/{iid}/{id}', ['as' => '/profile_certificates.destroy', 'uses' => 'aProfile_certificatesController@destroy']);
+	
 });
 
 
