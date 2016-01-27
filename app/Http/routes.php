@@ -215,6 +215,10 @@ Route::group(['prefix' => 'api'], function() {
 	Route::post('/profile_certificates/{id}', ['as' => '/profile_certificates.store', 'uses' => 'aProfile_certificatesController@store']);
 	Route::put('/profile_certificates/{iid}/{id}', ['as' => '/profile_certificates.update', 'uses' => 'aProfile_certificatesController@update']);
 	Route::delete('/profile_certificates/{iid}/{id}', ['as' => '/profile_certificates.destroy', 'uses' => 'aProfile_certificatesController@destroy']);
+	Route::get('/profile_locations/{id}', 		['uses' => 'aProfile_locationsController@index']);	
+	Route::post('/profile_locations/{id}', 		['as' => '/profile_locations.store', 'uses' => 'aProfile_locationsController@store']);
+	Route::put('/profile_locations/{iid}/{id}', ['as' => '/profile_locations.update', 'uses' => 'aProfile_locationsController@update']);
+	Route::delete('/profile_locations/{iid}/{id}', ['as' => '/profile_locations.destroy', 'uses' => 'aProfile_locationsController@destroy']);
 	
 });
 
