@@ -193,11 +193,14 @@ Route::delete('jobpost_jobtags/{iid}/{id}', [
 
 
 
+Route::get('auth/facebook', 'Auth\AuthController@redirectToProvider');
+Route::get('auth/facebook/callback', 'Auth\AuthController@handleProviderCallback');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
+
 
 Route::group(['prefix' => 'api'], function() {
     Route::post('/register', 			          	array('uses' => 'UserController@register'));
