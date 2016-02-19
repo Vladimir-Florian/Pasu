@@ -193,8 +193,8 @@ Route::delete('jobpost_jobtags/{iid}/{id}', [
 
 
 
-Route::get('auth/facebook', 'Auth\AuthController@redirectToProvider');
-Route::get('auth/facebook/callback', 'Auth\AuthController@handleProviderCallback');
+Route::get('auth/facebook', ['as' =>'auth/facebook', 'uses'=>'Auth\SocialController@redirectToProvider']);
+Route::get('auth/facebook/callback', 'Auth\SocialController@handleProviderCallback');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
