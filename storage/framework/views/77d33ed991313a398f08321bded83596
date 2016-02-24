@@ -45,7 +45,13 @@
                                 <strong><a href="<?php echo e(route('profile_locations.index', ['id' => $profile->id])); ?>"> Locations </a></strong>
 							</h4>
                         </div>
-					
+
+                        <div class="col-md-3">
+							<h4>
+                                <strong><a href="<?php echo e(route('profile_resume.index', ['id' => $profile->id])); ?>"> Resume </a></strong>
+							</h4>
+                        </div>
+						
                         <div class="col-md-3">
 							<h4>
                             <strong> Apply </strong>

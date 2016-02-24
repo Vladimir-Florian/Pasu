@@ -42,6 +42,7 @@ class aProfile_certificatesController extends Controller {
 	 */
 	public function cert_list()
 	{
+		/*
 		try {
 
 			if (! $user = JWTAuth::parseToken()->authenticate()) {
@@ -60,7 +61,7 @@ class aProfile_certificatesController extends Controller {
 
 			return response()->json(['token_absent'], $e->getStatusCode());
 
-		}
+		}*/
 		// the token is valid and we have found the user via the sub claim
 
 		$certificates = Certificate::select('id', 'slug', 'description')->get();
@@ -87,6 +88,7 @@ class aProfile_certificatesController extends Controller {
 	 */
 	public function store($id, Request $request)
 	{
+		/*
 		try {
 
 			if (! $user = JWTAuth::parseToken()->authenticate()) {
@@ -105,7 +107,7 @@ class aProfile_certificatesController extends Controller {
 
 			return response()->json(['token_absent'], $e->getStatusCode());
 
-		}
+		}*/
 		// the token is valid and we have found the user 
 		
 		$profile = Profile::findOrFail($id);

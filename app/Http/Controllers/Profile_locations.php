@@ -131,14 +131,14 @@ class Profile_locations extends Controller {
 			//$profile->locations()->save($location);
 			$location->save();
 		} catch(\Exception $e) {
-			return redirect()->route('profile_locations.create', [$profile])->withErrors(['error' => $e->getMessage()]);
+			return redirect()->route('profile_locations.edit', [$profile])->withErrors(['error' => $e->getMessage()]);
 		}
 
 		
 		try {
 			$location->pivot->save();
 		} catch(\Exception $e) {
-			return redirect()->route('profile_locations.create', [$profile])->withErrors(['error' => $e->getMessage()]);
+			return redirect()->route('profile_locations.edit', [$profile])->withErrors(['error' => $e->getMessage()]);
 		}
 		
 		return view('profile_locations.index', compact('profile'));

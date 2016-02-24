@@ -1,0 +1,24 @@
+<?php $__env->startSection('content'); ?>
+	<h2> Resume for Profile <?php echo e($profile->name); ?> </h2>
+	
+	
+	<?php echo Form::open(['route'=> ['profile_resume.store', $profile->id],
+					'class' => 'form',
+					'novalidate' => 'novalidate',
+					'files' => true ]); ?>
+
+					
+		<?php echo $__env->make('profile_resume.cr_form', ['submitButtonText' => 'Create Resume'], array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+		
+    <?php echo Form::close(); ?>
+
+	
+	<?php echo $__env->make('errors.list', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+	
+	<p>
+	<a href="<?php echo e(route('profile_resume.index', ['id' => $profile->id])); ?>"> Back to Resume </a>
+	</p>
+	
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

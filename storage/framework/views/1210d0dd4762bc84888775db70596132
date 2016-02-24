@@ -1,0 +1,15 @@
+        <!-- Form Input Partial -->
+
+
+        <div class="form-group">
+            <?php echo Form::label('cv', 'CV:'); ?>
+
+			<?php echo Form::textarea('cv', null, ['class' => 'form-control']); ?>
+
+        </div>			
+		
+        <!-- Submit Button -->
+        <div class="form-group">
+            <?php echo Form::submit($submitButtonText, ['class'=>'btn btn-primary form-control']); ?>
+
+        </div> 

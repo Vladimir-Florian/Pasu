@@ -140,6 +140,33 @@ Route::delete('profile_locations/{iid}/{id}', [
 	'uses' => 'Profile_locations@destroy'
 ]);
 
+Route::get('profile_resume/{id}', [
+	'as' => 'profile_resume.index',
+	'uses' => 'ResumesController@index'
+]);
+Route::get('profile_resume/{id}/create', [
+	'as' => 'profile_resume.create',
+	'uses' => 'ResumesController@create'
+]);
+Route::post('profile_resume/{id}', [
+	'as' => 'profile_resume.store',
+	'uses' => 'ResumesController@store'
+]);
+Route::get('profile_resume/{id}/edit', [
+	'as' => 'profile_resume.edit',
+	'uses' => 'ResumesController@edit'
+]);
+Route::patch('profile_resume/{id}', [
+	'as' => 'profile_resume.update',
+	'uses' => 'ResumesController@update'
+]);
+Route::delete('profile_resume/{id}', [
+	'as' => 'profile_resume.destroy',
+	'uses' => 'ResumesController@destroy'
+]);
+
+
+
 Route::resource('employers', 'EmployersController');
 Route::resource('industries.jobtypes', 'JobtypesController');
 Route::resource('employers.jobposts', 'JobpostsController');
