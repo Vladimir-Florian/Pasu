@@ -54,7 +54,7 @@ class ResumesController extends Controller {
 		$resume->cv = $request->input('cv');
 		$file_name = 'cv'. $profile->id . '.' . 
 			$request->file('file')->getClientOriginalExtension();
-		$resume->file_path = public_path() . "/resumes" . $file_name;
+		$resume->file_path = public_path() . "\\resumes\\" . $file_name;
 		$request->file('file')->move(
 			'resumes', $file_name
 			);
@@ -111,10 +111,18 @@ class ResumesController extends Controller {
 		$profile = Profile::findOrFail($id);
 		$resume = $profile->resume;
 		$resume->cv = $request->input('cv');
+
+		$file_name = 'cv'. $profile->id . '.' . 
+			$request->file('file')->getClientOriginalExtension();
+		$resume->file_path = public_path() . "\\resumes\\" . $file_name;
+		$request->file('file')->move(
+			'resumes', $file_name
+			);
+
 		try {
 			$profile->resume()->save($resume);			
 		} catch(\Exception $e) {
-			return redirect()->route('profile_resume.create', [$profile])->withErrors(['error' => $e->getMessage()]);
+			return redirect()->route('profile_resume.edit', [$profile])->withErrors(['error' => $e->getMessage()]);
 		}
 
 		
@@ -130,10 +138,10 @@ class ResumesController extends Controller {
 	public function destroy($id)
 	{
 		$profile = Profile::findOrFail($id);
+		File::delete($profile->resume->file_path);
 		$profile->resume()->delete();
-		//$resume = $profile->resume;
-		//$resume->delete();
 
+		$profile = Profile::findOrFail($id);
 		return view('profile_resume.index', compact('profile'));
 	}
 
