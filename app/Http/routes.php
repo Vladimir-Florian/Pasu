@@ -230,6 +230,7 @@ Route::controllers([
 
 
 Route::group(['prefix' => 'api'], function() {
+    Route::post('/facebook', 			          	['uses' => 'aSocialController@facebook']);
     Route::post('/register', 			          	array('uses' => 'UserController@register'));
     Route::post('/login', 			          		array('uses' => 'UserController@login'));
     Route::post('/reset', 			          		array('uses' => 'UserController@updatePassword'));
