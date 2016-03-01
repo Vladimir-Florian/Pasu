@@ -50,11 +50,32 @@ class aResumesController extends Controller {
 	/**
 	 * Store a newly created resource in storage.
 	 *
+	 * @param  int $id 	profile_id
+	 * @param Request $request
 	 * @return Response
 	 */
-	public function store()
+	public function store($id, Request $request)
 	{
-		//
+		$profile = Profile::findOrFail($id);
+
+		$resume = new Resume;
+		$resume->cv = $request->input('cv');
+		$file_name = 'cv'. $profile->id . '.' . 
+			$request->file('file')->getClientOriginalExtension();
+		$resume->file_path = public_path() . "\\resumes\\" . $file_name;
+		$request->file('file')->move(
+			'resumes', $file_name
+		);
+		
+		try {
+			//$resume->save();
+			$profile->resume()->save($resume);			
+		} catch(\Exception $e) {
+		    return response()->json(["error" => $e->getCode()], 500);
+		}
+
+		return response()->json(['success profile'. $profile->id], 200);
+
 	}
 
 	/**
@@ -82,23 +103,48 @@ class aResumesController extends Controller {
 	/**
 	 * Update the specified resource in storage.
 	 *
-	 * @param  int  $id
+	 * @param  int $id 	profile_id
+	 * @param Request $request
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($id, Request $request)
 	{
-		//
+		$profile = Profile::findOrFail($id);
+		$resume = $profile->resume;
+		$resume->cv = $request->input('cv');
+
+		$file_name = 'cv'. $profile->id . '.' . 
+			$request->file('file')->getClientOriginalExtension();
+		$resume->file_path = public_path() . "\\resumes\\" . $file_name;
+		$request->file('file')->move(
+			'resumes', $file_name
+			);
+
+		try {
+			$profile->resume()->save($resume);			
+		} catch(\Exception $e) {
+		    return response()->json(["error" => $e->getCode()], 500);
+		}
+		
+		return response()->json(['success profile'. $profile->id], 200);
+
 	}
 
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  int  $id
+	 * @param  int $id 	profile_id
 	 * @return Response
 	 */
 	public function destroy($id)
 	{
-		//
+		$profile = Profile::findOrFail($id);
+		File::delete($profile->resume->file_path);
+		$profile->resume()->delete();
+
+		$profile = Profile::findOrFail($id);
+		return response()->json(['success profile'. $profile->id], 200);
+		
 	}
 
 }

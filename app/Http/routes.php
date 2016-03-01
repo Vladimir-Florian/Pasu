@@ -243,13 +243,17 @@ Route::group(['prefix' => 'api'], function() {
 	//Route::resource('/profile_certificates', 'aProfile_certificatesController');
 	Route::get('/profile_certificates/{id}', 		['uses' => 'aProfile_certificatesController@index']);	
 	Route::get('/cert_list', 						['uses' => 'aProfile_certificatesController@cert_list']);	
-	Route::post('/profile_certificates/{id}', ['as' => '/profile_certificates.store', 'uses' => 'aProfile_certificatesController@store']);
+	Route::post('/profile_certificates/{id}', 		['as' => '/profile_certificates.store', 'uses' => 'aProfile_certificatesController@store']);
 	Route::put('/profile_certificates/{iid}/{id}', ['as' => '/profile_certificates.update', 'uses' => 'aProfile_certificatesController@update']);
 	Route::delete('/profile_certificates/{iid}/{id}', ['as' => '/profile_certificates.destroy', 'uses' => 'aProfile_certificatesController@destroy']);
 	Route::get('/profile_locations/{id}', 		['uses' => 'aProfile_locationsController@index']);	
 	Route::post('/profile_locations/{id}', 		['as' => '/profile_locations.store', 'uses' => 'aProfile_locationsController@store']);
 	Route::put('/profile_locations/{iid}/{id}', ['as' => '/profile_locations.update', 'uses' => 'aProfile_locationsController@update']);
 	Route::delete('/profile_locations/{iid}/{id}', ['as' => '/profile_locations.destroy', 'uses' => 'aProfile_locationsController@destroy']);
+	Route::get('/profile_resume/{id}', 			['uses' => 'aResumesController@index']);	
+	Route::post('/profile_resume/{id}', 		['as' => '/profile_resume.store', 'uses' => 'aResumesController@store']);
+	Route::put('/profile_resume/{id}', 			['as' => '/profile_resume.update', 'uses' => 'aResumesController@update']);
+	Route::delete('/profile_resume/{id}', 		['as' => '/profile_resume.destroy', 'uses' => 'aResumesController@destroy']);
 	
 });
 
