@@ -137,8 +137,9 @@ return [
 		'Illuminate\View\ViewServiceProvider',
 		'Tymon\JWTAuth\Providers\JWTAuthServiceProvider',
 		'Barryvdh\Cors\CorsServiceProvider',
-		'Illuminate\Html\HtmlServiceProvider',
+		'Collective\Html\HtmlServiceProvider',
 		'Laravel\Socialite\SocialiteServiceProvider',
+		'Illuminate\Broadcasting\BroadcastServiceProvider',
 
 		/*
 		 * Application Service Providers...
@@ -198,8 +199,8 @@ return [
 		'View'      => 'Illuminate\Support\Facades\View',
 		'JWTAuth' => 'Tymon\JWTAuth\Facades\JWTAuth',
 		'JWTFactory' => 'Tymon\JWTAuth\Facades\JWTFactory',
-		'Form'		=> 'Illuminate\Html\FormFacade',
-		'Html'		=> 'Illuminate\Html\HtmlFacade',
+		'Form'		=> 'Collective\Html\FormFacade',
+		'Html'		=> 'Collective\Html\HtmlFacade',
 		'Socialite' => 'Laravel\Socialite\Facades\Socialite',
 	],
 
