@@ -239,8 +239,11 @@ Route::group(['prefix' => 'api'], function() {
 	Route::get('/industries',						array('uses' => 'aIndustriesController@index'));
 	Route::get('/jobtypes/{iid}',					array('uses' => 'aJobTypesController@index'));
 	Route::get('/jobposts/forjobtype/{id}',			['uses' => 'aJobPostsController@forjobtype']);
+	Route::get('/jobposts/time10/{id}',				['uses' => 'aJobPostsController@time10']);
+	Route::post('/jobposts/withinradius/{id}',		['uses' => 'aJobPostsController@withinradius']);
+
 	Route::resource('/profiles', 'aProfilesController');
-	//Route::resource('/profile_certificates', 'aProfile_certificatesController');
+
 	Route::get('/profile_certificates/{id}', 		['uses' => 'aProfile_certificatesController@index']);	
 	Route::get('/cert_list', 						['uses' => 'aProfile_certificatesController@cert_list']);	
 	Route::post('/profile_certificates/{id}', 		['as' => '/profile_certificates.store', 'uses' => 'aProfile_certificatesController@store']);

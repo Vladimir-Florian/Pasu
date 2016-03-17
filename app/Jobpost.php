@@ -98,5 +98,10 @@ class Jobpost extends Model {
 		return $this->hasMany('App\Markedjobposts');
 	}
 	
+	public function scopeByjobtype($query, $id) {
+		return $query->join('employers', 'jobposts.employer_id', '=', 'employers.id')
+					->where('jobtype_id', '=', $id)
+					->select('jobposts.request_date', 'employers.company_name');
+	}
 	
 }

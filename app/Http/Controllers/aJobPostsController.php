@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
+use Carbon\Carbon;
+
 class aJobPostsController extends Controller {
 
 	public function __construct()
@@ -17,23 +19,96 @@ class aJobPostsController extends Controller {
 	}
 
 	/**
-	 * Returns a json list of jobposts.
+	 * Returns a json list of jobposts of jobtype.
 	 *
 	 * @param  int $id 	job_id
 	 * @return Response
 	 */
 	public function forjobtype($id)
 	{
+		/*
 		$jobposts = Jobpost::join('employers', 'jobposts.employer_id', '=', 'employers.id')
 					->where('jobtype_id', '=', $id)
 					->select('jobposts.request_date', 'employers.company_name')
+					->get();
+		*/
+		$jobposts = Jobpost::byjobtype($id)->get();
+		
+		return response()->json(compact('jobposts'));				
+	}
+
+	/**
+	 * Returns a json list of jobposts newer than 10 days.
+	 *
+	 * @param  int $id 	job_id
+	 * @return Response
+	 */
+	public function time10($id)
+	{
+
+		//$q->whereDate('created_at', '=', date('Y-m-d'));
+		//$q->whereDay('created_at', '=', date('d'));
+		//$q->whereMonth('created_at', '=', date('m'));
+		$current = Carbon::today();																
+		$tenth_day = $current->subDays(10);		
+		$jobposts = Jobpost::where('jobtype_id', '=', $id)
+					->whereDay('request_date', '>=', $tenth_day)		
+					->select('id',
+							 'experience',
+							 'education',
+							 'benefits',
+							 'incentives',
+							 'responsabilities',
+							 'salary',
+							 'currency',
+							 'workhours',
+							 'request_date')
 					->get();
 		
 		
 		return response()->json(compact('jobposts'));				
 	}
-		
 
+	
+	/**
+	 * Returns a json list of jobposts within radius.
+	 *
+	 * @param  int $id 	jobtype_id
+	 * @param Request $request
+	 * @return Response
+	 */
+	public function withinradius($id, Request $request)
+	{
+		$latitude = $request->input('latitude');
+		$longitude = $request->input('longitude');
+		$radius = 5;
+		$selposts = Jobpost::with(['locations' => function($query) use ($latitude, $longitude, $radius) {
+								$query->selectRaw('( 6371 * acos( cos( radians(?) ) *
+													cos( radians( latitude ) )
+													* cos( radians( longitude ) - radians(?)
+													) + sin( radians(?) ) *
+													sin( radians( latitude ) ) )
+													) AS distance', [$latitude, $longitude, $latitude])
+									  ->havingRaw("distance < ?", [$radius]);
+					}])
+					->where('jobtype_id', '=', $id)
+					->select('id',
+							 'experience',
+							 'education',
+							 'benefits',
+							 'incentives',
+							 'responsabilities',
+							 'salary',
+							 'currency',
+							 'workhours',
+							 'request_date')
+
+					->get();					
+		
+		return response()->json(compact('selposts'));				
+	}
+
+		
 	/**
 	 * Display a listing of the resource.
 	 *
