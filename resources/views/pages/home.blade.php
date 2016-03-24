@@ -8,7 +8,7 @@
         <div>
             <ul >
                 @if (Auth::guest())
-					<h1>Welcome to Pasul</h1>
+					<h1>Welcome to Pasu</h1>
 					<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores, possimus, ullam? Deleniti dicta eaque facere, facilis in inventore mollitia officiis porro totam voluptatibus! Adipisci autem cumque enim explicabo, iusto sequi.</p>
 					<hr>
 				@else
