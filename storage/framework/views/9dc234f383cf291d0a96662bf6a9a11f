@@ -1,0 +1,32 @@
+<?php $__env->startSection('content'); ?>
+
+ <h2> Certificates </h2>
+ 
+   <?php if(!$certificates->count()): ?>
+	   No certificates
+   <?php else: ?>
+	   <ul>
+		<?php foreach($certificates as $certificate): ?>
+		 <li>
+			<?php echo Form::open(array('class' => 'form-inline', 'method' => 'DELETE', 'route' => array('certificates.destroy', $certificate->id))); ?>
+
+                <a href="<?php echo e(route('certificates.show', $certificate->id)); ?>"><?php echo e($certificate->slug); ?></a>
+                (
+                  <?php echo link_to_route('certificates.edit', 'Edit', array($certificate->id), array('class' => 'btn btn-info')); ?>,
+                  <?php echo Form::submit('Delete', array('class' => 'btn btn-danger')); ?>
+
+                )
+            <?php echo Form::close(); ?>
+
+		 </li>
+		<?php endforeach; ?>
+	   </ul>
+   <?php endif; ?>
+		 
+
+	<a href="<?php echo e(route('certificates.create')); ?>" class="btn btn-info">Create a Certification</a>
+		 
+<?php $__env->stopSection(); ?>		
+		
+
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
