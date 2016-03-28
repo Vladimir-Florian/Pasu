@@ -35,7 +35,6 @@ class EmployersController extends Controller {
 	public function create()
 	{
 		$industries = Industry::lists("slug", "id");
-		dd($industries);
 		return view('employers.create', compact('industries'));
 	}
 
