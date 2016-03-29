@@ -33,10 +33,9 @@
 			<?php echo Form::label('industry', 'Industry:'); ?>
 
 			<?php echo Form::select('industry',
-				(['0' => 'Select an industry'] + $industries), 
-					null, 
-					['class' => 'form-control']); ?>
-
+				(['0' => 'Select a Category'] + $industries->toArray()), 
+				null, 
+				['class' => 'form-control',]); ?>					
 		</div>
 		
         <!-- Submit Button -->

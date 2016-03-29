@@ -21,9 +21,10 @@
         </div>			
 		<div class="form-group">
 			{!! Form::label('industry', 'Industry:') !!}
-			Create industry for "{{$industries}}"
-					
-
+			{!! Form::select('industry',
+				(['0' => 'Select a Category'] + $industries->toArray()), 
+				null, 
+				['class' => 'form-control',]) !!}					
 		</div>
 		
         <!-- Submit Button -->
