@@ -9,7 +9,7 @@
 			  <div class="form-group">
 				  {!! Form::label('certificate'.$certificate->id, 'Certificate:') !!}<br />
 				  {!! Form::select('certificate'.$certificate->id,
-					  (['0' => 'Select a certificate'] + $certs), 
+					  (['0' => 'Select a certificate'] + $certs->toArray()), 
 						  null, 
 						  ['class' => 'form-control']) !!}
 			  </div>

@@ -19,7 +19,7 @@
 		<div class="form-group">
 			{!! Form::label('specialization', 'Specialization:') !!}<br />
 			{!! Form::select('specialization', 
-				(['0' => 'Select a specialization'] + $industries), 
+				(['0' => 'Select a specialization'] + $industries->toArray()), 
 					null, 
 					['class' => 'form-control']) !!}
 		</div>

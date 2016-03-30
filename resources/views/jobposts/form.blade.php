@@ -2,14 +2,14 @@
 		<div class="form-group">
 			{!! Form::label('jobtype', 'Job Type:') !!}<br />
 			{!! Form::select('jobtype',
-				(['0' => 'Select a jobtype'] + $jobtypes), 
+				(['0' => 'Select a jobtype'] + $jobtypes->toArray()), 
 					null, 
 					['class' => 'form-control']) !!}
 		</div>
 		<div class="form-group">
 			{!! Form::label('employment_type', 'Employment Type:') !!}<br />
 			{!! Form::select('employment_type',
-				(['0' => 'Select an employment_type'] + $employment_types), 
+				(['0' => 'Select an employment_type'] + $employment_types->toArray()), 
 					null, 
 					['class' => 'form-control']) !!}
 		</div>

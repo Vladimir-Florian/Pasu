@@ -7,7 +7,7 @@
 		<div class="form-group">
 			{!! Form::label('certificate', 'Certificate:') !!} <br />
 			{!! Form::select('certificate',
-				(['0' => 'Select a certificate'] + $fields), 
+				(['0' => 'Select a certificate'] + $fields->toArray()), 
 					null, 
 					['class' => 'form-control']) !!}
 		</div>

@@ -3,7 +3,7 @@
 		<div class="form-group">
 			{!! Form::label('tag', 'Tag:') !!} <br />
 			{!! Form::select('tag',
-				(['0' => $jobtag->name] + $fields), 
+				(['0' => $jobtag->name] + $fields->toArray()), 
 					null, 
 					['class' => 'form-control']) !!}
 		</div>
