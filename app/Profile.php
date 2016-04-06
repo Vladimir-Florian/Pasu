@@ -102,5 +102,9 @@ class Profile extends Model {
 		return $this->hasMany('App\Markedjobposts');
 	}
 	
+	public function scopeByuser_id($query, $id) {
+		return $query->where('user_id', '=', $id);
+	}
+
 	
 }

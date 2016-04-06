@@ -103,5 +103,25 @@ class Jobpost extends Model {
 					->where('jobtype_id', '=', $id)
 					->select('jobposts.request_date', 'employers.company_name');
 	}
+
+	/**
+	 *  query by jobtype and within 10 days
+	 */
+	public function scopeWithin10days($query, $id) {
+		$current = Carbon::today();															
+		$tenth_day = $current->subDays(10);		
+		return $query->where('jobtype_id', '=', $id)
+				->whereDay('request_date', '>=', $tenth_day)		
+				->select('id',
+					   'experience',
+					   'education',
+					   'benefits',
+					   'incentives',
+					   'responsabilities',
+					   'salary',
+					   'currency',
+					   'workhours',
+					   'request_date');
+	}	
 	
 }

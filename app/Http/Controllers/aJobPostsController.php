@@ -49,8 +49,9 @@ class aJobPostsController extends Controller {
 		//$q->whereDate('created_at', '=', date('Y-m-d'));
 		//$q->whereDay('created_at', '=', date('d'));
 		//$q->whereMonth('created_at', '=', date('m'));
+		/*		
 		$current = Carbon::today();																
-		$tenth_day = $current->subDays(10);		
+		$tenth_day = $current->subDays(10);
 		$jobposts = Jobpost::where('jobtype_id', '=', $id)
 					->whereDay('request_date', '>=', $tenth_day)		
 					->select('id',
@@ -64,7 +65,8 @@ class aJobPostsController extends Controller {
 							 'workhours',
 							 'request_date')
 					->get();
-		
+		*/			
+		$jobposts = Jobpost::within10days($id)->get();
 		
 		return response()->json(compact('jobposts'));				
 	}

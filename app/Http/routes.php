@@ -231,7 +231,9 @@ Route::controllers([
 
 Route::group(['prefix' => 'api'], function() {
     Route::post('/facebook', 			          	['uses' => 'aSocialController@facebook']);
-    Route::post('/register', 			          	array('uses' => 'UserController@register'));
+    //Route::post('/register', 			          	array('uses' => 'UserController@register'));
+	//replaced 06.04.2016
+    Route::post('/register', 			          	array('uses' => 'aProfilesController@store'));
     Route::post('/login', 			          		array('uses' => 'UserController@login'));
     Route::post('/reset', 			          		array('uses' => 'UserController@updatePassword'));
     Route::get('/test', 			          		array('uses' => 'UserController@AuthenticatedUser'));
@@ -242,8 +244,10 @@ Route::group(['prefix' => 'api'], function() {
 	Route::get('/jobposts/time10/{id}',				['uses' => 'aJobPostsController@time10']);
 	Route::post('/jobposts/withinradius/{id}',		['uses' => 'aJobPostsController@withinradius']);
 
-	Route::resource('/profiles', 'aProfilesController');
-
+	//Route::resource('/profiles', 'aProfilesController');
+	Route::get('/profiles', ['as' => '/profiles.show', 'uses' => 'aProfilesController@show']);
+	Route::put('/profiles', ['as' => '/profiles.update', 'uses' => 'aProfilesController@update']);
+	
 	Route::get('/profile_certificates/{id}', 		['uses' => 'aProfile_certificatesController@index']);	
 	Route::get('/cert_list', 						['uses' => 'aProfile_certificatesController@cert_list']);	
 	Route::post('/profile_certificates/{id}', 		['as' => '/profile_certificates.store', 'uses' => 'aProfile_certificatesController@store']);
