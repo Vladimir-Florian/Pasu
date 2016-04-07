@@ -56,7 +56,7 @@ class UserController extends Controller {
      * Login a user
      * @return Response
      */
-    public function login(Request $request, User $user) {
+    public function login(Request $request) {
         
 		$credentials = $request->only('email', 'password');
 		//$credentials = $request->all();

@@ -16,7 +16,7 @@ class aProfilesController extends Controller {
 	public function __construct()
 	{
 
-		$this->middleware('jwt.auth');
+		$this->middleware('jwt.auth', ['except' => 'store']);
 	}
 
 	
@@ -147,7 +147,7 @@ class aProfilesController extends Controller {
 	 * @param  Request $request
 	 * @return Response
 	 */
-	public function show(Request $request)
+	public function show()
 	{
 		try {
 
@@ -242,4 +242,38 @@ class aProfilesController extends Controller {
 		//
 	}
 
+    /**
+     * Login and return profile data
+	 *
+	 * @param  Request $request
+     * @return Response
+     */
+    public function login_profile(Request $request) {
+        
+		$credentials = $request->only('email', 'password');
+		//$credentials = $request->all();
+		
+		
+		try {
+            // attempt to verify the credentials and create a token for the user
+            if (! $token = JWTAuth::attempt($credentials)) {
+                return response()->json(['error' => 'invalid_credentials'], 400);
+            }			
+		} catch (JWTException $e) {
+            // something went wrong whilst attempting to encode the token
+            return response()->json(['error' => 'could_not_create_token'], 500);
+			
+		}
+
+		if (! $user = JWTAuth::parseToken()->authenticate()) {
+			return response()->json(['user_not_found'], 404);
+		}
+		// the token is valid and we have found the user 
+		//dd($request->all());
+		$profile = Profile::byuser_id($user->id)->get()->first();
+		return response()->json(compact('token', 'profile'));		
+		
+    }
+
+	
 }

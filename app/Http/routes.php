@@ -235,6 +235,7 @@ Route::group(['prefix' => 'api'], function() {
 	//replaced 06.04.2016
     Route::post('/register', 			          	array('uses' => 'aProfilesController@store'));
     Route::post('/login', 			          		array('uses' => 'UserController@login'));
+    Route::post('/login_profile', 			        array('uses' => 'aProfilesController@login_profile')); //added 07.04.2016
     Route::post('/reset', 			          		array('uses' => 'UserController@updatePassword'));
     Route::get('/test', 			          		array('uses' => 'UserController@AuthenticatedUser'));
     Route::get('/test2', 			          		array('uses' => 'UserController@TestedUser'));
