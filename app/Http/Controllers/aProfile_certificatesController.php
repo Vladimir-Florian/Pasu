@@ -118,7 +118,10 @@ class aProfile_certificatesController extends Controller {
 		} catch(\Exception $e) {
 			//return response()->json(['Cannot Add Certificate'], $e->getStatusCode());
 		    //return response()->json(["error" => $e->getMessage()], 500);
-		    return response()->json(["error" => $e->getCode()], 500);
+
+
+
+
 			
 		}
 		

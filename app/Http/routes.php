@@ -241,6 +241,7 @@ Route::group(['prefix' => 'api'], function() {
     Route::get('/test2', 			          		array('uses' => 'UserController@TestedUser'));
 	Route::get('/industries',						array('uses' => 'aIndustriesController@index'));
 	Route::get('/jobtypes/{iid}',					array('uses' => 'aJobTypesController@index'));
+	Route::get('/jobposts/forindustry/{id}',			['uses' => 'aJobPostsController@forindustry']);
 	Route::get('/jobposts/forjobtype/{id}',			['uses' => 'aJobPostsController@forjobtype']);
 	Route::get('/jobposts/time10/{id}',				['uses' => 'aJobPostsController@time10']);
 	Route::post('/jobposts/withinradius/{id}',		['uses' => 'aJobPostsController@withinradius']);

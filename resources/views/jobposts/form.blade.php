@@ -49,6 +49,14 @@
             {!! Form::label('request_date', 'Request date:') !!}
 			{!! Form::input('date', 'request_date', date('Y-m-d'), ['class' => 'form-control']) !!}
         </div>			
+        <div class="form-group">
+            {!! Form::label('validity_days', 'Validity days:') !!}
+			{!! Form::text('validity_days', 10, ['class' => 'form-control']) !!}
+        </div>			
+        <div class="form-group">
+            {!! Form::label('jobtitle', 'Job Title:') !!}
+			{!! Form::text('jobtitle', null, ['class' => 'form-control']) !!}
+        </div>			
 		
         <!-- Submit Button -->
         <div class="form-group">

@@ -45,5 +45,13 @@ class Industry extends Model {
 		return $this->hasMany('App\Jobtype');
 	}
 	
+    /**
+     * Get all of the jobposts for the industry.
+     */
+    public function jobposts()
+    {
+        return $this->hasManyThrough('App\Jobost', 'App\Jobtype');
+    }
+
 	
 }

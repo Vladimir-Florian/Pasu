@@ -22,7 +22,10 @@ class Jobpost extends Model {
 		'salary',
 		'currency',
 		'workhours',
-		'request_date'
+		'request_date',
+		'award_date',
+		'validity_days',
+		'jobtitle'
 	];
 
 	/**
@@ -97,11 +100,14 @@ class Jobpost extends Model {
 	public function markedjobposts() {
 		return $this->hasMany('App\Markedjobposts');
 	}
-	
+
+	/**
+	 *  query by jobtype 
+	 */	
 	public function scopeByjobtype($query, $id) {
 		return $query->join('employers', 'jobposts.employer_id', '=', 'employers.id')
 					->where('jobtype_id', '=', $id)
-					->select('jobposts.request_date', 'employers.company_name');
+					->select('jobposts.jobtitle', 'jobposts.request_date', 'employers.company_name');
 	}
 
 	/**
@@ -123,5 +129,17 @@ class Jobpost extends Model {
 					   'workhours',
 					   'request_date');
 	}	
+
+	/**
+	 *  query by industry 
+	 * @param  int $id 	industry id
+	 */	
+	public function scopeByindustry($query, $id) {
+		return $query->join('employers', 'jobposts.employer_id', '=', 'employers.id')
+					->join('jobtypes', 'jobposts.jobtype_id', '=', 'jobtype.id')		
+					->where('jobtype.industry_id', '=', $id)
+					->select('jobposts.jobtitle', 'jobposts.request_date', 'employers.company_name');
+	}
 	
+		
 }

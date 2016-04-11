@@ -18,6 +18,21 @@ class aJobPostsController extends Controller {
 		$this->middleware('jwt.auth');
 	}
 
+	
+	/**
+	 * Returns a json list of jobposts of a industry .
+	 *
+	 * @param  int $id 	industry_id
+	 * @return Response
+	 */
+	public function forindustry($id)
+	{
+		$jobposts = Jobpost::byindustry($id)->get();
+		
+		return response()->json(compact('jobposts'));				
+	}
+	
+	
 	/**
 	 * Returns a json list of jobposts of jobtype.
 	 *
