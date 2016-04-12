@@ -10,6 +10,7 @@ use App\User;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Http\Response as HttpResponse;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Auth;
 
 class aProfilesController extends Controller {
 
@@ -253,23 +254,28 @@ class aProfilesController extends Controller {
 		$credentials = $request->only('email', 'password');
 		//$credentials = $request->all();
 		
-		
 		try {
             // attempt to verify the credentials and create a token for the user
             if (! $token = JWTAuth::attempt($credentials)) {
                 return response()->json(['error' => 'invalid_credentials'], 400);
-            }			
+            }
+ 
 		} catch (JWTException $e) {
+					dd($token);
             // something went wrong whilst attempting to encode the token
             return response()->json(['error' => 'could_not_create_token'], 500);
 			
 		}
-
+		//dd($token);
+		$user = Auth::user();
+		/*
+		dd($user);
 		if (! $user = JWTAuth::parseToken()->authenticate()) {
 			return response()->json(['user_not_found'], 404);
 		}
 		// the token is valid and we have found the user 
 		//dd($request->all());
+		dd($token);*/
 		$profile = Profile::byuser_id($user->id)->get()->first();
 		return response()->json(compact('token', 'profile'));		
 		
