@@ -116,18 +116,23 @@ class Jobpost extends Model {
 	public function scopeWithin10days($query, $id) {
 		$current = Carbon::today();															
 		$tenth_day = $current->subDays(10);		
-		return $query->where('jobtype_id', '=', $id)
-				->whereDay('request_date', '>=', $tenth_day)		
-				->select('id',
-					   'experience',
-					   'education',
-					   'benefits',
-					   'incentives',
-					   'responsabilities',
-					   'salary',
-					   'currency',
-					   'workhours',
-					   'request_date');
+		return $query->join('employers', 'jobposts.employer_id', '=', 'employers.id')
+				     ->where('jobtype_id', '=', $id)
+				     ->whereDay('request_date', '>=', $tenth_day)		
+					 ->select('jobposts.id', 'jobposts.jobtitle', 'jobposts.request_date', 'employers.company_name');
+
+/*				->select('id',
+					'jobtitle',
+					'experience',
+					'education',
+					'benefits',
+					'incentives',
+					'responsabilities',
+					'salary',
+					'currency',
+					'workhours',
+					'request_date');*/
+					
 	}	
 
 	/**
@@ -136,8 +141,8 @@ class Jobpost extends Model {
 	 */	
 	public function scopeByindustry($query, $id) {
 		return $query->join('employers', 'jobposts.employer_id', '=', 'employers.id')
-					->join('jobtypes', 'jobposts.jobtype_id', '=', 'jobtype.id')		
-					->where('jobtype.industry_id', '=', $id)
+					->join('jobtypes', 'jobposts.jobtype_id', '=', 'jobtypes.id')		
+					->where('jobtypes.industry_id', '=', $id)
 					->select('jobposts.jobtitle', 'jobposts.request_date', 'employers.company_name');
 	}
 	

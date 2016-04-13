@@ -268,14 +268,7 @@ class aProfilesController extends Controller {
 		}
 		//dd($token);
 		$user = Auth::user();
-		/*
-		dd($user);
-		if (! $user = JWTAuth::parseToken()->authenticate()) {
-			return response()->json(['user_not_found'], 404);
-		}
 		// the token is valid and we have found the user 
-		//dd($request->all());
-		dd($token);*/
 		$profile = Profile::byuser_id($user->id)->get()->first();
 		return response()->json(compact('token', 'profile'));		
 		

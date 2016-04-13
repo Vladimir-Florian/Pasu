@@ -240,15 +240,16 @@ Route::group(['prefix' => 'api'], function() {
     Route::get('/test', 			          		array('uses' => 'UserController@AuthenticatedUser'));
     Route::get('/test2', 			          		array('uses' => 'UserController@TestedUser'));
 	Route::get('/industries',						array('uses' => 'aIndustriesController@index'));
-	Route::get('/jobtypes/{iid}',					array('uses' => 'aJobTypesController@index'));
-	Route::get('/jobposts/forindustry/{id}',			['uses' => 'aJobPostsController@forindustry']);
+	Route::get('/jobtypes/{id}',					array('uses' => 'aJobTypesController@index'));
+	Route::get('/jobposts/forindustry/{id}',		['uses' => 'aJobPostsController@forindustry']);
 	Route::get('/jobposts/forjobtype/{id}',			['uses' => 'aJobPostsController@forjobtype']);
 	Route::get('/jobposts/time10/{id}',				['uses' => 'aJobPostsController@time10']);
 	Route::post('/jobposts/withinradius/{id}',		['uses' => 'aJobPostsController@withinradius']);
+	Route::get('/jobposts/{id}',					['uses' => 'aJobPostsController@show']);
 
 	//Route::resource('/profiles', 'aProfilesController');
-	Route::get('/profiles', ['as' => '/profiles.show', 'uses' => 'aProfilesController@show']);
-	Route::put('/profiles', ['as' => '/profiles.update', 'uses' => 'aProfilesController@update']);
+	Route::get('/profile', ['as' => '/profiles.show', 'uses' => 'aProfilesController@show']);
+	Route::put('/profile', ['as' => '/profiles.update', 'uses' => 'aProfilesController@update']);
 	
 	Route::get('/profile_certificates/{id}', 		['uses' => 'aProfile_certificatesController@index']);	
 	Route::get('/cert_list', 						['uses' => 'aProfile_certificatesController@cert_list']);	

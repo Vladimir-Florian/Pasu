@@ -20,7 +20,7 @@ class aJobPostsController extends Controller {
 
 	
 	/**
-	 * Returns a json list of jobposts of a industry .
+	 * Returns a json list of jobposts of an industry .
 	 *
 	 * @param  int $id 	industry_id
 	 * @return Response
@@ -36,7 +36,7 @@ class aJobPostsController extends Controller {
 	/**
 	 * Returns a json list of jobposts of jobtype.
 	 *
-	 * @param  int $id 	job_id
+	 * @param  int $id 	jobtype_id
 	 * @return Response
 	 */
 	public function forjobtype($id)
@@ -55,7 +55,7 @@ class aJobPostsController extends Controller {
 	/**
 	 * Returns a json list of jobposts newer than 10 days.
 	 *
-	 * @param  int $id 	job_id
+	 * @param  int $id 	jobtype_id
 	 * @return Response
 	 */
 	public function time10($id)
@@ -129,6 +129,7 @@ class aJobPostsController extends Controller {
 	/**
 	 * Display a listing of the resource.
 	 *
+	 * @param  int  $id
 	 * @return Response
 	 */
 	public function index()
@@ -159,12 +160,13 @@ class aJobPostsController extends Controller {
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param  int  $id
+	 * @param  int  $id jobpost id
 	 * @return Response
 	 */
 	public function show($id)
 	{
-		//
+		$jobpost = Jobpost::findOrFail($id);
+		return response()->json(compact('jobpost'));		
 	}
 
 	/**
