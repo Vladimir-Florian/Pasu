@@ -6,7 +6,7 @@
 
 
 	{!! Form::model($location, ['method' => 'PATCH','action' => ['Jobpost_locationsController@update', $jobpost->id]]) !!}
-		@include ('locations.form', ['submitButtonText' => 'Update Location'])
+		@include ('jobpost_locations.form', ['submitButtonText' => 'Update Location'])
     {!! Form::close() !!}
 
 	@include ('errors.list')

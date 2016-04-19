@@ -270,7 +270,8 @@ class aProfilesController extends Controller {
 		$user = Auth::user();
 		// the token is valid and we have found the user 
 		$profile = Profile::byuser_id($user->id)->get()->first();
-		return response()->json(compact('token', 'profile'));		
+		$industry = [$profile->industry->slug, $profile->industry->name];
+		return response()->json(compact('token', 'profile', 'industry'));		
 		
     }
 

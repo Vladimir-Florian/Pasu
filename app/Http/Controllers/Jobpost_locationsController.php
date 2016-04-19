@@ -29,11 +29,8 @@ class Jobpost_locationsController extends Controller {
 	 */
 	public function create($id)
 	{
-		//$employer = Employer::findOrFail($eid);
 		$jobpost = Jobpost::findOrFail($id);
-		$employer = $jobpost->employer;
-		//dd($employer);
-		return view('jobpost_locations.create', compact('employer', 'jobpost'));
+		return view('jobpost_locations.create', compact('jobpost'));
 	}
 
 	/**
@@ -46,7 +43,6 @@ class Jobpost_locationsController extends Controller {
 	 */
 	public function store($id, Request $request)
 	{
-		//$employer = Employer::findOrFail($eid);
 		$jobpost = Jobpost::findOrFail($id);
 		$employer = $jobpost->employer;
 
@@ -60,12 +56,10 @@ class Jobpost_locationsController extends Controller {
 		$location->latitude = $request->input('latitude');
 		$location->longitude = $request->input('longitude');
 
-		//$location->employer_id = $id;
 		$location->save();
 		$jobpost->location_id = $location->id;
 		$jobpost->save();
 		
-		//return view('jobpost_locations.create', compact('employer', 'jobpost'));
 		return view('jobposts.index', compact('employer'));
 		
 	}
@@ -90,11 +84,8 @@ class Jobpost_locationsController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//$employer = Employer::findOrFail($eid);
 		$jobpost = Jobpost::findOrFail($id);
-		$employer = $jobpost->employer;
 		$location = $jobpost->location;
-		//dd($employer);
 		return view('jobpost_locations.edit', compact('location', 'jobpost'));
 	}
 
@@ -108,9 +99,7 @@ class Jobpost_locationsController extends Controller {
 	 */
 	public function update($id, Request $request)
 	{
-		//$employer = Employer::findOrFail($eid);
 		$jobpost = Jobpost::findOrFail($id);
-		$employer = $jobpost->employer;
 
 		//$location = Location::findOrFail($jobpost->location_id);
 		$location = $jobpost->location;
@@ -122,12 +111,10 @@ class Jobpost_locationsController extends Controller {
 		$location->latitude = $request->input('latitude');
 		$location->longitude = $request->input('longitude');
 
-		//$location->employer_id = $id;
 		$location->save();
 		//$jobpost->location_id = $location->id;
 		//$jobpost->save();
 		
-		//return view('jobpost_locations.create', compact('employer', 'jobpost'));
 		return view('jobposts.index', compact('employer'));
 		
 	}
