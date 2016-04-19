@@ -17,7 +17,7 @@ class UserController extends Controller {
 	public function __construct()
 	{
 
-		$this->middleware('jwt.auth', ['only' => 'AuthenticatedUser']);
+		$this->middleware('jwt.auth', ['only' => ['AuthenticatedUser', 'logout', 'refresh_token']]);
 	}
 
 
@@ -78,6 +78,45 @@ class UserController extends Controller {
     }
 
 
+	/**
+	* Log out
+	* Invalidate the token, so user cannot use it anymore
+	* They have to relogin to get a new token
+	* 
+	* @param Request $request
+	*/
+	public function logout(Request $request) {
+		$this->validate($request, [
+			'token' => 'required' 
+		]);
+
+		JWTAuth::invalidate($request->input('token'));
+        return response()->json('logged out', 200);
+		
+	}
+
+	/**
+	* Refresh Token
+	* Invalidate the token, so user cannot use it anymore
+	* and return a new token
+	* 
+	* @param Request $request
+	*/
+	public function refreshToken() {
+		$token = JWTAuth::getToken();
+		if(!$token){
+			//throw new BadRequestHtttpException('Token not provided');
+            return response()->json(['error' => 'Token not provided'], 400);			
+		}
+		try{
+			$token = JWTAuth::refresh($token);
+		}catch(TokenInvalidException $e){
+			//throw new AccessDeniedHttpException('The token is invalid');
+            return response()->json(['error' => 'The token is invalid'], 400);						
+		}
+		return response()->json(compact('token'));
+	}
+	
     /**
      * Update the password for the user.
      *
