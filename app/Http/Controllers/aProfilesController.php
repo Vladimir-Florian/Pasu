@@ -261,7 +261,7 @@ class aProfilesController extends Controller {
             }
  
 		} catch (JWTException $e) {
-					dd($token);
+					//dd($token);
             // something went wrong whilst attempting to encode the token
             return response()->json(['error' => 'could_not_create_token'], 500);
 			

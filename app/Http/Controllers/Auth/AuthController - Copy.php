@@ -1,9 +1,8 @@
 <?php namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-//use Illuminate\Contracts\Auth\Guard; //modif 25.04.2016
-//use Illuminate\Contracts\Auth\Registrar;
-use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Contracts\Auth\Registrar;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 use App\User;
@@ -22,15 +21,15 @@ class AuthController extends Controller {
 	|
 	*/
 
-	use AuthenticatesAndRegistersUsers, ThrottlesLogins;
+	use AuthenticatesAndRegistersUsers;
 
 	protected $redirectPath = '/';
 	
 	/**
 	 * Create a new authentication controller instance.
 	 *
-	 * 		@param  \Illuminate\Contracts\Auth\Guard  $auth
-	 * 		@param  \Illuminate\Contracts\Auth\Registrar  $registrar
+	 * @param  \Illuminate\Contracts\Auth\Guard  $auth
+	 * @param  \Illuminate\Contracts\Auth\Registrar  $registrar
 	 * @return void
 	 */
 	public function __construct()
