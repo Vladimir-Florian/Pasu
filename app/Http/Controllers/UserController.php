@@ -17,7 +17,7 @@ class UserController extends Controller {
 	public function __construct()
 	{
 
-		$this->middleware('jwt.auth', ['only' => ['AuthenticatedUser', 'logout', 'refresh_token']]);
+		$this->middleware('jwt.auth', ['only' => ['AuthenticatedUser', 'logout', 'refreshToken']]);
 	}
 
 
@@ -103,11 +103,35 @@ class UserController extends Controller {
 	* @param Request $request
 	*/
 	public function refreshToken() {
+
+		try {
+
+			if (!$token = JWTAuth::getToken()) {
+            return response()->json(['error' => 'Token not provided'], 400);			
+			}
+
+		} catch (Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
+
+			return response()->json(['token_expired'], $e->getStatusCode());
+
+		} catch (Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
+
+			return response()->json(['token_invalid'], $e->getStatusCode());
+
+		} catch (Tymon\JWTAuth\Exceptions\JWTException $e) {
+
+			return response()->json(['token_absent'], $e->getStatusCode());
+
+		}
+		
+		/*
 		$token = JWTAuth::getToken();
 		if(!$token){
 			//throw new BadRequestHtttpException('Token not provided');
             return response()->json(['error' => 'Token not provided'], 400);			
 		}
+		*/
+		
 		try{
 			$token = JWTAuth::refresh($token);
 		}catch(TokenInvalidException $e){
