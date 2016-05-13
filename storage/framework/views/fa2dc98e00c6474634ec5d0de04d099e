@@ -1,0 +1,38 @@
+<?php $__env->startSection('content'); ?>
+
+ <h2> <?php echo e($profile->name); ?> </h2>
+
+    <?php if( !$jobposts->count()): ?>
+        No Job Posts.
+    <?php else: ?>
+        <ul>
+            <?php foreach( $jobposts as $jobpost ): ?>
+				<article>
+					Title: <?php echo e("$jobpost->jobtitle"); ?>
+
+				</article>
+				<article>
+					Request Date: <?php echo e($jobpost->request_date); ?>
+
+				</article>
+				<article>
+					Employer: <?php echo e($jobpost->company_name); ?>
+
+				</article>
+				<p>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
+
+ 
+
+
+	<p>
+	   <a href="<?php echo e(route('candidate_jobposts.index', ['id' => $profile->id])); ?>"> Back to Job Posts </a> 
+	</p>
+ 
+
+<?php $__env->stopSection(); ?>		
+		
+
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -59,6 +59,7 @@ class JobpostsController extends Controller {
 		$jobpost = new Jobpost;
 		$jobpost->jobtype_id = $request->input('jobtype');
 		$jobpost->employment_type_id = $request->input('employment_type');
+		$jobpost->jobtitle = $request->input('jobtitle');
 		$jobpost->experience = $request->input('experience');
 		$jobpost->education = $request->input('education');
 		$jobpost->benefits = $request->input('benefits');
@@ -122,6 +123,7 @@ class JobpostsController extends Controller {
 
 		$jobpost->jobtype_id = $request->input('jobtype');
 		$jobpost->employment_type_id = $request->input('employment_type');
+		$jobpost->jobtitle = $request->input('jobtitle');
 		$jobpost->experience = $request->input('experience');
 		$jobpost->education = $request->input('education');
 		$jobpost->benefits = $request->input('benefits');

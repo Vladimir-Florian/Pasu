@@ -10,6 +10,10 @@
 		<?php echo e($jobpost->employment_type_id); ?>
 
 	</article>
+	<article>
+		<?php echo e($jobpost->jobtitle); ?>
+
+	</article>
  
 	<article>
 		<?php echo e($jobpost->experience); ?>

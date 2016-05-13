@@ -218,6 +218,16 @@ Route::delete('jobpost_jobtags/{iid}/{id}', [
 	'uses' => 'Jobpost_jobtagsController@destroy'
 ]);
 
+//Route::resource('candidate_jobposts', 'CandidateJobPostsController');
+Route::get('candidate_jobposts/{id}', [
+	'as' => 'candidate_jobposts.index',
+	'uses' => 'CandidateJobPostsController@index'
+]);
+Route::get('candidate_jobposts/forindustry/{id}', [
+	'as' => 'candidate_jobposts.forindustry',
+	'uses' => 'CandidateJobPostsController@forindustry'
+]);
+
 
 
 Route::get('auth/facebook', ['as' =>'auth/facebook', 'uses'=>'Auth\SocialController@redirectToProvider']);

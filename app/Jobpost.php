@@ -107,7 +107,7 @@ class Jobpost extends Model {
 	public function scopeByjobtype($query, $id) {
 		return $query->join('employers', 'jobposts.employer_id', '=', 'employers.id')
 					->where('jobtype_id', '=', $id)
-					->select('jobposts.jobtitle', 'jobposts.request_date', 'employers.company_name');
+					->select('jobposts.id', 'jobposts.jobtitle', 'jobposts.request_date', 'employers.company_name');
 	}
 
 	/**
@@ -143,7 +143,7 @@ class Jobpost extends Model {
 		return $query->join('employers', 'jobposts.employer_id', '=', 'employers.id')
 					->join('jobtypes', 'jobposts.jobtype_id', '=', 'jobtypes.id')		
 					->where('jobtypes.industry_id', '=', $id)
-					->select('jobposts.jobtitle', 'jobposts.request_date', 'employers.company_name');
+					->select('jobposts.id', 'jobposts.jobtitle', 'jobposts.request_date', 'employers.company_name');
 	}
 	
 		

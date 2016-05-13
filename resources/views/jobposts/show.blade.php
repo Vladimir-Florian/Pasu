@@ -10,6 +10,9 @@
 	<article>
 		{{ $jobpost->employment_type_id}}
 	</article>
+	<article>
+		{{ $jobpost->jobtitle}}
+	</article>
  
 	<article>
 		{{ $jobpost->experience}}
