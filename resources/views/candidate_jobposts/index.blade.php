@@ -19,7 +19,7 @@
 					
                         <div class="col-md-3">
 							<h4>
-                                <strong><a href="{{route('employees.edit', ['id' => $profile->id])}}"> Update Profile </a></strong>
+                                <strong><a href="{{route('candidate_jobposts.jobtypes', ['id' => $profile->id])}}"> By Job Type </a></strong>
 							</h4>
                         </div>
                         <div class="col-md-3">

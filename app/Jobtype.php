@@ -41,4 +41,13 @@ class Jobtype extends Model {
 		return $this->hasMany('App\Jobpost');
 	}
 
+	/**
+	 *  query by industry
+	 *  @param  int $id 	industry id	 
+	 */	
+	public function scopeByindustry($query, $id) {
+		return $query->where('industry_id', '=', $id);
+	}
+	
+	
 }

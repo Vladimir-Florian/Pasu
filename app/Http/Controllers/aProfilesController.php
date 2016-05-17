@@ -171,7 +171,7 @@ class aProfilesController extends Controller {
 		}
 		// the token is valid and we have found the user 
 		//dd($request->all());
-		$profile = Profile::byuser_id($user->id)->get()->first();
+		$profile = Profile::byuser_id($user->id)->first();
 		return response()->json(compact('profile'));		
  
 	}
@@ -218,7 +218,7 @@ class aProfilesController extends Controller {
 		}
 		// the token is valid and we have found the user 
 		//dd($request->all());
-			$profile = Profile::byuser_id($user->id)->get()->first();
+			$profile = Profile::byuser_id($user->id)->first();
 			//$profile->user_id = $user->id;
 			$profile->name = $request->input('name');
 			$profile->phone_no = $request->input('phone_no');
@@ -269,7 +269,7 @@ class aProfilesController extends Controller {
 		//dd($token);
 		$user = Auth::user();
 		// the token is valid and we have found the user 
-		$profile = Profile::byuser_id($user->id)->get()->first();
+		$profile = Profile::byuser_id($user->id)->first();
 		$industry = [$profile->industry->slug, $profile->industry->name];
 		return response()->json(compact('token', 'profile', 'industry'));		
 		

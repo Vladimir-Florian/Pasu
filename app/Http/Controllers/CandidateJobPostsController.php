@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Profile;
 use App\Industry;
 use App\Jobpost;
+use App\Jobtype;
 //use App\Employer;
 use DB;
 
@@ -96,7 +97,7 @@ class CandidateJobPostsController extends Controller
     }
 
 	/**
-	 * Returns a json list of jobposts of an industry .
+	 * Lists the jobposts of an industry .
 	 *
 	 * @param  int $id 	profile id
 	 * @return Response
@@ -121,6 +122,41 @@ class CandidateJobPostsController extends Controller
 		return view('candidate_jobposts.forindustry', compact('profile', 'jobposts'));
 	}
 	
+	/**
+	 * Lists the jobtypes of an industry .
+	 *
+	 * @param  int $id 	profile id
+	 * @return Response
+	 */
+	public function jobtypes($id)
+	{
+
+		//dd($id);
+		$profile = Profile::findOrFail($id);
+		$iid =	$profile->industry_id;
+		
+ 		$jobtypes = Jobtype::byindustry($iid)->get();
+		//return response()->json(compact('jobtypes'));						
+		return view('candidate_jobposts.jobtypes', compact('profile', 'jobtypes'));
+	}
+
+	/**
+	 * Lists the job posts of a job type .
+	 *
+	 * @param  int $id 	profile id
+	 * @param  int $tid 	job type id
+	 * @return Response
+	 */
+	public function forjobtype($id, $tid)
+	{
+
+		//dd($id);
+		$profile = Profile::findOrFail($id);
+		$jobposts = Jobpost::byjobtype($tid)->get();
+	
+		//return response()->json(compact('jobposts'));				
+		return view('candidate_jobposts.forjobtype', compact('profile', 'jobposts'));
+	}
 
 
 	

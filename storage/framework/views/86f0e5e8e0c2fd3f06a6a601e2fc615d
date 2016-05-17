@@ -1,0 +1,31 @@
+<?php $__env->startSection('content'); ?>
+
+ <h2> Jobtypes </h2>
+ 
+   <?php if(!$jobtypes->count()): ?>
+	   No jobtypes
+   <?php else: ?>
+	   <ul>
+		<?php foreach($jobtypes as $jobtype): ?>
+		 <li>
+			
+                <?php echo e($jobtype->name); ?>
+
+				(
+                 <?php echo link_to_route('candidate_jobposts.forjobtype', 'Job posts', array($profile->id, $jobtype->id), array('class' => 'btn btn-info')); ?> 
+				)
+
+			
+		 </li>
+		<?php endforeach; ?>
+	   </ul>
+   <?php endif; ?>
+		 
+	<p>
+	   <a href="<?php echo e(route('candidate_jobposts.index', ['id' => $profile->id])); ?>"> Back to Job Posts </a> 
+	</p>
+		 
+<?php $__env->stopSection(); ?>		
+		
+
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
