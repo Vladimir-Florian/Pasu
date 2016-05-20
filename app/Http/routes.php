@@ -235,6 +235,13 @@ Route::get('candidate_jobposts/forjobtype/{id}/{tid}', [
 	'as' => 'candidate_jobposts.forjobtype',
 	'uses' => 'CandidateJobPostsController@forjobtype'
 ]);
+Route::get('candidate_jobposts/{pid}/{id}', [
+	'as' => 'candidate_jobposts.show',
+	'uses' => 'CandidateJobPostsController@show'
+]);
+
+
+
 
 Route::get('auth/facebook', ['as' =>'auth/facebook', 'uses'=>'Auth\SocialController@redirectToProvider']);
 Route::get('auth/facebook/callback', 'Auth\SocialController@handleProviderCallback');

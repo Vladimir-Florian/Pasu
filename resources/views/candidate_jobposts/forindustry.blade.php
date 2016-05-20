@@ -2,25 +2,33 @@
 
 @section('content')
 
- <h2> {{ $profile->name }} </h2>
+ <h2> {{ $profile->industry->name }} </h2>
 
     @if ( !$jobposts->count())
         No Job Posts.
     @else
-        <ul>
-            @foreach( $jobposts as $jobpost )
-				<article>
-					Title: {{ "$jobpost->jobtitle" }}
-				</article>
-				<article>
-					Request Date: {{ $jobpost->request_date }}
-				</article>
-				<article>
-					Employer: {{ $jobpost->company_name }}
-				</article>
-				<p>
-            @endforeach
-        </ul>
+		
+		<table class="table table-condensed table-striped">
+			<thead>
+				<tr>
+					<th>Title</th>
+					<th>Request Date</th>
+					<th>Employer</th>
+					<th> </th>
+				</tr>
+			</thead>
+			<tbody>
+              @foreach( $jobposts as $jobpost )
+				<tr>
+					<td>{{$jobpost->jobtitle}}</td>
+					<td>{{ $jobpost->request_date }}</td>
+					<td>{{ $jobpost->company_name }}</td>
+					<td>{!! link_to_route('candidate_jobposts.show', 'Details', array($profile->id, $jobpost->id), array('class' => 'btn btn-info')) !!}</td>
+				</tr>
+              @endforeach
+			</tbody>
+		</table>	
+	
     @endif
 
  

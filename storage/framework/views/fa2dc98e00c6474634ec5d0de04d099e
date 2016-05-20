@@ -1,27 +1,32 @@
 <?php $__env->startSection('content'); ?>
 
- <h2> <?php echo e($profile->name); ?> </h2>
+ <h2> <?php echo e($profile->industry->name); ?> </h2>
 
     <?php if( !$jobposts->count()): ?>
         No Job Posts.
     <?php else: ?>
-        <ul>
-            <?php foreach( $jobposts as $jobpost ): ?>
-				<article>
-					Title: <?php echo e("$jobpost->jobtitle"); ?>
-
-				</article>
-				<article>
-					Request Date: <?php echo e($jobpost->request_date); ?>
-
-				</article>
-				<article>
-					Employer: <?php echo e($jobpost->company_name); ?>
-
-				</article>
-				<p>
-            <?php endforeach; ?>
-        </ul>
+		
+		<table class="table table-condensed table-striped">
+			<thead>
+				<tr>
+					<th>Title</th>
+					<th>Request Date</th>
+					<th>Employer</th>
+					<th> </th>
+				</tr>
+			</thead>
+			<tbody>
+              <?php foreach( $jobposts as $jobpost ): ?>
+				<tr>
+					<td><?php echo e($jobpost->jobtitle); ?></td>
+					<td><?php echo e($jobpost->request_date); ?></td>
+					<td><?php echo e($jobpost->company_name); ?></td>
+					<td><?php echo link_to_route('candidate_jobposts.show', 'Details', array($profile->id, $jobpost->id), array('class' => 'btn btn-info')); ?></td>
+				</tr>
+              <?php endforeach; ?>
+			</tbody>
+		</table>	
+	
     <?php endif; ?>
 
  

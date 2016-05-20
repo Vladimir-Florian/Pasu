@@ -1,0 +1,71 @@
+<?php $__env->startSection('content'); ?>
+
+ <h2> Post </h2>
+
+	<article>
+		Type: <?php echo e($jobpost->jobtype->name); ?>
+
+	</article>
+	<article>
+		Employment: <?php echo e($jobpost->employment_type->name); ?>
+
+	</article>
+	<article>
+		Title: <?php echo e($jobpost->jobtitle); ?>
+
+	</article>
+ 
+	<article>
+		Experience: <?php echo e($jobpost->experience); ?>
+
+	</article>
+	<article>
+		Education: <?php echo e($jobpost->education); ?>
+
+	</article>
+	<article>
+		Benefits: <?php echo e($jobpost->benefits); ?>
+
+	</article>
+	<article>
+		Incentives: <?php echo e($jobpost->incentives); ?>
+
+	</article>
+	<article>
+		Responsabilities: <?php echo e($jobpost->responsabilities); ?>
+
+	</article>
+	<article>
+		Salary: <?php echo e($jobpost->salary); ?>
+
+	</article>
+	<article>
+		Currency: <?php echo e($jobpost->currency); ?>
+
+	</article>
+	<article>
+		Workhours: <?php echo e($jobpost->workhours); ?>
+
+	</article>
+	<article>
+		Request_date: <?php echo e($jobpost->request_date); ?>
+
+	</article>
+	<article>
+		Award_date: <?php echo e($jobpost->award_date); ?>
+
+	</article>
+
+
+
+	<p>
+       <!-- <strong><a href="<?php echo e(route('candidate_jobposts.forindustry', ['id' => $profile->id])); ?>"> Back to Specialization </a></strong> -->
+	   <!-- <input type="button" value="Go Back!" onclick="history.back(-1)" class="btn btn-primary" /> -->
+	   <strong> <a href="<?php echo e(htmlspecialchars($_SERVER['HTTP_REFERER'])); ?>" class="btn btn-primary" > Back </a> </strong>
+	</p>
+ 
+
+<?php $__env->stopSection(); ?>		
+		
+
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -54,12 +54,16 @@ class CandidateJobPostsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+	 * @param  int $pid 	profile id
+     * @param  int  $id		post id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($pid, $id)
     {
-        //
+		//dd($id);
+		$profile = Profile::findOrFail($pid);
+		$jobpost = Jobpost::findOrFail($id);
+		return view('candidate_jobposts.show', compact('profile','jobpost'));
     }
 
     /**
@@ -153,9 +157,12 @@ class CandidateJobPostsController extends Controller
 		//dd($id);
 		$profile = Profile::findOrFail($id);
 		$jobposts = Jobpost::byjobtype($tid)->get();
-	
+
+		$jobtype = Jobtype::findOrFail($tid);
+
+		
 		//return response()->json(compact('jobposts'));				
-		return view('candidate_jobposts.forjobtype', compact('profile', 'jobposts'));
+		return view('candidate_jobposts.forjobtype', compact('profile', 'jobposts', 'jobtype'));
 	}
 
 
