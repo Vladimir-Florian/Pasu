@@ -101,6 +101,18 @@ class Jobpost extends Model {
 		return $this->hasMany('App\Markedjobposts');
 	}
 
+	//Accessors for relationship attributes
+    /**
+     * Get the job's location.
+     */
+    public function getLocatAttribute()
+    {
+        return $this->location->latitude;
+        //return $this->employer->company_name;
+    }
+	
+	
+	//Queries with Scopes
 	/**
 	 *  query by jobtype 
 	 */	
@@ -144,6 +156,26 @@ class Jobpost extends Model {
 					->join('jobtypes', 'jobposts.jobtype_id', '=', 'jobtypes.id')		
 					->where('jobtypes.industry_id', '=', $id)
 					->select('jobposts.id', 'jobposts.jobtitle', 'jobposts.request_date', 'employers.company_name');
+	}
+
+	/**
+	 *  query by jobpost id 
+	 * @param  int $id 	jobpost id
+	 */	
+	public function scopeByjobpostid($query, $id) {
+		return $query->join('employers', 'jobposts.employer_id', '=', 'employers.id')
+					->join('jobtypes', 'jobposts.jobtype_id', '=', 'jobtypes.id')		
+					->join('employment_types', 'jobposts.employment_type_id', '=', 'employment_types.id')		
+					->where('jobposts.id', '=', $id)
+					->select('jobposts.id', 'jobposts.jobtitle', 'experience', 'education',
+					'benefits',
+					'incentives',
+					'responsabilities',
+					'salary',
+					'currency',
+					'workhours',
+					'award_date',
+					'jobposts.request_date', 'validity_days','employers.company_name', 'employment_types.name as employment_type','jobtypes.name as job_type');
 	}
 	
 		

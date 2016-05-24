@@ -4,7 +4,7 @@
 		<div class="form-group">
 			<?php echo Form::label('tag', 'Tag:'); ?> <br />
 			<?php echo Form::select('tag',
-				(['0' => 'Select a tag'] + $fields), 
+				(['0' => 'Select a tag'] + $fields->toArray()), 
 					null, 
 					['class' => 'form-control']); ?>
 
