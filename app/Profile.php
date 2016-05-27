@@ -99,7 +99,7 @@ class Profile extends Model {
 	 * @return
 	 */
 	public function markedjobposts() {
-		return $this->hasMany('App\Markedjobposts');
+		return $this->hasMany('App\Markedjobpost');
 	}
 	
 	public function scopeByuser_id($query, $id) {

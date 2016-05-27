@@ -2,6 +2,11 @@
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use App\Exceptions\DBExceptionReturn;
+use Illuminate\Database\QueryException;
+use App\Exceptions\MyQueryExceptReturn;
+use App\Exceptions\MyExceptReturn;
+
 
 class Handler extends ExceptionHandler {
 
@@ -36,6 +41,7 @@ class Handler extends ExceptionHandler {
 	 */
 	public function render($request, Exception $e)
 	{
+					//dd($e);
 		/*
 		if($request->route()->getAction()["controller"] == "App\Http\Controllers\UserController@register"){
 		
@@ -150,8 +156,27 @@ class Handler extends ExceptionHandler {
 			return response()->json(["error" => $e->getMessage()], 404);
 		}
 
+		if ($e instanceof MyQueryExceptReturn) {
+			$errorCode = $e->getMessage();	
+			switch ($errorCode){
+				case ($errorCode == 1062):
+					return redirect()->back()->withErrors(['error' => "1062, record already exists"]);
+				break;
+
+				default:
+					return (new SymfonyDisplayer(config('app.debug')))
+                     ->createResponse($e);
+			}			
+		}
+		
+		if ($e instanceof MyExceptReturn) {
+			return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+		}			
+		
 		
 		return parent::render($request, $e);
 	}
 
+
+	
 }

@@ -24,7 +24,7 @@
                         </div>
                         <div class="col-md-3">
 							<h4>
-								Marked
+                                <strong><a href="{{route('markedjobposts.index', ['id' => $profile->id])}}"> Marked Job Posts </a></strong>
 							</h4>
                         </div>
 						

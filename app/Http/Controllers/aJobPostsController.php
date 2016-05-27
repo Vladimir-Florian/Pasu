@@ -167,15 +167,15 @@ class aJobPostsController extends Controller {
 	{
 		$jobpost = Jobpost::findOrFail($id);
 		$coordinates = [$jobpost->location->latitude, $jobpost->location->longitude];
+
 		$tags = collect();
-		
 		foreach ($jobpost->jobtags as $jobtag) {
 			$tags->push($jobtag->name);
 		}
 		
 		$jobpost = Jobpost::byjobpostid($id)->first();
 		//dd($jobpost->locat);
-		//$location = $jobpost->location;
+
 		return response()->json(compact('jobpost', 'coordinates', 'tags'));		
 	}
 

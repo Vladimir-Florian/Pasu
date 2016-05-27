@@ -1,9 +1,11 @@
-<?php namespace App;
+<?php
+
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Markedjobposts extends Model {
-
+class Markedjobpost extends Model
+{
 	/**
 	 * The database table used by the model.
 	 *
@@ -36,5 +38,5 @@ class Markedjobposts extends Model {
 	{
 		return $this->belongsTo('App\Jobpost');
 	}
-	
+
 }

@@ -1,6 +1,8 @@
 <?php $__env->startSection('content'); ?>
 
- <h2> <?php echo e($profile->industry->name); ?> </h2>
+	<?php echo $__env->make('errors.list', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
+    <h2> <?php echo e($profile->industry->name); ?> </h2>
 
     <?php if( !$jobposts->count()): ?>
         No Job Posts.
@@ -13,6 +15,7 @@
 					<th>Request Date</th>
 					<th>Employer</th>
 					<th> </th>
+					<th> </th>
 				</tr>
 			</thead>
 			<tbody>
@@ -22,6 +25,7 @@
 					<td><?php echo e($jobpost->request_date); ?></td>
 					<td><?php echo e($jobpost->company_name); ?></td>
 					<td><?php echo link_to_route('candidate_jobposts.show', 'Details', array($profile->id, $jobpost->id), array('class' => 'btn btn-info')); ?></td>
+					<td><?php echo link_to_route('markedjobposts.store', 'Mark', array($profile->id, $jobpost->id), array('class' => 'btn btn-info')); ?></td>
 				</tr>
               <?php endforeach; ?>
 			</tbody>

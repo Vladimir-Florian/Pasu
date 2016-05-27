@@ -2,6 +2,8 @@
 
 @section('content')
 
+	@include('errors.list')
+
  <h2> Jobtypes </h2>
  
    @if(!$jobtypes->count())

@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Eloquent\Model;
 
+use Carbon\Carbon;
+
 class Jobpost extends Model {
 
 	/**
@@ -98,19 +100,20 @@ class Jobpost extends Model {
 	 * @return
 	 */
 	public function markedjobposts() {
-		return $this->hasMany('App\Markedjobposts');
+		return $this->hasMany('App\Markedjobpost');
 	}
 
 	//Accessors for relationship attributes
     /**
      * Get the job's location.
      */
+	/*
     public function getLocatAttribute()
     {
         return $this->location->latitude;
         //return $this->employer->company_name;
     }
-	
+	*/
 	
 	//Queries with Scopes
 	/**
@@ -168,14 +171,10 @@ class Jobpost extends Model {
 					->join('employment_types', 'jobposts.employment_type_id', '=', 'employment_types.id')		
 					->where('jobposts.id', '=', $id)
 					->select('jobposts.id', 'jobposts.jobtitle', 'experience', 'education',
-					'benefits',
-					'incentives',
-					'responsabilities',
-					'salary',
-					'currency',
-					'workhours',
-					'award_date',
-					'jobposts.request_date', 'validity_days','employers.company_name', 'employment_types.name as employment_type','jobtypes.name as job_type');
+					'benefits', 'incentives', 'responsabilities',
+					'salary', 'currency', 'workhours',
+					'request_date', 'validity_days', 'award_date',
+					'employers.company_name', 'employment_types.name as employment_type','jobtypes.name as job_type');
 	}
 	
 		

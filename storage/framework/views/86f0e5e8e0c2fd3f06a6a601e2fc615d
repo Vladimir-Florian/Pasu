@@ -1,5 +1,7 @@
 <?php $__env->startSection('content'); ?>
 
+	<?php echo $__env->make('errors.list', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
  <h2> Jobtypes </h2>
  
    <?php if(!$jobtypes->count()): ?>

@@ -240,6 +240,14 @@ Route::get('candidate_jobposts/{pid}/{id}', [
 	'uses' => 'CandidateJobPostsController@show'
 ]);
 
+Route::get('markedjobposts', [
+	'as' => 'markedjobposts.index',
+	'uses' => 'MarkedjobspostsController@index'
+]);
+Route::get('markedjobposts/{pid}/{jid}', [
+	'as' => 'markedjobposts.store',
+	'uses' => 'MarkedjobspostsController@store'
+]);
 
 
 

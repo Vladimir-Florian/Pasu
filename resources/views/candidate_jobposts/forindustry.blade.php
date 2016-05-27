@@ -2,7 +2,9 @@
 
 @section('content')
 
- <h2> {{ $profile->industry->name }} </h2>
+	@include('errors.list')
+
+    <h2> {{ $profile->industry->name }} </h2>
 
     @if ( !$jobposts->count())
         No Job Posts.
@@ -15,6 +17,7 @@
 					<th>Request Date</th>
 					<th>Employer</th>
 					<th> </th>
+					<th> </th>
 				</tr>
 			</thead>
 			<tbody>
@@ -24,6 +27,7 @@
 					<td>{{ $jobpost->request_date }}</td>
 					<td>{{ $jobpost->company_name }}</td>
 					<td>{!! link_to_route('candidate_jobposts.show', 'Details', array($profile->id, $jobpost->id), array('class' => 'btn btn-info')) !!}</td>
+					<td>{!! link_to_route('markedjobposts.store', 'Mark', array($profile->id, $jobpost->id), array('class' => 'btn btn-info')) !!}</td>
 				</tr>
               @endforeach
 			</tbody>
