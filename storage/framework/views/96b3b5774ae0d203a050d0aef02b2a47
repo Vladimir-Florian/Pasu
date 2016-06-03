@@ -1,0 +1,77 @@
+<?php $__env->startSection('content'); ?>
+
+	<?php echo $__env->make('errors.list', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
+
+ <h2> Applications for "<?php echo e($profile->name); ?>"</h2>
+ 
+   <?php if(!$applications->count()): ?>
+	   No applications
+   <?php else: ?>
+	   
+		<table class="table table-condensed table-striped">
+			<thead>
+				<tr>
+					<th>Title</th>
+					<th>Request Date</th>
+					<th>Employer</th>
+					<th> Experience </th>
+					<th> Education</th>
+					<th> Benefits</th>
+					<th> Incentives</th>
+					<th> Responsabilities</th>
+					<th> Salary</th>
+					<th> Currency</th>
+					<th> Workhours</th>
+					<th> Validity days</th>
+					<th> Award Date</th>
+					<th> Employment Type</th>
+					<th> Job Type</th>
+					<th> </th>
+					<th> </th>
+					<th> </th>
+					<th> </th>
+				</tr>
+			</thead>
+			<tbody>
+              <?php foreach( $applications as $application ): ?>
+				<tr>
+					<td><?php echo e($application->jobtitle); ?></td>
+					<td><?php echo e($application->request_date); ?></td>
+					<td><?php echo e($application->company_name); ?></td>
+					<td><?php echo e($application->experience); ?></td>
+					<td><?php echo e($application->education); ?></td>
+					<td><?php echo e($application->benefits); ?></td>
+					<td><?php echo e($application->incentives); ?></td>
+					<td><?php echo e($application->responsabilities); ?></td>
+					<td><?php echo e($application->salary); ?></td>
+					<td><?php echo e($application->currency); ?></td>
+					<td><?php echo e($application->workhours); ?></td>
+					<td><?php echo e($application->validity_days); ?></td>
+					<td><?php echo e($application->award_date); ?></td>
+					<td><?php echo e($application->employment_type); ?></td>
+					<td><?php echo e($application->job_type); ?></td>					 
+					<th>
+					  <?php echo Form::open(array('class' => 'form-inline', 'method'=>'DELETE', 'route'=>array('applications.destroy', $profile->id, $application->id))); ?>
+
+					  <?php echo Form::submit('Delete', array('class' => 'btn btn-danger')); ?>				
+					  <?php echo Form::close(); ?>
+
+					</th>					 
+				</tr>
+              <?php endforeach; ?>
+			</tbody>
+		</table>	   
+   
+   <?php endif; ?>
+		 
+	<p>
+      <!-- <strong><a href="<?php echo e(route('candidate_jobposts.index', ['id' => $profile->id])); ?>"> Back to Job Posts </a></strong>	 -->  
+	  <div class="title"> <a href="<?php echo e(route('employees.index')); ?>" class="btn btn-primary pull-left"> Back to Profile </a> </div>
+
+	</p>
+		 
+<?php $__env->stopSection(); ?>		
+		
+
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

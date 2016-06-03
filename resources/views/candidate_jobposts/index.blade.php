@@ -29,35 +29,22 @@
                         </div>
 						
                     </div>
-                    <div class="row">
-
-						
-                        <div class="col-md-3">
-							<h4>
-                            <strong> Apply </strong>
-							</h4>
-							<p>
-							</p>
-                            <p>
-                                <a class="btn btn-mini btn-default"
-                                   href="{{route('about')}}">Apply</a>
-                            </p>
-                        </div>					
+							<p> </p>
 					
-                        <div class="col-md-3">
-                            <p></p>
-
+                    <div class="row">
+                       <div class="col-md-3">
                             <p>
-                                <span class="glyphicon glyphicon-user"></span> by <span
-                                        class="muted">History</span> | <span
-                                        class="glyphicon glyphicon-calendar"></span> List
+                                <span class="glyphicon glyphicon-user"></span> by 
+								<span class="muted">History</span> | 
+								<span class="glyphicon glyphicon-calendar"></span> List
                             </p>
                         </div>
                     </div>
                 </div>
         </div>
-
-	   <a href="{{route('employees.index', ['id' => $profile->id])}}"> Back to Profile </a> 
+		<h4>
+	     <a href="{{route('employees.index', ['id' => $profile->id])}}"> Back to Profile </a> 
+		</h4>
 		
 		
 @endsection		

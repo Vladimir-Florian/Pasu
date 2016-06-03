@@ -51,13 +51,21 @@
 							</h4>
                         </div>
 						
-                        <div class="col-md-3">
+                    </div>
+
+                    <div class="row">
+                       <div class="col-md-3">
 							<h4>
                                 <strong><a href="{{route('candidate_jobposts.index', ['id' => $profile->id])}}"> Job Posts </a></strong>
 							</h4>
                         </div>
+                        <div class="col-md-3">
+							<h4>
+                                <strong><a href="{{route('applications.index', ['id' => $profile->id])}}"> My Applications </a></strong>
+							</h4>
                         </div>
-                    </div>
+						
+					</div>				   
                 </div>
         </div>
 
