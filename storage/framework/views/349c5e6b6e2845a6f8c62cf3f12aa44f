@@ -27,7 +27,7 @@
 		<div class="form-group">
 			<?php echo Form::label('specialization', 'Specialization:'); ?><br />
 			<?php echo Form::select('specialization',
-				(['0' => 'Select a specialization'] + $industries), 
+				(['0' => 'Select a specialization'] + $industries->toArray()), 
 					null, 
 					['class' => 'form-control']); ?>
 

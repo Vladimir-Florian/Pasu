@@ -48,5 +48,23 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	public function employer() {
 		return $this->hasOne('App\Employer');
 	}
+
+    /**
+     * The roles that belong to the user.
+     */
+    public function roles()
+    {
+        return $this->belongsToMany('App\Role');
+    }
+
+    /**
+    * Check if user has role $role
+    */
+    public function hasRole($role)
+    {
+    	return in_array($role, $this->roles->pluck("slug"));
+
+    }
+
 	 
 }

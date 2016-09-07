@@ -267,6 +267,12 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
+Route::group(['middleware' => 'admin'], function () {
+	Route::get('admin', [
+    	'as' => 'admin',
+    	'uses' => 'PagesController@about'
+	]);
+});
 
 Route::group(['prefix' => 'api'], function() {
     Route::post('/facebook', 			          	['uses' => 'aSocialController@facebook']);
