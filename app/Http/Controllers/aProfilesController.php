@@ -46,7 +46,11 @@ class aProfilesController extends Controller {
 	 *
 	 * @return Response
 	 */
-	/* replaced 06.04.2016
+
+	/* replaced 06.04.2016 
+	 reintroduced 29.11.2016
+	*/
+
 	 public function store(Request $request)
 	{
 		//dd($request);
@@ -90,14 +94,16 @@ class aProfilesController extends Controller {
 			
 		}
 		
-	}*/
+	}
 
 	/**
 	 * Register: Create and Store a User and a profile.
 	 *
 	 * @param Request $request
 	 * @return Response
-	 */
+
+	 replaced 29.11.2016
+
 	public function store(Request $request)
 	{
 		//$credentials = $request->only('name', 'email', 'password');
@@ -141,6 +147,7 @@ class aProfilesController extends Controller {
 		}
 		
 	}
+*/
 	
 	/**
 	 * Display the specified resource.

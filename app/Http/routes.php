@@ -280,8 +280,9 @@ Route::group(['middleware' => 'admin'], function () {
 Route::group(['prefix' => 'api'], function() {
     Route::post('/facebook', 			          	['uses' => 'aSocialController@facebook']);
     Route::post('/register', 			          	array('uses' => 'UserController@register'));
-    //Route::post('/register', 			          	array('uses' => 'aProfilesController@store'));
-	//replaced 18.10.2016
+    //Route::post('/register', 			          	array('uses' => 'aProfilesController@store')); 	//replaced 18.10.2016
+    Route::post('/create_profile', 			        array('uses' => 'aProfilesController@store')); //introduced 29.11.2016
+
     Route::post('/login', 			          		array('uses' => 'UserController@login'));
     Route::post('/login_profile', 			        array('uses' => 'aProfilesController@login_profile')); //added 07.04.2016
     Route::post('/logout', 			          		array('uses' => 'UserController@logout'));	//added 19.04.2016
