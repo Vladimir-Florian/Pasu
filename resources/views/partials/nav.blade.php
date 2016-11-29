@@ -28,7 +28,7 @@
                     <a href="{!! URL::to('pricing') !!}">Pricing</a>
                 </li>
                 <li class="{{ (Request::is('admin') ? 'active' : '') }}"> 
-                    <a href="{!! URL::to('about') !!}"> Admin</a>            
+                    <a href="{!! URL::to('admin') !!}"> Admin</a>            
                 </li>
 			</ul>
 

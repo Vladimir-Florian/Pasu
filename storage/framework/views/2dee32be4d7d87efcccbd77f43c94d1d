@@ -28,7 +28,7 @@
                     <a href="<?php echo URL::to('pricing'); ?>">Pricing</a>
                 </li>
                 <li class="<?php echo e((Request::is('admin') ? 'active' : '')); ?>"> 
-                    <a href="<?php echo URL::to('about'); ?>"> Admin</a>            
+                    <a href="<?php echo URL::to('admin'); ?>"> Admin</a>            
                 </li>
 			</ul>
 

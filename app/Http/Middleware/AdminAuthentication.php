@@ -26,12 +26,21 @@ class AdminAuthentication
     {
         if($this->auth->check())
         {
-            if($this->auth->user()->hasRole("admin") == true)
+            //dd($this->auth->user()->hasRole('admin'));
+            if($this->auth->user()->hasRole('admin') == true)
             {
                 return $next($request);
 
             }
+            else
+            {
+                return redirect('/')->withErrors('You are not admin');             
+            }
         }
-        return new RedirectResponse(url('/'));
+        //return new RedirectResponse(url('/'));
+        return redirect('/')->withErrors('You are not logged in');
+        //return view('auth.login')->withErrors('You are not logged in');
+
+
     }
 }

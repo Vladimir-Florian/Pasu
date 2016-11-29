@@ -136,7 +136,7 @@ class aProfilesController extends Controller {
 			$profile->save();
 
 			//return response()->json(['success  profile'. $profile->id], 200);
-			return response()->json([compact('token')]);
+			return response()->json(compact('token'));
 			
 		}
 		

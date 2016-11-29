@@ -10,6 +10,7 @@ use Illuminate\Http\Response as HttpResponse;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
 use Hash;
+use App\Industry;
 
 class UserController extends Controller {
 
@@ -47,7 +48,9 @@ class UserController extends Controller {
 
 		$token = JWTAuth::fromUser($user);
 
-		return response()->json(compact('token'));
+		//$industries = Industry::all();
+		$industries = Industry::select('id', 'slug', 'name')->get();
+		return response()->json(compact('token', 'industries'));
 		//return response()->json($credentials);
 		
     }

@@ -60,9 +60,17 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     /**
     * Check if user has role $role
     */
-    public function hasRole($role)
+    public function hasRole($roleName)
     {
-    	return in_array($role, $this->roles->pluck("slug"));
+        foreach ($this->roles()->get() as $role)
+        {
+            if ($role->slug == $roleName)
+            {
+                return true;
+            }
+        }
+
+        return false;
 
     }
 
