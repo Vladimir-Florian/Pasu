@@ -1,0 +1,17 @@
+<?php $__env->startSection('content'); ?>
+
+    <h2> Edit Resume of Profile: <?php echo e($profile->name); ?> </h2>
+
+	<?php echo Form::model($profile->resume, ['method' => 'PATCH','action' => ['ResumesController@update', $profile->id],
+									  'files' => true ]); ?>
+
+		<?php echo $__env->make('profile_resume.cr_form', ['submitButtonText' => 'Update CV'], array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php echo Form::close(); ?>
+
+
+		
+	<?php echo $__env->make('errors.list', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+	
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

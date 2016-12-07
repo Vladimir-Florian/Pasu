@@ -264,7 +264,7 @@ class aProfilesController extends Controller {
 		try {
             // attempt to verify the credentials and create a token for the user
             if (! $token = JWTAuth::attempt($credentials)) {
-                return response()->json(['error' => 'invalid_credentials'], 400);
+                return response()->json(['error' => 'invalid_credentials'], 401);
             }
  
 		} catch (JWTException $e) {
@@ -274,11 +274,21 @@ class aProfilesController extends Controller {
 			
 		}
 		//dd($token);
-		$user = Auth::user();
 		// the token is valid and we have found the user 
-		$profile = Profile::byuser_id($user->id)->first();
-		$industry = [$profile->industry->slug, $profile->industry->name];
-		return response()->json(compact('token', 'profile', 'industry'));		
+		$user = Auth::user();
+
+    	try {
+
+			$profile = Profile::byuser_id($user->id)->firstOrFail();
+			//$industry = [$profile->industry->slug, $profile->industry->name];
+			//return response()->json(compact('token', 'profile', 'industry'));		
+			return response()->json(compact('token', 'profile'));		
+
+    	} catch(ModelNotFoundException $e) {
+
+            return response()->json(['error' => 'profile does not exist'], 404);
+
+    	}
 		
     }
 

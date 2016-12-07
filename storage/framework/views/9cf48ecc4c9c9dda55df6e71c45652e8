@@ -1,0 +1,36 @@
+<?php $__env->startSection('content'); ?>
+
+ <h2> Certificates for Profile "<?php echo e($profile->name); ?>" </h2>
+
+   <?php if(!$profile->certificates->count()): ?>
+	   No certificates
+   <?php else: ?>
+	   <ul>
+		<?php foreach($profile->certificates as $certificate): ?>
+		 <li>
+			
+			<?php echo Form::open(array('class' => 'form-inline', 'method'=>'DELETE', 'route'=>array('profile_certificates.destroy', $profile->id, $certificate->id))); ?>
+
+                <a href="<?php echo e(route('profile_certificates.show', array($profile->id, $certificate->id))); ?>"><?php echo e($certificate->slug); ?></a>
+
+				(
+                  <?php echo link_to_route('profile_certificates.edit', 'Edit', array($profile->id, $certificate->id), array('class' => 'btn btn-info')); ?>,
+                  <?php echo Form::submit('Delete', array('class' => 'btn btn-danger')); ?>				
+				)
+            <?php echo Form::close(); ?>
+
+		 </li>
+		<?php endforeach; ?>
+	   </ul>
+   <?php endif; ?>
+		 
+	<p>
+      <?php echo link_to_route('employees.index', 'Back to Profile'); ?> 
+	  <!--	<a href="<?php echo e(route('employees.index', ['id' => $profile->id])); ?>"> Back to Profile </a> -->
+		<a href="<?php echo e(route('profile_certificates.create', ['id' => $profile->id])); ?>"> Add Certificate </a>	
+	</p>
+		 
+<?php $__env->stopSection(); ?>		
+		
+
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
