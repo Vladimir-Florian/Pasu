@@ -59,13 +59,11 @@ class aResumesController extends Controller {
 		$profile = Profile::findOrFail($id);
 
 		$resume = new Resume;
-		$resume->cv = $request->input('cv');
-		$file_name = 'cv'. $profile->id . '.' . 
-			$request->file('file')->getClientOriginalExtension();
-		$resume->file_path = public_path() . "\\resumes\\" . $file_name;
-		$request->file('file')->move(
-			'resumes', $file_name
-		);
+		//$resume->cv = $request->input('cv');
+		//$file_name = 'cv'. $profile->id . '.' . 
+			//$request->file('file')->getClientOriginalExtension();
+		//$resume->file_path = public_path() . "\\resumes\\" . $file_name;
+		//$request->file('file')->move('resumes', $file_name);
 		
 		try {
 			//$resume->save();
@@ -113,13 +111,15 @@ class aResumesController extends Controller {
 		$resume = $profile->resume;
 		$resume->cv = $request->input('cv');
 
+		/*
 		$file_name = 'cv'. $profile->id . '.' . 
 			$request->file('file')->getClientOriginalExtension();
 		$resume->file_path = public_path() . "\\resumes\\" . $file_name;
 		$request->file('file')->move(
 			'resumes', $file_name
 			);
-
+		*/
+			
 		try {
 			$profile->resume()->save($resume);			
 		} catch(\Exception $e) {
@@ -145,6 +145,36 @@ class aResumesController extends Controller {
 		$profile = Profile::findOrFail($id);
 		return response()->json(['success profile'. $profile->id], 200);
 		
+	}
+
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  int $id 	profile_id
+	 * @param Request $request
+	 * @return Response
+	 */
+	public function upload($id, Request $request)
+	{
+		$profile = Profile::findOrFail($id);
+		$resume = $profile->resume;
+		//$resume->cv = $request->input('cv');
+
+		$file_name = 'cv'. $profile->id . '.' . 
+			$request->file('file')->getClientOriginalExtension();
+		$resume->file_path = public_path() . "\\resumes\\" . $file_name;
+		$request->file('file')->move(
+			'resumes', $file_name
+			);
+
+		try {
+			$profile->resume()->save($resume);			
+		} catch(\Exception $e) {
+		    return response()->json(["error" => $e->getCode()], 500);
+		}
+		
+		return response()->json(['success profile'. $profile->id], 200);
+
 	}
 
 }

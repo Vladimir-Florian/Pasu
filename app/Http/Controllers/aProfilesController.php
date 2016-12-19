@@ -51,7 +51,7 @@ class aProfilesController extends Controller {
 	 reintroduced 29.11.2016
 	*/
 
-	 public function store(Request $request)
+	public function store(Request $request)
 	{
 		//dd($request);
 		
@@ -76,10 +76,14 @@ class aProfilesController extends Controller {
 		}
 		// the token is valid and we have found the user 
 		//dd($request->all());
-		try {
-			$id = $user->profile->user_id;
+
+    	try {
+
+			$profile = Profile::byuser_id($user->id)->firstOrFail();
 			return response()->json(['Profile already exists'], 409);			
-		} catch(\Exception $e) {
+
+    	} catch(ModelNotFoundException $e) {
+
 			$profile = new Profile;
 			$profile->user_id = $user->id;
 			$profile->name = $request->input('name');
@@ -88,13 +92,11 @@ class aProfilesController extends Controller {
 			$profile->experience = $request->input('experience');
 			$profile->industry_id = $request->input('spec_id');
 			$profile->save();
-
-			//return response()->json($profile->id);	
 			return response()->json(['success  profile'. $profile->id], 200);
-			
-		}
-		
+
+    	}
 	}
+
 
 	/**
 	 * Register: Create and Store a User and a profile.
