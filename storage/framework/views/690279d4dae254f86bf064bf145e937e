@@ -1,0 +1,58 @@
+<?php $__env->startSection('content'); ?>
+
+ <h2> <?php echo e($profile->name); ?> </h2>
+ 
+	<article>
+		<?php echo e($location->address); ?>
+
+	</article>
+	<article>
+		<?php echo e($location->postal_code); ?>
+
+	</article>
+	<article>
+		<?php echo e($location->city); ?>
+
+	</article>
+	<article>
+		<?php echo e($location->province); ?>
+
+	</article>
+	<article>
+		<?php echo e($location->country_code); ?>
+
+	</article>
+	<article>
+		<?php echo e($location->latitude); ?>
+
+	</article>
+	<article>
+		<?php echo e($location->longitude); ?>
+
+	</article>
+	<p>
+	
+	</p>
+	<article>
+		<?php echo e($location->pivot->location_type); ?>
+
+	</article>
+	<article>
+		<?php echo e($location->pivot->start_date); ?>
+
+	</article>
+	<article>
+		<?php echo e($location->pivot->end_date); ?>
+
+	</article>
+
+
+	<p>
+		<a href="<?php echo e(route('profile_locations.index', ['id' => $profile->id])); ?>"> Back to Locations for Profile </a>	
+	</p>
+ 
+
+<?php $__env->stopSection(); ?>		
+		
+
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

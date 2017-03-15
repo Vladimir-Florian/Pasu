@@ -279,9 +279,8 @@ Route::group(['middleware' => 'admin'], function () {
 
 Route::group(['prefix' => 'api'], function() {
     Route::post('/facebook', 			          	['uses' => 'aSocialController@facebook']);
-    Route::post('/register', 			          	array('uses' => 'UserController@register'));
+    Route::post('/register', 			          	['uses' => 'UserController@register']);
     //Route::post('/register', 			          	array('uses' => 'aProfilesController@store')); 	//replaced 18.10.2016
-    Route::post('/create_profile', 			        array('uses' => 'aProfilesController@store')); //introduced 29.11.2016
 
     Route::post('/login', 			          		array('uses' => 'UserController@login'));
     Route::post('/login_profile', 			        array('uses' => 'aProfilesController@login_profile')); //added 07.04.2016
@@ -300,7 +299,9 @@ Route::group(['prefix' => 'api'], function() {
 
 	//Route::resource('/profiles', 'aProfilesController');
 	Route::get('/profile', ['as' => '/profiles.show', 'uses' => 'aProfilesController@show']);
-	Route::put('/profile', ['as' => '/profiles.update', 'uses' => 'aProfilesController@update']);
+    Route::post('/create_profile', ['as' => '/profiles.store', 'uses' => 'aProfilesController@store']); //added 29.11.2016
+	Route::patch('/profile', ['as' => '/profiles.update', 'uses' => 'aProfilesController@update']);
+	Route::delete('/profile', ['as' => '/profiles.destroy',	'uses' => 'aProfilesController@destroy']); //added 18.01.2017
 	
 	Route::get('/profile_certificates/{id}', 		['uses' => 'aProfile_certificatesController@index']);	
 	Route::get('/cert_list', 						['uses' => 'aProfile_certificatesController@cert_list']);	

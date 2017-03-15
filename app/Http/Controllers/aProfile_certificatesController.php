@@ -25,46 +25,44 @@ class aProfile_certificatesController extends Controller {
 	 */
 	public function index($id)
 	{
-		$profile = Profile::findOrFail($id);
-		$certificates = $profile->certificates;
-		$certs = collect([]);
-		foreach($certificates as $certificate){
-			$certs->push(['id' => $certificate->id, 'slug' => $certificate->slug, 'description' => $certificate->description, 'details' => $certificate->pivot->details]);
-		}
-		//dd(compact('certs'));
-		return response()->json(compact('certs'));		
+		
+    	try {
+
+			$profile = Profile::findOrFail($id);
+   			if(!$profile->certificates->count()) {
+            	return response()->json(['error' => 'no certificates entered'], 404);
+   			}
+
+			$certificates = $profile->certificates;
+			$certs = collect([]);
+			foreach($certificates as $certificate){
+				$certs->push(['id' => $certificate->id, 'slug' => $certificate->slug, 'description' => $certificate->description, 'details' => $certificate->pivot->details]);
+			}
+			//dd(compact('certs'));
+			return response()->json(compact('certs'));		
+
+    	} catch(ModelNotFoundException $e) {
+
+            return response()->json(['error' => 'profile does not exist'], 404);
+
+    	}
+
 	}
 
 	/**
-	 * Get a listing of the Certificates for Profile.
+	 * Get a listing of all the Certificates List.
 	 *
 	 * @return Response
 	 */
 	public function cert_list()
 	{
-		/*
-		try {
-
-			if (! $user = JWTAuth::parseToken()->authenticate()) {
-				return response()->json(['user_not_found'], 404);
-			}
-
-		} catch (Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
-
-			return response()->json(['token_expired'], $e->getStatusCode());
-
-		} catch (Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
-
-			return response()->json(['token_invalid'], $e->getStatusCode());
-
-		} catch (Tymon\JWTAuth\Exceptions\JWTException $e) {
-
-			return response()->json(['token_absent'], $e->getStatusCode());
-
-		}*/
 		// the token is valid and we have found the user via the sub claim
 
 		$certificates = Certificate::select('id', 'slug', 'description')->get();
+		if(!certificates->count()) {
+            return response()->json(['error' => 'Empty List'], 404);
+   		}
+
 		return response()->json(compact('certificates'));
 	
 	}

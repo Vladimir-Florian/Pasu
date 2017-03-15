@@ -42,8 +42,10 @@ class UserController extends Controller {
 			
 		} catch (\Exception $e) {
 
-            //return response()->json(['error' => 'could_not_create_token'], HttpResponse::HTTP_CONFLICT);		
-			return response()->json(['error' => 'User already exists'], HttpResponse::HTTP_CONFLICT);
+        	$error_code = $e->errorInfo[1];
+        	if($error_code == 1062){
+				return response()->json(['error' => 'Duplicate email'], HttpResponse::HTTP_CONFLICT);
+			}				
 		}
 
 		$token = JWTAuth::fromUser($user);
@@ -89,9 +91,9 @@ class UserController extends Controller {
 	* @param Request $request
 	*/
 	public function logout(Request $request) {
-		$this->validate($request, [
+		/*$this->validate($request, [
 			'token' => 'required' 
-		]);
+		]);*/
 
 		JWTAuth::invalidate($request->input('token'));
         return response()->json('logged out', 200);

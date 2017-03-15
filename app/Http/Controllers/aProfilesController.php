@@ -11,6 +11,7 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Http\Response as HttpResponse;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Auth;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class aProfilesController extends Controller {
 
@@ -78,7 +79,7 @@ class aProfilesController extends Controller {
 		//dd($request->all());
 
     	try {
-
+    		//dd($user->id);
 			$profile = Profile::byuser_id($user->id)->firstOrFail();
 			return response()->json(['Profile already exists'], 409);			
 
@@ -92,7 +93,7 @@ class aProfilesController extends Controller {
 			$profile->experience = $request->input('experience');
 			$profile->industry_id = $request->input('spec_id');
 			$profile->save();
-			return response()->json(['success  profile'. $profile->id], 200);
+			return response()->json(['Profile id'=> $profile->id], 200);
 
     	}
 	}
@@ -237,7 +238,7 @@ class aProfilesController extends Controller {
 			$profile->save();
 
 			//return response()->json($profile->id);	
-			return response()->json(['success  profile'. $profile->id], 200);
+			return response()->json(['Profile id'=> $profile->id], 200);
 
 	}
 
@@ -247,9 +248,32 @@ class aProfilesController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy()
 	{
-		//
+		try {
+
+			if (! $user = JWTAuth::parseToken()->authenticate()) {
+				return response()->json(['user_not_found'], 404);
+			}
+
+		} catch (Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
+
+			return response()->json(['token_expired'], $e->getStatusCode());
+
+		} catch (Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
+
+			return response()->json(['token_invalid'], $e->getStatusCode());
+
+		} catch (Tymon\JWTAuth\Exceptions\JWTException $e) {
+
+			return response()->json(['token_absent'], $e->getStatusCode());
+
+		}
+		// the token is valid and we have found the user 
+		//dd($request->all());
+		$profile = Profile::byuser_id($user->id)->first();
+		$profile->delete();
+		return response()->json(['profile deleted'], 200);		
 	}
 
     /**
@@ -272,7 +296,7 @@ class aProfilesController extends Controller {
 		} catch (JWTException $e) {
 					//dd($token);
             // something went wrong whilst attempting to encode the token
-            return response()->json(['error' => 'could_not_create_token'], 500);
+            return response()->json(['error' => 'could_not_create_token'], 401);
 			
 		}
 		//dd($token);
@@ -282,13 +306,11 @@ class aProfilesController extends Controller {
     	try {
 
 			$profile = Profile::byuser_id($user->id)->firstOrFail();
-			//$industry = [$profile->industry->slug, $profile->industry->name];
-			//return response()->json(compact('token', 'profile', 'industry'));		
 			return response()->json(compact('token', 'profile'));		
 
     	} catch(ModelNotFoundException $e) {
 
-            return response()->json(['error' => 'profile does not exist'], 404);
+            return response()->json(['token' => $token, 'error' => 'profile does not exist'], 404);
 
     	}
 		
