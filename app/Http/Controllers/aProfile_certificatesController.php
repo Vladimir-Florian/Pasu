@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Profile;
 use App\Certificate;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class aProfile_certificatesController extends Controller {
 	
@@ -59,9 +60,9 @@ class aProfile_certificatesController extends Controller {
 		// the token is valid and we have found the user via the sub claim
 
 		$certificates = Certificate::select('id', 'slug', 'description')->get();
-		if(!certificates->count()) {
-            return response()->json(['error' => 'Empty List'], 404);
-   		}
+		//if(!certificates->count()) {
+           // return response()->json(['error' => 'Empty List'], 404);
+   		//}
 
 		return response()->json(compact('certificates'));
 	

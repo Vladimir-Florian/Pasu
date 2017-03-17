@@ -9,6 +9,7 @@ use App\Resume;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class aResumesController extends Controller {
 
@@ -26,6 +27,7 @@ class aResumesController extends Controller {
 	 */
 	public function index($id)
 	{
+
 		$profile = Profile::findOrFail($id);
 		if(!$profile->resume)
 			return response()->json(['resume_not_found'], 404);
@@ -58,21 +60,25 @@ class aResumesController extends Controller {
 	{
 		$profile = Profile::findOrFail($id);
 
-		$resume = new Resume;
-		//$resume->cv = $request->input('cv');
-		//$file_name = 'cv'. $profile->id . '.' . 
-			//$request->file('file')->getClientOriginalExtension();
-		//$resume->file_path = public_path() . "\\resumes\\" . $file_name;
-		//$request->file('file')->move('resumes', $file_name);
-		
-		try {
-			//$resume->save();
-			$profile->resume()->save($resume);			
-		} catch(\Exception $e) {
-		    return response()->json(["error" => $e->getCode()], 500);
+		if(!$profile->resume){
+			$resume = new Resume;
+			$resume->cv = $request->input('cv');
+			
+			try {
+				//$resume->save();
+				$profile->resume()->save($resume);			
+			} catch(\Exception $e) {
+			    return response()->json(["error" => $e->getCode()], 500);
+			}
+
+			return response()->json(['success profile'. $profile->id], 200);
+		}
+		else
+		{
+			return response()->json(['resume exists, go to update'], 404);
 		}
 
-		return response()->json(['success profile'. $profile->id], 200);
+
 
 	}
 
@@ -109,24 +115,21 @@ class aResumesController extends Controller {
 	{
 		$profile = Profile::findOrFail($id);
 		$resume = $profile->resume;
-		$resume->cv = $request->input('cv');
 
-		/*
-		$file_name = 'cv'. $profile->id . '.' . 
-			$request->file('file')->getClientOriginalExtension();
-		$resume->file_path = public_path() . "\\resumes\\" . $file_name;
-		$request->file('file')->move(
-			'resumes', $file_name
-			);
-		*/
-			
-		try {
-			$profile->resume()->save($resume);			
-		} catch(\Exception $e) {
-		    return response()->json(["error" => $e->getCode()], 500);
-		}
+		if(!$profile->resume)
+			return response()->json(['resume_not_created'], 404);
+		else
+		{
+			$resume->cv = $request->input('cv');
+
+			try {
+				$profile->resume()->save($resume);			
+			} catch(\Exception $e) {
+		    	return response()->json(["error" => $e->getCode()], 500);
+			}
 		
-		return response()->json(['success profile'. $profile->id], 200);
+			return response()->json(['success profile'. $profile->id], 200);
+		}
 
 	}
 
@@ -158,22 +161,27 @@ class aResumesController extends Controller {
 	{
 		$profile = Profile::findOrFail($id);
 		$resume = $profile->resume;
-		//$resume->cv = $request->input('cv');
 
-		$file_name = 'cv'. $profile->id . '.' . 
+		if(!$profile->resume)
+			return response()->json(['resume_not_created'], 404);
+		else
+		{
+		  $file_name = 'cv'. $profile->id . '.' . 
 			$request->file('file')->getClientOriginalExtension();
-		$resume->file_path = public_path() . "\\resumes\\" . $file_name;
-		$request->file('file')->move(
+		  $resume->file_path = public_path() . "\\resumes\\" . $file_name;
+
+		  $request->file('file')->move(
 			'resumes', $file_name
 			);
 
-		try {
-			$profile->resume()->save($resume);			
-		} catch(\Exception $e) {
-		    return response()->json(["error" => $e->getCode()], 500);
-		}
+		  try {
+			  $profile->resume()->save($resume);			
+		  } catch(\Exception $e) {
+		      return response()->json(["error" => $e->getCode()], 500);
+		  }
 		
-		return response()->json(['success profile'. $profile->id], 200);
+		  return response()->json(['success profile'. $profile->id], 200);
+		}
 
 	}
 
