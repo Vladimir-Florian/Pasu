@@ -15,6 +15,7 @@ class Certificate extends Model {
 
 	protected $fillable = [
 		'slug',
+		'name',
 		'description'
 	];
 
@@ -28,5 +29,18 @@ class Certificate extends Model {
 	{
 		return $this->belongsToMany('App\Profile');
 	}
+
+
+	/**
+	 * An certificate belongs to an industry.
+	 *
+	 * @return \IlluminateDatabase\Eloquent\Relations\BelongsTo
+	 */
+
+	public function industry()
+	{
+		return $this->belongsTo('App\Industry');
+	}
+
 
 }

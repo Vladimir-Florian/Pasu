@@ -53,5 +53,15 @@ class Industry extends Model {
         return $this->hasManyThrough('App\Jobost', 'App\Jobtype');
     }
 
+	/**
+	 * An industry has many certificates
+	 *
+	 * @return
+	 */
+	public function certificates() {
+		return $this->hasMany('App\Certificate');
+	}
+
+
 	
 }
