@@ -1,6 +1,6 @@
 <?php $__env->startSection('content'); ?>
 
-    <h2> Edit Certificate: <?php echo e($certificate->slug); ?> of Profile: <?php echo e($profile->name); ?> </h2>
+    <h2> Edit Certificate: <?php echo e($certificate->name); ?> of Profile: <?php echo e($profile->name); ?> </h2>
 
 	<?php echo Form::model($profile, ['method' => 'PATCH','action' => ['Profile_certificates@update', $profile->id, $certificate->id]]); ?>
 

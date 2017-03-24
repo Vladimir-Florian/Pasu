@@ -51,7 +51,7 @@ class Profile extends Model {
 	 */
 	public function certificates()
 	{
-		return $this->belongsToMany('App\Certificate')->withPivot('details')->withTimestamps();
+		return $this->belongsToMany('App\Certificate')->withPivot('awarder', 'date_awarded')->withTimestamps();
 	}
 
 

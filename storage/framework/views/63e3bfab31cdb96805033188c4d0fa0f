@@ -1,27 +1,28 @@
         <!-- Form Input Partial -->
 
-    <?php if( !$profile->certificates->count()): ?>
-        Profile has no certificates.
-    <?php else: ?>
 
 		<div class="form-group">
-			<h3> Certificate: <?php echo e($certificate->description); ?></h3>
+			<?php echo Form::label('certificate', 'Certificate:'); ?> <br />
+			<?php echo Form::select('certificate',
+				(['0' => 'Select a certificate'] + $fields->toArray()), 
+					null, 
+					['class' => 'form-control']); ?>
+
 		</div>
 			
-      <div class="form-group">
+       <div class="form-group">
             <?php echo Form::label('awarder', 'Awarding Institution:'); ?>
 
-			<?php echo Form::text('awarder', $certificate->pivot->awarder, ['class' => 'form-control']); ?>
+			<?php echo Form::text('awarder', null, ['class' => 'form-control']); ?>
 
         </div>			
         <div class="form-group">
             <?php echo Form::label('date_awarded', 'Awarding date:'); ?>
 
-			<?php echo Form::input('date', 'date_awarded', $certificate->pivot->awarder, ['class' => 'form-control']); ?>
+			<?php echo Form::input('date', 'date_awarded', date('Y-m-d'), ['class' => 'form-control']); ?>
 
         </div>			
-			  
-    <?php endif; ?>
+ 			  
 
 		
         <!-- Submit Button -->

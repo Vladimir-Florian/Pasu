@@ -32,8 +32,11 @@ class Profile_certificates extends Controller {
 	public function create($id)
 	{
 		$profile = Profile::findOrFail($id);
-		$fields = Certificate::lists("description", "id"); 
-		
+		//$fields = Certificate::lists("name", "id"); 
+		$fields = Certificate::select('name', 'id')
+                           ->where('industry_id', '=', $profile->industry_id)
+                           ->get(); 
+        $fields = $fields->pluck('name', 'id');
 		return view('profile_certificates.create', compact('profile', 'fields'));
 	}
 
@@ -58,7 +61,7 @@ class Profile_certificates extends Controller {
 		
 		$c_id = $request->input('certificate');
 		try {
-			$profile->certificates()->attach($c_id, ['details' => $request->input('details')]);
+			$profile->certificates()->attach($c_id, ['awarder' => $request->input('awarder'), 'date_awarded' => $request->input('date_awarded')]);
 		} catch(\Exception $e) {
 			return redirect()->route('profile_certificates.create', [$profile])->withErrors(['error' => $e->getMessage()]);
 			//return \Response::view('errors.503', [], 404);
@@ -120,7 +123,8 @@ class Profile_certificates extends Controller {
 		$certificate = $profile->certificates()->where('id', $id)->first();
 		//dd($request->input('details'));
 		//$certificate->pivot->certificate_id = $request->input('certificate');
-		$certificate->pivot->details = $request->input('details');
+		$certificate->pivot->awarder = $request->input('awarder');
+		$certificate->pivot->date_awarded = $request->input('date_awarded');
 		
 		$certificate->pivot->save();
 		//$profile->certificates()->save($certificate);

@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
+use App\Industry;
 use App\Certificate;
 //use App\Http\Requests;
 //use Illuminate\HttpResponse;
@@ -30,7 +31,9 @@ class CertificatesController extends Controller {
 	 */
 	public function create()
 	{
-		return view('certificates.create');
+		$industries = Industry::lists("slug", "id"); 
+		return view('certificates.create', compact('industries'));		
+		//return view('certificates.create');
 	}
 
 	/**
@@ -42,8 +45,15 @@ class CertificatesController extends Controller {
 	public function store(Request $request)
 	{
 		
-		Certificate::create($request->all());
-		return redirect('certificates');
+		$certificate = new Certificate;
+		$certificate->slug = $request->input('slug');
+		$certificate->name = $request->input('name');
+		$certificate->description = $request->input('description');
+		$certificate->industry_id = $request->input('specialization');
+		$certificate->save();
+
+		$certificates = Certificate::all();		
+		return view('certificates.index', compact('certificates'));		
 	}
 
 	/**
@@ -67,8 +77,9 @@ class CertificatesController extends Controller {
 	 */
 	public function edit($id)
 	{
+		$industries = Industry::lists("slug", "id"); 
 		$certificate = Certificate::findOrFail($id);
-		return view('certificates.edit', compact('certificate'));
+		return view('certificates.edit', compact('certificate', 'industries'));
 	}
 
 	/**

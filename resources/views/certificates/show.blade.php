@@ -5,6 +5,10 @@
 	<h3> {{ $certificate->slug }} </h3>
 
 	<article>
+		{{ $certificate->name}}
+	</article>
+
+	<article>
 		{{ $certificate->description}}
 	</article>
 	

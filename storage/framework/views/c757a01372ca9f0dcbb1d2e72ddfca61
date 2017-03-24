@@ -11,7 +11,11 @@
 
 	</article>
 	<article>
-		<?php echo e($certificate->pivot->details); ?>
+		<?php echo e($certificate->pivot->awarder); ?>
+
+	</article>
+	<article>
+		<?php echo e($certificate->pivot->date_awarded); ?>
 
 	</article>
 

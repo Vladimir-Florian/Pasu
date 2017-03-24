@@ -51,18 +51,21 @@ class aProfile_certificatesController extends Controller {
 	}
 
 	/**
-	 * Get a listing of all the Certificates List.
+	 * Get a listing of all the Certificates for the Industry.
 	 *
+	 * @param  int $id 	Specialization id
 	 * @return Response
 	 */
-	public function cert_list()
+	public function cert_list($id)
 	{
 		// the token is valid and we have found the user via the sub claim
 
+			$profile = Profile::findOrFail($id);
+			//$profile->industry_id;
 		$certificates = Certificate::select('id', 'slug', 'description')->get();
-		//if(!certificates->count()) {
-           // return response()->json(['error' => 'Empty List'], 404);
-   		//}
+		if(!certificates) {
+           return response()->json(['error' => 'Empty List'], 404);
+   		}
 
 		return response()->json(compact('certificates'));
 	

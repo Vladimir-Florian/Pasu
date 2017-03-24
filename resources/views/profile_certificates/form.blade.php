@@ -8,10 +8,14 @@
 			<h3> Certificate: {{ $certificate->description}}</h3>
 		</div>
 			
-		<div class="form-group">
-			{!! Form::label('details', 'Details:') !!}
-			{!! Form::textarea('details', $certificate->pivot->details, ['class' => 'form-control']) !!}
-		</div>			
+      <div class="form-group">
+            {!! Form::label('awarder', 'Awarding Institution:') !!}
+			{!! Form::text('awarder', $certificate->pivot->awarder, ['class' => 'form-control']) !!}
+        </div>			
+        <div class="form-group">
+            {!! Form::label('date_awarded', 'Awarding date:') !!}
+			{!! Form::input('date', 'date_awarded', $certificate->pivot->awarder, ['class' => 'form-control']) !!}
+        </div>			
 			  
     @endif
 

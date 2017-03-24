@@ -11,7 +11,10 @@
 		{{ $certificate->description }}
 	</article>
 	<article>
-		{{ $certificate->pivot->details }}
+		{{ $certificate->pivot->awarder }}
+	</article>
+	<article>
+		{{ $certificate->pivot->date_awarded }}
 	</article>
 
 
