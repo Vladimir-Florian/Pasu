@@ -303,6 +303,7 @@ Route::group(['prefix' => 'api'], function() {
 	Route::patch('/profile', ['as' => '/profiles.update', 'uses' => 'aProfilesController@update']);
 	Route::delete('/profile', ['as' => '/profiles.destroy',	'uses' => 'aProfilesController@destroy']); //added 18.01.2017
 	
+	Route::post('/certificates', 					['as' => '/certificates.store', 'uses' => 'aCertificatesController@store']);
 	Route::get('/profile_certificates/{id}', 		['uses' => 'aProfile_certificatesController@index']);	
 	Route::get('/cert_list', 						['uses' => 'aProfile_certificatesController@cert_list']);	
 	Route::post('/profile_certificates/{id}', 		['as' => '/profile_certificates.store', 'uses' => 'aProfile_certificatesController@store']);

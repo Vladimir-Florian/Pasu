@@ -37,7 +37,12 @@ class aProfile_certificatesController extends Controller {
 			$certificates = $profile->certificates;
 			$certs = collect([]);
 			foreach($certificates as $certificate){
-				$certs->push(['id' => $certificate->id, 'slug' => $certificate->slug, 'description' => $certificate->description, 'details' => $certificate->pivot->details]);
+				$certs->push(['id' => $certificate->id, 'slug' => $certificate->slug,
+					'name' => $certificate->name,
+				    'description' => $certificate->description, 
+					'awarder' => $certificate->pivot->awarder,
+					'date_awarded' => $certificate->pivot->date_awarded					
+					]);
 			}
 			//dd(compact('certs'));
 			return response()->json(compact('certs'));		
@@ -60,14 +65,23 @@ class aProfile_certificatesController extends Controller {
 	{
 		// the token is valid and we have found the user via the sub claim
 
-			$profile = Profile::findOrFail($id);
-			//$profile->industry_id;
-		$certificates = Certificate::select('id', 'slug', 'description')->get();
-		if(!certificates) {
-           return response()->json(['error' => 'Empty List'], 404);
-   		}
+    	try {
 
-		return response()->json(compact('certificates'));
+		  $profile = Profile::findOrFail($id);
+			//$profile->industry_id;
+		  $certificates = Certificate::where('industry_id', '=', $profile->industry_id)
+		    ->select('id', 'slug', 'name', 'description')
+		    ->get();
+
+		  if(!certificates) {
+             return response()->json(['error' => 'Empty List'], 404);
+   		  }
+
+		  return response()->json(compact('certificates'));
+
+    	} catch(ModelNotFoundException $e) {
+            return response()->json(['error' => 'profile does not exist'], 404);
+    	}
 	
 	}
 
@@ -90,45 +104,25 @@ class aProfile_certificatesController extends Controller {
 	 */
 	public function store($id, Request $request)
 	{
-		/*
-		try {
+	// the token is valid and we have found the user 
 
-			if (! $user = JWTAuth::parseToken()->authenticate()) {
-				return response()->json(['user_not_found'], 404);
-			}
-
-		} catch (Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
-
-			return response()->json(['token_expired'], $e->getStatusCode());
-
-		} catch (Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
-
-			return response()->json(['token_invalid'], $e->getStatusCode());
-
-		} catch (Tymon\JWTAuth\Exceptions\JWTException $e) {
-
-			return response()->json(['token_absent'], $e->getStatusCode());
-
-		}*/
-		// the token is valid and we have found the user 
+    	try {
 		
-		$profile = Profile::findOrFail($id);
-
-		$c_id = $request->input('cert_id');
-		try {
-			$profile->certificates()->attach($c_id, ['details' => $request->input('details')]);
-		} catch(\Exception $e) {
+		  $profile = Profile::findOrFail($id);
+		  $c_id = $request->input('cert_id');
+		  try {
+			  $profile->certificates()->attach($c_id, ['awarder' => $request->input('awarder'), 'date_awarded' => $request->input('date_awarded')]);
+		  } catch(\Exception $e) {
 			//return response()->json(['Cannot Add Certificate'], $e->getStatusCode());
-		    //return response()->json(["error" => $e->getMessage()], 500);
-
-
-
-
-			
-		}
+		    return response()->json(["error" => $e->getMessage()], 404);
+  		  }
 		
-		return response()->json(['success profile'. $profile->id], 200);
-		
+          return response()->json(['success Certificate'. $certificate->id], 200);
+
+	    } catch(ModelNotFoundException $e) {
+            return response()->json(['error' => 'profile does not exist'], 404);
+    	}
+	
 	}
 
 	/**
@@ -167,7 +161,8 @@ class aProfile_certificatesController extends Controller {
 		$certificate = $profile->certificates()->where('id', $id)->first();
 		//dd($request->input('details'));
 		//$certificate->pivot->certificate_id = $request->input('certificate');
-		$certificate->pivot->details = $request->input('details');
+		$certificate->pivot->awarder = $request->input('awarder');
+		$certificate->pivot->date_awarded = $request->input('date_awarded');					
 		
 		$certificate->pivot->save();
 		return response()->json(['success profile'. $profile->id], 200);
