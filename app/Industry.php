@@ -62,6 +62,14 @@ class Industry extends Model {
 		return $this->hasMany('App\Certificate');
 	}
 
+	/**
+	 * An industry has many specific skills
+	 *
+	 * @return
+	 */
+	public function certificates() {
+		return $this->hasMany('App\Specific_skill');
+	}
 
 	
 }

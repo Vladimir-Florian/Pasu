@@ -106,5 +106,16 @@ class Profile extends Model {
 		return $query->where('user_id', '=', $id);
 	}
 
+    /**
+     *  Get the specific skills for the profile.
+	 *  @return \IlluminateDatabase\Eloquent\Relations\BelongsToMany
+	 *  
+     */
+    public function specific_skills()
+    {
+		return $this->belongsToMany('App\Specific_skill')->withTimestamps();
+		
+    }
+
 	
 }

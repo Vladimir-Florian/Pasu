@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use App\Certificate;
 use App\Profile;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class aCertificatesController extends Controller
 {
@@ -63,7 +64,13 @@ class aCertificatesController extends Controller
             $certificate->name = $request->input('name');
             $certificate->description = $request->input('description');
             $certificate->industry_id = $profile->industry_id;
+
+          try {
             $certificate->save();
+          } catch(\Exception $e) {
+            //return response()->json(['Cannot Add Certificate'], $e->getStatusCode());
+            return response()->json(["error" => $e->getMessage()], 404);
+          }
 
         } catch(ModelNotFoundException $e) {
 
@@ -71,7 +78,7 @@ class aCertificatesController extends Controller
 
         }
 
-        return response()->json(['success Certificate'. $certificate->id], 200);
+        return response()->json(['success Certificate '. $certificate->id], 200);
     }
 
     /**

@@ -56,9 +56,9 @@ class aProfile_certificatesController extends Controller {
 	}
 
 	/**
-	 * Get a listing of all the Certificates for the Industry.
+	 * Get a listing of all the Certificates for the Industry of Profile.
 	 *
-	 * @param  int $id 	Specialization id
+	 * @param  int $id 	Profile id
 	 * @return Response
 	 */
 	public function cert_list($id)
@@ -73,7 +73,7 @@ class aProfile_certificatesController extends Controller {
 		    ->select('id', 'slug', 'name', 'description')
 		    ->get();
 
-		  if(!certificates) {
+		  if(!$certificates) {
              return response()->json(['error' => 'Empty List'], 404);
    		  }
 
@@ -157,15 +157,29 @@ class aProfile_certificatesController extends Controller {
 	 */
 	public function update($iid, $id, Request $request)
 	{
-		$profile = Profile::findOrFail($iid);
-		$certificate = $profile->certificates()->where('id', $id)->first();
-		//dd($request->input('details'));
-		//$certificate->pivot->certificate_id = $request->input('certificate');
+	// the token is valid and we have found the user 
+
+    	try {
+		  $profile = Profile::findOrFail($iid);
+	    } catch(ModelNotFoundException $e) {
+            return response()->json(['error' => 'profile does not exist'], 404);
+    	}
+
+ 		try {
+		  $certificate = $profile->certificates()->where('id', $id)->first();
+		} catch(\Exception $e) {
+		  return response()->json(["error" => $e->getMessage()], 404);
+  		}
 		$certificate->pivot->awarder = $request->input('awarder');
 		$certificate->pivot->date_awarded = $request->input('date_awarded');					
-		
-		$certificate->pivot->save();
+		try {
+		  $certificate->pivot->save();
+		} catch(\Exception $e) {
+			return response()->json(['Cannot save Certificate'], $e->getStatusCode());
+			
+		}
 		return response()->json(['success profile'. $profile->id], 200);
+		
 	}
 
 	/**
@@ -177,13 +191,22 @@ class aProfile_certificatesController extends Controller {
 	 */
 	public function destroy($iid, $id)
 	{
-		$profile = Profile::findOrFail($iid);
-		$certificate = $profile->certificates()->where('id', $id)->first();
+    	try {
+		  $profile = Profile::findOrFail($iid);
+	    } catch(ModelNotFoundException $e) {
+            return response()->json(['error' => 'profile does not exist'], 404);
+    	}
+
+ 		try {
+		  $certificate = $profile->certificates()->where('id', $id)->first();
+		} catch(\Exception $e) {
+		  return response()->json(["error" => $e->getMessage()], 404);
+  		}
+
 		try {
 			$profile->certificates()->detach($certificate);
 		} catch(\Exception $e) {
-			return response()->json(['Cannot Delete Certificate'], $e->getStatusCode());
-			
+			return response()->json(['Cannot Delete Certificate'], $e->getStatusCode());		
 		}
 		
 		return response()->json(['success profile'. $profile->id], 200);		

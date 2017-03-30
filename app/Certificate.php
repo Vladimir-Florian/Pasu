@@ -32,7 +32,7 @@ class Certificate extends Model {
 
 
 	/**
-	 * An certificate belongs to an industry.
+	 * A certificate belongs to an industry.
 	 *
 	 * @return \IlluminateDatabase\Eloquent\Relations\BelongsTo
 	 */
