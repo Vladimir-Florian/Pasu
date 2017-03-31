@@ -66,7 +66,7 @@ Route::resource('industries.profiles', 'ProfilesController');
 
 Route::resource('employees', 'EmployeeController');
 Route::resource('certificates', 'CertificatesController');
-
+Route::resource('specific_skills', 'SpecificSkillsController');
 
 Route::get('profile_certificates/{id}', [
 	'as' => 'profile_certificates.index',
@@ -307,7 +307,7 @@ Route::group(['prefix' => 'api'], function() {
 	Route::get('/profile_certificates/{id}', 		['uses' => 'aProfile_certificatesController@index']);	
 	Route::get('/cert_list/{iid}', 						['uses' => 'aProfile_certificatesController@cert_list']);	
 	Route::post('/profile_certificates/{id}', 		['as' => '/profile_certificates.store', 'uses' => 'aProfile_certificatesController@store']);
-	Route::put('/profile_certificates/{iid}/{id}', 	['as' => '/profile_certificates.update', 'uses' => 'aProfile_certificatesController@update']);
+	Route::patch('/profile_certificates/{iid}/{id}', 	['as' => '/profile_certificates.update', 'uses' => 'aProfile_certificatesController@update']);
 	Route::delete('/profile_certificates/{iid}/{id}', ['as' => '/profile_certificates.destroy', 'uses' => 'aProfile_certificatesController@destroy']);
 	Route::get('/profile_locations/{id}', 			['uses' => 'aProfile_locationsController@index']);	
 	Route::post('/profile_locations/{id}', 			['as' => '/profile_locations.store', 'uses' => 'aProfile_locationsController@store']);
@@ -318,6 +318,12 @@ Route::group(['prefix' => 'api'], function() {
 	Route::patch('/profile_resume/{id}', 			['as' => '/profile_resume.update', 'uses' => 'aResumesController@update']);
 	Route::post('/profile_resume/{id}/upload', 		['as' => '/profile_resume.upload', 'uses' => 'aResumesController@upload']);
 	Route::delete('/profile_resume/{id}', 			['as' => '/profile_resume.destroy', 'uses' => 'aResumesController@destroy']);
+
+	Route::get('/profile_sskills/{id}', 			['uses' => 'aProfile_sSkillsController@index']);	
+	Route::get('/sskills_list/{iid}', 				['uses' => 'aProfile_sSkillsController@all_sSkills']);	
+	Route::post('/profile_sskills/{id}', 			['as' => '/profile_sskills.store', 'uses' => 'aProfile_sSkillsController@store']);
+	Route::delete('/profile_sskills/{iid}/{id}', 	['as' => '/profile_sskills.destroy', 'uses' => 'aProfile_sSkillsController@destroy']);
+
 	
 });
 

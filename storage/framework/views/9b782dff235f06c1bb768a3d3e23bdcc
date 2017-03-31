@@ -1,0 +1,32 @@
+<?php $__env->startSection('content'); ?>
+
+ <h2> Specialization specific Skills </h2>
+ 
+   <?php if(!$specific_skills->count()): ?>
+	   No Skills entered
+   <?php else: ?>
+	   <ul>
+		<?php foreach($specific_skills as $specific_skill): ?>
+		 <li>
+			<?php echo Form::open(array('class' => 'form-inline', 'method' => 'DELETE', 'route' => array('specific_skills.destroy', $specific_skill->id))); ?>
+
+                <a href="<?php echo e(route('specific_skills.show', $specific_skill->id)); ?>"><?php echo e($specific_skill->slug); ?></a>
+                (
+                  <?php echo link_to_route('specific_skills.edit', 'Edit', array($specific_skill->id), array('class' => 'btn btn-info')); ?>,
+                  <?php echo Form::submit('Delete', array('class' => 'btn btn-danger')); ?>
+
+                )
+            <?php echo Form::close(); ?>
+
+		 </li>
+		<?php endforeach; ?>
+	   </ul>
+   <?php endif; ?>
+		 
+
+	<a href="<?php echo e(route('specific_skills.create')); ?>" class="btn btn-info">Create a new Skill</a>
+		 
+<?php $__env->stopSection(); ?>		
+		
+
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

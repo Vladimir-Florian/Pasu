@@ -1,0 +1,23 @@
+<?php $__env->startSection('content'); ?>
+
+	<h3> <?php echo e($specific_skill->slug); ?> </h3>
+
+	<article>
+		<?php echo e($specific_skill->name); ?>
+
+	</article>
+
+	<article>
+		<?php echo e($specific_skill->description); ?>
+
+	</article>
+	
+	<p>
+      <?php echo link_to_route('specific_skills.index', 'Back to specific_skills'); ?>
+
+	</p>
+
+<?php $__env->stopSection(); ?>		
+		
+
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
