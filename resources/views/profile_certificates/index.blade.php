@@ -5,7 +5,7 @@
  <h2> Certificates for Profile "{{$profile->name}}" </h2>
 
    @if(!$profile->certificates->count())
-	   No certificates
+	   No certificates entered
    @else
 	   <ul>
 		@foreach ($profile->certificates as $certificate)

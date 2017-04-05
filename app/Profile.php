@@ -76,6 +76,15 @@ class Profile extends Model {
 	}
 
 	/**
+	 * A Profile has many driving licences
+	 *
+	 * @return
+	 */
+	public function drivinglicences() {
+		return $this->hasMany('App\Drivinglicence');
+	}
+
+	/**
 	 * A Profile has many applications
 	 *
 	 * @return

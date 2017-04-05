@@ -100,6 +100,34 @@ Route::delete('profile_certificates/{iid}/{id}', [
 	'as' => 'profile_certificates.destroy',
 	'uses' => 'Profile_certificates@destroy']);
 
+Route::get('drivinglicences/{id}', [
+	'as' => 'drivinglicences.index',
+	'uses' => 'DrivinglicenceController@index']);
+
+Route::get('drivinglicences/{id}/create', [
+	'as' => 'drivinglicences.create',
+	'uses' => 'DrivinglicenceController@create']);
+	
+Route::get('drivinglicences/{iid}/{id}/edit', [
+	'as' => 'drivinglicences.edit',
+	'uses' => 'DrivinglicenceController@edit']);
+
+Route::put('drivinglicences/{iid}/{id}', [
+	'as' => 'drivinglicences.update',
+	'uses' => 'DrivinglicenceController@update']);
+	
+Route::patch('drivinglicences/{iid}/{id}', [
+	'as' => 'drivinglicences.update',
+	'uses' => 'DrivinglicenceController@update']);
+
+Route::post('drivinglicences/{id}', [
+	'as' => 'drivinglicences.store',
+	'uses' => 'DrivinglicenceController@store']);
+
+Route::delete('drivinglicences/{iid}/{id}', [
+	'as' => 'drivinglicences.destroy',
+	'uses' => 'DrivinglicenceController@destroy']);
+
 
 Route::resource('locations', 'LocationsController');
 

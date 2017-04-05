@@ -40,6 +40,12 @@
                         </div>					
 					
                         <div class="col-md-3">
+                            <h4>
+                                <strong><a href="{{route('drivinglicences.index', ['id' => $profile->id])}}"> Driving Licence </a></strong>
+                            </h4>
+                        </div>                  
+
+                        <div class="col-md-3">
 							<h4>
                                 <strong><a href="{{route('profile_locations.index', ['id' => $profile->id])}}"> Locations </a></strong>
 							</h4>

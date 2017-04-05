@@ -1,0 +1,36 @@
+<?php $__env->startSection('content'); ?>
+
+ <h2> Driving licences for Profile "<?php echo e($profile->name); ?>" </h2>
+ 
+   <?php if(!$profile->drivinglicences->count()): ?>
+	   No driving licences entered
+   <?php else: ?>
+	   <ul>
+		<?php foreach($profile->drivinglicences as $drivinglicence): ?>
+		 <li>
+			<?php echo Form::open(array('class' => 'form-inline', 'method' => 'DELETE', 'route' => array('drivinglicences.destroy', $profile->id, $drivinglicence->id))); ?>
+
+				  <?php echo e($drivinglicence->category); ?>
+
+				(
+                  <?php echo link_to_route('drivinglicences.edit', 'Edit', array($profile->id, $drivinglicence->id), array('class' => 'btn btn-info')); ?>,
+                  <?php echo Form::submit('Delete', array('class' => 'btn btn-danger')); ?>
+
+                )
+            <?php echo Form::close(); ?>
+
+		 </li>
+		<?php endforeach; ?>
+	   </ul>
+   <?php endif; ?>
+		 
+	<p>
+      	<?php echo link_to_route('employees.index', 'Back to Profile'); ?> 
+		<a href="<?php echo e(route('drivinglicences.create', ['id' => $profile->id])); ?>" class="btn btn-info"> Add a Category </a>
+	</p>
+
+		 
+<?php $__env->stopSection(); ?>		
+		
+
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
