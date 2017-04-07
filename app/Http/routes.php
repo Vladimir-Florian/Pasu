@@ -352,6 +352,11 @@ Route::group(['prefix' => 'api'], function() {
 	Route::post('/profile_sskills/{id}', 			['as' => '/profile_sskills.store', 'uses' => 'aProfile_sSkillsController@store']);
 	Route::delete('/profile_sskills/{iid}/{id}', 	['as' => '/profile_sskills.destroy', 'uses' => 'aProfile_sSkillsController@destroy']);
 
+	Route::get('/drivinglicences/{id}', 			['uses' => 'aDrivinglicenceController@index']);	
+	Route::post('/drivinglicences/{id}', 			['as' => '/drivinglicences.store', 'uses' => 'aDrivinglicenceController@store']);
+	Route::patch('/drivinglicences/{iid}/{id}', 	['as' => '/drivinglicences.update', 'uses' => 'aDrivinglicenceController@update']);
+	Route::delete('/drivinglicences/{iid}/{id}', 	['as' => '/drivinglicences.destroy', 'uses' => 'aDrivinglicenceController@destroy']);
+
 	
 });
 
