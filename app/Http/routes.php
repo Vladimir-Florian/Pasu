@@ -129,6 +129,39 @@ Route::delete('drivinglicences/{iid}/{id}', [
 	'uses' => 'DrivinglicenceController@destroy']);
 
 
+Route::get('profile_languages/{id}', [
+	'as' => 'profile_languages.index',
+	'uses' => 'Profile_languagesController@index']);
+
+Route::get('profile_languages/{id}/create', [
+	'as' => 'profile_languages.create',
+	'uses' => 'Profile_languagesController@create']);
+	
+Route::get('profile_languages/{iid}/{id}', [
+	'as' => 'profile_languages.show',
+	'uses' => 'Profile_languagesController@show']);
+
+Route::get('profile_languages/{iid}/{id}/edit', [
+	'as' => 'profile_languages.edit',
+	'uses' => 'Profile_languagesController@edit']);
+
+Route::put('profile_languages/{iid}/{id}', [
+	'as' => 'profile_languages.update',
+	'uses' => 'Profile_languagesController@update']);
+	
+Route::patch('profile_languages/{iid}/{id}', [
+	'as' => 'profile_languages.update',
+	'uses' => 'Profile_languagesController@update']);
+
+Route::post('profile_languages/{id}', [
+	'as' => 'profile_languages.store',
+	'uses' => 'Profile_languagesController@store']);
+
+Route::delete('profile_languages/{iid}/{id}', [
+	'as' => 'profile_languages.destroy',
+	'uses' => 'Profile_languagesController@destroy']);
+
+
 Route::resource('locations', 'LocationsController');
 
 Route::get('profile_locations/{id}', [

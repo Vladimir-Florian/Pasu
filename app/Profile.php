@@ -54,6 +54,17 @@ class Profile extends Model {
 		return $this->belongsToMany('App\Certificate')->withPivot('awarder', 'date_awarded')->withTimestamps();
 	}
 
+	/**
+	 *  Get the languages of the given profile
+	 *  
+	 *  @return \IlluminateDatabase\Eloquent\Relations\BelongsToMany
+	 *  
+	 */
+	public function languages()
+	{
+		return $this->belongsToMany('App\Language')->withPivot('level_id')->withTimestamps();
+	}
+
 
     /**
      *  Get the locations for the profile.

@@ -41,6 +41,12 @@
 					
                         <div class="col-md-3">
                             <h4>
+                                <strong><a href="{{route('profile_languages.index', ['id' => $profile->id])}}"> Foreign languages </a></strong>
+                            </h4>
+                        </div>                  
+                    
+                        <div class="col-md-3">
+                            <h4>
                                 <strong><a href="{{route('drivinglicences.index', ['id' => $profile->id])}}"> Driving Licence </a></strong>
                             </h4>
                         </div>                  

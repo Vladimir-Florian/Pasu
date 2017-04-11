@@ -34,7 +34,7 @@ class aDrivinglicenceController extends Controller
 
             $profile = Profile::findOrFail($id);
             if(!$profile->drivinglicences->count()) {
-                return response()->json(['error' => 'no licences entered'], 404);
+                return response()->json(['error' => 'No licences entered'], 404);
             }
 
             $drivinglicences = $profile->drivinglicences;

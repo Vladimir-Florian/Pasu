@@ -1,0 +1,36 @@
+<?php $__env->startSection('content'); ?>
+
+ <h2> Foreign Languages for Profile "<?php echo e($profile->name); ?>" </h2>
+
+   <?php if(!$profile->languages->count()): ?>
+	   No languagess entered
+   <?php else: ?>
+	   <ul>
+		<?php foreach($profile->languages as $language): ?>
+		 <li>
+			
+			<?php echo Form::open(array('class' => 'form-inline', 'method'=>'DELETE', 'route'=>array('profile_languages.destroy', $profile->id, $language->id))); ?>
+
+                <a href="<?php echo e(route('profile_languages.show', array($profile->id, $language->id))); ?>"><?php echo e($language->slug); ?></a> 
+
+				(
+                  <?php echo link_to_route('profile_languages.edit', 'Edit', array($profile->id, $language->id), array('class' => 'btn btn-info')); ?>,
+                  <?php echo Form::submit('Delete', array('class' => 'btn btn-danger')); ?>				
+				)
+            <?php echo Form::close(); ?>
+
+		 </li>
+		<?php endforeach; ?>
+	   </ul>
+   <?php endif; ?>
+		 
+	<p>
+      <?php echo link_to_route('employees.index', 'Back to Profile'); ?> 
+	  <!--	<a href="<?php echo e(route('employees.index', ['id' => $profile->id])); ?>"> Back to Profile </a> -->
+		<a href="<?php echo e(route('profile_languages.create', ['id' => $profile->id])); ?>"> Add language </a>	
+	</p>
+		 
+<?php $__env->stopSection(); ?>		
+		
+
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

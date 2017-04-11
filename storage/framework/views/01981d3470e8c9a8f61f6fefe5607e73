@@ -1,0 +1,27 @@
+<?php $__env->startSection('content'); ?>
+
+ <h2> <?php echo e($profile->name); ?> </h2>
+ 
+	<article>
+		<?php echo e($language->slug); ?>
+
+	</article>
+	<article>
+		<?php echo e($language->name); ?>
+
+	</article>
+	<article>
+		<?php echo e($level->name); ?>
+
+	</article>
+
+
+	<p>
+		<a href="<?php echo e(route('profile_languages.index', ['id' => $profile->id])); ?>"> Back to languages for Profile </a>	
+	</p>
+ 
+
+<?php $__env->stopSection(); ?>		
+		
+
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
