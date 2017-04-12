@@ -31,6 +31,7 @@ class aProfile_languagesController extends Controller
      */
     public function index($pid)
     {
+        // the token is valid and we have found the user 
         try {
 
             $profile = Profile::findOrFail($pid);
@@ -38,9 +39,9 @@ class aProfile_languagesController extends Controller
                 return response()->json(['error' => 'no languages entered'], 404);
             }
 
-            $languages = $profile->languages;
+            //$languages = $profile->languages;
             $langs = collect([]);
-            foreach($languages as $language){
+            foreach($profile->languages as $language){
                 try {
                     $level = LangLevel::findOrfail($language->pivot->level_id);
                 } catch (ModelNotFoundException $e) {
@@ -75,12 +76,28 @@ class aProfile_languagesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @param  int $pid  profile_id
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($pid, Request $request)
     {
-        //
+    // the token is valid and we have found the user 
+
+        try {        
+          $profile = Profile::findOrFail($pid);
+          $lang_id = $request->input('language');
+          try {
+              $profile->languages()->attach($lang_id, ['level_id' => $request->input('level')]);
+          } catch(\Exception $e) {
+            return response()->json(["error" => $e->getMessage()], 404);
+          }       
+          return response()->json(['success Language'. $lang_id], 200);
+        } catch(ModelNotFoundException $e) {
+          return response()->json(['error' => 'profile does not exist'], 404);
+        }
+
+
     }
 
     /**
@@ -108,23 +125,61 @@ class aProfile_languagesController extends Controller
     /**
      * Update the specified resource in storage.
      *
+     * @param  int  $pid        profile_id
+     * @param  int  $lid        language_id
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $pid, $lid)
     {
-        //
+        // the token is valid and we have found the user 
+
+        try {
+          $profile = Profile::findOrFail($pid);
+        } catch(ModelNotFoundException $e) {
+            return response()->json(['error' => 'profile does not exist'], 404);
+        }
+
+        try {
+          $language = $profile->languages()->where('id', $lid)->first();
+        } catch(\Exception $e) {
+          return response()->json(["error" => $e->getMessage()], 404);
+        }
+        $language->pivot->level_id = $request->input('level');       
+        try {
+          $language->pivot->save();
+        } catch(\Exception $e) {
+            return response()->json(['Cannot save language'], $e->getStatusCode());          
+        }
+        return response()->json(['success profile'. $profile->id], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int  $pid        profile_id
+     * @param  int  $lid        language_id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($pid, $lid)
     {
-        //
+        try {
+          $profile = Profile::findOrFail($pid);
+        } catch(ModelNotFoundException $e) {
+            return response()->json(['error' => 'profile does not exist'], 404);
+        }
+
+        try {
+          $language = $profile->languages()->where('id', $lid)->first();
+        } catch(\Exception $e) {
+          return response()->json(["error" => $e->getMessage()], 404);
+        }
+
+        try {
+            $profile->languages()->detach($language);
+        } catch(\Exception $e) {
+            return response()->json(['Cannot Delete language'], $e->getStatusCode());        
+        }        
+        return response()->json(['success profile'. $profile->id], 200);            
     }
 }

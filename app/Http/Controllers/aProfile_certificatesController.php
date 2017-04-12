@@ -117,7 +117,7 @@ class aProfile_certificatesController extends Controller {
 		    return response()->json(["error" => $e->getMessage()], 404);
   		  }
 		
-          return response()->json(['success Certificate'. $certificate->id], 200);
+          return response()->json(['success Certificate'. $c_id], 200);
 
 	    } catch(ModelNotFoundException $e) {
             return response()->json(['error' => 'profile does not exist'], 404);
