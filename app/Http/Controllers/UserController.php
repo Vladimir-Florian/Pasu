@@ -11,6 +11,8 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 
 use Hash;
 use App\Industry;
+use App\RegSession;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller {
 
@@ -30,6 +32,7 @@ class UserController extends Controller {
         //$credentials = $request->all();
 		//$credentials = $request->only('name', 'email', 'password');
 
+		DB::beginTransaction();
 		try {
 			//$user = User::create($credentials);
 			
@@ -41,12 +44,36 @@ class UserController extends Controller {
 			
 			
 		} catch (\Exception $e) {
-
+		    DB::rollback();
         	$error_code = $e->errorInfo[1];
         	if($error_code == 1062){
-				return response()->json(['error' => 'Duplicate email'], HttpResponse::HTTP_CONFLICT);
+				return response()->json(['error' => 'Duplicate email'], 409);
+			}
+			else {
+				return response()->json(['error' => 'DB error'], $error_code);										
 			}				
 		}
+
+		if (!$user->reg_session) {
+		  try {
+			$reg_session = new RegSession;
+			$reg_session->user_id = $user->id;
+			$reg_session->name = $request->input('name');
+			$reg_session->phone_no = $request->input('phone_no');
+			$reg_session->birthdate = $request->input('birthdate');
+			//$reg_session->experience = $request->input('experience');
+			$user->reg_session()->save($reg_session);
+			//$reg_session->save();
+		  } catch(\Exception $e) {
+		    DB::rollback();
+			return response()->json(['error' => 'Cannot open session'], 500);			
+		  }
+		}
+		else {
+		    DB::rollback();
+			return response()->json(['Register session already started'], 409);						
+		}
+		DB::commit();
 
 		$token = JWTAuth::fromUser($user);
 

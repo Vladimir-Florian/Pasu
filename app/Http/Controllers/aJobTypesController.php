@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Support\Facades\DB;
 
 class aJobTypesController extends Controller {
 
@@ -25,9 +26,36 @@ class aJobTypesController extends Controller {
 	 */
 	public function index($iid)
 	{
-		$industry = Industry::findOrFail($iid);
-		$jobtypes = $industry->jobtypes;
-		return response()->json(compact('jobtypes'));		
+        // the token is valid and we have found the user 
+
+        try {
+			$industry = Industry::findOrFail($iid);
+
+			/*$jobtypes = DB::table('jobtypes')
+           		->join('industries', 'jobtypes.industry_id', '=', 'industries.id')
+           		->select('jobtypes.id', 'jobtypes.name', 'jobtypes.description')
+           		->get(); */
+			$jtypes = $industry->jobtypes;
+
+            if(!$jtypes->count()) {
+                return response()->json(['error' => 'no jobtypes for Specialization'], 404);
+            }
+
+            //$languages = $profile->languages;
+            $jobtypes = collect([]);
+            foreach($jtypes as $jtype){
+               $jobtypes->push(['id' => $jtype->id,
+                    'name' => $jtype->name,
+                    'description' => $jtype->description                
+                    ]);
+            }
+            //dd(compact('jobtypes'));
+			return response()->json(compact('jobtypes'));		
+
+        } catch(ModelNotFoundException $e) {
+            return response()->json(['error' => 'Specialization does not exist'], 404);
+        }
+
 	}
 
 	/**

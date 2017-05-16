@@ -49,6 +49,16 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 		return $this->hasOne('App\Employer');
 	}
 
+	/**
+	 * A User has one reg_session
+	 *
+	 * @return
+	 */
+	public function reg_session() {
+		return $this->hasOne('App\RegSession');
+	}
+
+
     /**
      * The roles that belong to the user.
      */

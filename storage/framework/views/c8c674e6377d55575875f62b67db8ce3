@@ -1,0 +1,37 @@
+<?php $__env->startSection('content'); ?>
+
+ <h2> Jobtypes for Specialization "<?php echo e($industry->slug); ?>" </h2>
+ 
+   <?php if(!$industry->jobtypes->count()): ?>
+	   No jobtypes
+   <?php else: ?>
+	   <ul>
+		<?php foreach($industry->jobtypes as $jobtype): ?>
+		 <li>
+			
+			<?php echo Form::open(array('class' => 'form-inline', 'method'=>'DELETE', 'route'=>array('industries.jobtypes.destroy', $industry->id, $jobtype->id))); ?>
+
+                <a href="<?php echo e(route('industries.jobtypes.show', array($industry->id, $jobtype->id))); ?>"><?php echo e($jobtype->name); ?></a>
+				(
+                  <?php echo link_to_route('industries.jobtypes.edit', 'Edit', array($industry->id, $jobtype->id), array('class' => 'btn btn-info')); ?>,
+                  <?php echo Form::submit('Delete', array('class' => 'btn btn-danger')); ?>				
+				)
+            <?php echo Form::close(); ?>
+
+
+			
+		 </li>
+		<?php endforeach; ?>
+	   </ul>
+   <?php endif; ?>
+		 
+	<p>
+	    <?php echo link_to_route('industries.index', 'Back to Specializations'); ?> |
+		<?php echo link_to_route('industries.jobtypes.create', 'Create Jobtype', $industry->id); ?>
+
+	</p>
+		 
+<?php $__env->stopSection(); ?>		
+		
+
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

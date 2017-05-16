@@ -12,13 +12,14 @@ use Illuminate\Http\Response as HttpResponse;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Auth;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\DB;
 
 class aProfilesController extends Controller {
 
 	public function __construct()
 	{
 
-		$this->middleware('jwt.auth', ['except' => ['store', 'login_profile']]);
+		$this->middleware('jwt.auth', ['except' => ['login_profile']]);
 	}
 
 	
@@ -55,25 +56,8 @@ class aProfilesController extends Controller {
 	public function store(Request $request)
 	{
 		//dd($request);
-		
-		try {
-
-			if (! $user = JWTAuth::parseToken()->authenticate()) {
-				return response()->json(['user_not_found'], 404);
-			}
-
-		} catch (Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
-
-			return response()->json(['token_expired'], $e->getStatusCode());
-
-		} catch (Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
-
-			return response()->json(['token_invalid'], $e->getStatusCode());
-
-		} catch (Tymon\JWTAuth\Exceptions\JWTException $e) {
-
-			return response()->json(['token_absent'], $e->getStatusCode());
-
+		if (! $user = JWTAuth::parseToken()->authenticate()) {
+			return response()->json(['error' => 'user_not_found'], 404);
 		}
 		// the token is valid and we have found the user 
 		//dd($request->all());
@@ -81,20 +65,33 @@ class aProfilesController extends Controller {
     	try {
     		//dd($user->id);
 			$profile = Profile::byuser_id($user->id)->firstOrFail();
-			return response()->json(['Profile already exists'], 409);			
+			return response()->json(['error' => 'Profile already exists'], 409);			
 
     	} catch(ModelNotFoundException $e) {
-
+		  DB::beginTransaction();
+		  try {
 			$profile = new Profile;
-			$profile->user_id = $user->id;
-			$profile->name = $request->input('name');
-			$profile->phone_no = $request->input('phone_no');
-			$profile->birthdate = $request->input('birthdate');
+			//$profile->user_id = $user->id;
+
+			$reg_session = $user->reg_session;
+			$profile->name = $reg_session->name;
+			$profile->phone_no = $reg_session->phone_no;
+			$profile->birthdate = $reg_session->birthdate;
 			$profile->experience = $request->input('experience');
 			$profile->industry_id = $request->input('spec_id');
-			$profile->save();
-			return response()->json(['Profile id'=> $profile->id], 200);
+			//$profile->save();
+			$user->profile()->save($profile);
+			$user->reg_session()->delete();
+		  } catch(\Exception $e) {
+		  	$error_code = $e->errorInfo[1];
+		    DB::rollback();
+			return response()->json(['error' => $error_code], 500);			
+		  }
 
+			// If we reach here, then OK
+			// Commit the queries!
+		  DB::commit();
+		  return response()->json(['Profile id'=> $profile->id], 200);
     	}
 	}
 
