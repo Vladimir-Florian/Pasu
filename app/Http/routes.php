@@ -357,6 +357,7 @@ Route::group(['prefix' => 'api'], function() {
 	Route::get('/jobposts/time10/{id}',				['uses' => 'aJobPostsController@time10']);
 	Route::post('/jobposts/withinradius/{id}',		['uses' => 'aJobPostsController@withinradius']);
 	Route::get('/jobposts/{id}',					['uses' => 'aJobPostsController@show']);
+	Route::get('/jobposts_foruser',					['as' => '/jobposts.foruser', 'uses' => 'aJobPostsController@foruser']);
 
 	//Route::resource('/profiles', 'aProfilesController');
 	Route::get('/profile', ['as' => '/profiles.show', 'uses' => 'aProfilesController@show']);

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 use Carbon\Carbon;
+use Auth;
 
 class aJobPostsController extends Controller {
 
@@ -123,6 +124,21 @@ class aJobPostsController extends Controller {
 					->get();					
 		
 		return response()->json(compact('selposts'));				
+	}
+
+
+	/**
+	 * Returns a json list of jobposts of the industry of current user.
+	 * added 17.05.2017
+	 *
+	 * @return Response
+	 */
+	public function foruser()
+	{
+		$user = Auth::User();
+		$id = $user->profile->industry_id;		
+		$jobposts = Jobpost::byindustry($id)->get();		
+		return response()->json(compact('jobposts'));				
 	}
 
 		
