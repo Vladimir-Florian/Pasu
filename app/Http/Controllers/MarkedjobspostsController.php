@@ -29,11 +29,18 @@ class MarkedjobspostsController extends Controller
 		//$markedjobposts = Markedjobpost::where('profile_id', $id)->get();
 		$profile = Profile::findOrFail($id);
 		$markedposts = collect();		
+
+		foreach ($profile->jobposts as $markedjobpost) {
+			//$jobpost_id = $markedjobpost->jobpost_id;
+			$line = Jobpost::byjobpostid($markedjobpost->id)->get()->first();
+			$markedposts->push($line);
+		}		
+		/*
 		foreach ($profile->markedjobposts as $markedjobpost) {
 			//$jobpost_id = $markedjobpost->jobpost_id;
 			$line = Jobpost::byjobpostid($markedjobpost->jobpost_id)->get()->first();
 			$markedposts->push($line);
-		}		
+		}*/		
 			
 		return view('markedjobposts.index', compact('profile', 'markedposts'));
 	}
@@ -47,13 +54,19 @@ class MarkedjobspostsController extends Controller
 	 */
 	public function store($pid, $jid)
 	{
+		/*
 		$markedjobpost = new Markedjobpost;
 		$markedjobpost->profile_id = $pid;
 		$markedjobpost->jobpost_id = $jid;
 		$markedjobpost->mark_date = Carbon::today();															
+		*/
+
+		$profile = Profile::findOrFail($pid);
+		$jobpost = Jobpost::findOrFail($jid);
+		//$profile->jobposts()->save($jobpost);  
 			
 		try {
-			$markedjobpost->save();
+			$profile->jobposts()->attach([$jobpost->id => ['mark_date' => Carbon::today()]] );
 		} catch (QueryException $e){
 			$errorCode = $e->errorInfo[1];
 			throw new MyQueryExceptReturn($errorCode);
@@ -74,8 +87,12 @@ class MarkedjobspostsController extends Controller
 	 */
 	public function destroy($pid, $jid)
 	{
-		$markedjobpost = Markedjobpost::where('profile_id', $pid)->where('jobpost_id', $jid)->firstOrFail();
-		$markedjobpost->delete();
+		//$markedjobpost = Markedjobpost::where('profile_id', $pid)->where('jobpost_id', $jid)->firstOrFail();
+		//$markedjobpost->delete();
+
+		$profile = Profile::findOrFail($pid);
+		$jobpost = Jobpost::findOrFail($jid);
+		$profile->jobposts()->detach($jobpost);  		
 		return back();
 		//return redirect('markedjobposts');
 		

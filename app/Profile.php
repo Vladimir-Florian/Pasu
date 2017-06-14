@@ -112,15 +112,36 @@ class Profile extends Model {
 	public function requests() {
 		return $this->hasMany('App\Request');
 	}
-	
+
 	/**
 	 * A Profile has many markedjobposts
 	 *
 	 * @return
 	 */
+	/*
 	public function markedjobposts() {
 		return $this->hasMany('App\Markedjobpost');
+	}*/
+
+	/**
+	 * The marked jobposts that belong to the profile
+	 *
+	 */
+	public function jobposts() {
+		return $this->belongsToMany('App\Jobpost', 'markedjobposts', 'profile_id', 'jobpost_id')->withPivot('mark_date');
 	}
+
+	
+
+	/**
+	 * The applied jobposts that belong to the profile
+	 *
+	 */
+	public function applied_jobposts() {
+		return $this->belongsToMany('App\Jobpost', 'applications', 'profile_id', 'jobpost_id')->withPivot('app_date');
+	}
+
+
 	
 	public function scopeByuser_id($query, $id) {
 		return $query->where('user_id', '=', $id);

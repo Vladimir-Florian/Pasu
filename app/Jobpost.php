@@ -90,18 +90,42 @@ class Jobpost extends Model {
 	 *
 	 * @return
 	 */
+	/*
 	public function applications() {
 		return $this->hasMany('App\Application');
 	}
+	*/
+
+	/**
+	 * The profiles that belong to the applied jobpost
+	 *
+	 */
+	public function aprofiles() {
+		//return $this->belongsToMany('App\Profile');
+		return $this->belongsToMany('App\Profile', 'applications', 'jobpost_id', 'profile_id')->withPivot('app_date');		
+	}
+
+
 
 	/**
 	 * A jobpost has many markedjobposts
 	 *
 	 * @return
 	 */
+	/*
 	public function markedjobposts() {
 		return $this->hasMany('App\Markedjobpost');
+	}*/
+
+	/**
+	 * The profiles that belong to the marked jobpost
+	 *
+	 */
+	public function profiles() {
+		//return $this->belongsToMany('App\Profile');
+		return $this->belongsToMany('App\Profile', 'markedjobposts', 'jobpost_id', 'profile_id')->withPivot('mark_date');		
 	}
+
 
 	//Accessors for relationship attributes
     /**

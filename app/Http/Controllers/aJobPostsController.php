@@ -10,6 +10,9 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 use Carbon\Carbon;
 use Auth;
+use DB;
+use App\Profile;
+
 
 class aJobPostsController extends Controller {
 
@@ -141,6 +144,54 @@ class aJobPostsController extends Controller {
 		return response()->json(compact('jobposts'));				
 	}
 
+
+	/**
+	 * Returns Job History (marked and applied jobposts) of current profile.
+	 * added 12.06.2017
+	 *
+	 * @return Response
+	 */
+	public function joblist()
+	{
+        if (! $user = JWTAuth::parseToken()->toUser()) {
+            return response()->json(['error' => 'user_not_found'], 400);
+        }
+
+        try {
+          $profile = Profile::byuser_id($user->id)->firstOrFail();
+          $markedposts = collect();       
+          foreach ($profile->jobposts as $markedjobpost) {
+            $line = Jobpost::byjobpostid($markedjobpost->id)->get()->first();
+            $markedposts->push($line);
+          }
+        } catch(\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], $e->getCode());
+        } catch (QueryException $e){
+            $errorCode = $e->errorInfo[1];
+            return response()->json(['error' => $error_code], 500);
+        }        
+
+        try {
+          $appliedposts = collect();       
+          foreach ($profile->applied_jobposts as $applied_jobpost) {
+            $line = Jobpost::byjobpostid($applied_jobpost->id)->get()->first();
+            $appliedposts->push($line);
+          }
+        } catch(\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], $e->getCode());
+        } catch (QueryException $e){
+            $errorCode = $e->errorInfo[1];
+            return response()->json(['error' => $error_code], 500);
+        }        
+
+
+// union $markedposts + $appliedposts
+
+
+		
+		return response()->json(compact('jobposts'));				
+	}
+	
 		
 	/**
 	 * Display a listing of the resource.

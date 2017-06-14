@@ -358,6 +358,7 @@ Route::group(['prefix' => 'api'], function() {
 	Route::post('/jobposts/withinradius/{id}',		['uses' => 'aJobPostsController@withinradius']);
 	Route::get('/jobposts/{id}',					['uses' => 'aJobPostsController@show']);
 	Route::get('/jobposts_foruser',					['as' => '/jobposts.foruser', 'uses' => 'aJobPostsController@foruser']);
+	Route::get('/joblist',							['as' => '/jobposts.joblist', 'uses' => 'aJobPostsController@joblist']);
 
 	//Route::resource('/profiles', 'aProfilesController');
 	Route::get('/profile', ['as' => '/profiles.show', 'uses' => 'aProfilesController@show']);
@@ -398,6 +399,14 @@ Route::group(['prefix' => 'api'], function() {
 	Route::get('/levels', 							['uses' => 'aLangLevelsController@index']);	
 	Route::get('/languages', 						['uses' => 'aLanguagesController@index']);
 	Route::post('/languages', 						['as' => '/languages.store', 'uses' => 'aLanguagesController@store']);
+
+	Route::get('/markedjobposts',					['as' => '/markedjobposts.index','uses' => 'aMarkedjobpostsController@index']);
+	Route::post('/markedjobposts', 					['uses' => 'aMarkedjobpostsController@store']);
+	Route::delete('/markedjobposts/{id}', 			['as' => '/markedjobposts.destroy', 'uses' => 'aMarkedjobpostsController@destroy']);
+
+	Route::get('/applications',						['as' => '/applications.index','uses' => 'aApplicationsController@index']);
+	Route::post('/applications', 					['uses' => 'aApplicationsController@store']);
+	Route::delete('/applications/{id}', 			['as' => '/applications.destroy', 'uses' => 'aApplicationsController@destroy']);
 
 	
 });
