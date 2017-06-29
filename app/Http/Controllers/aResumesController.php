@@ -153,35 +153,41 @@ class aResumesController extends Controller {
 	/**
 	 * Update the specified resource in storage.
 	 *
-	 * @param  int $id 	profile_id
 	 * @param Request $request
 	 * @return Response
 	 */
-	public function upload($id, Request $request)
+	public function upload(Request $request)
 	{
-		$profile = Profile::findOrFail($id);
-		$resume = $profile->resume;
+        if (! $user = JWTAuth::parseToken()->toUser()) {
+            return response()->json(['error' => 'user_not_found'], 400);
+        }
 
-		if(!$profile->resume)
-			return response()->json(['resume_not_created'], 404);
-		else
-		{
-		  $file_name = 'cv'. $profile->id . '.' . 
-			$request->file('file')->getClientOriginalExtension();
-		  $resume->file_path = public_path() . "\\resumes\\" . $file_name;
+        try {
+          $profile = Profile::byuser_id($user->id)->firstOrFail();
+          $resume = $profile->resume;
+        } catch(\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], $e->getCode());
+        } catch (QueryException $e){
+            $errorCode = $e->errorInfo[1];
+            return response()->json(['error' => $error_code], 500);
+        }        
 
-		  $request->file('file')->move(
-			'resumes', $file_name
-			);
 
-		  try {
-			  $profile->resume()->save($resume);			
-		  } catch(\Exception $e) {
-		      return response()->json(["error" => $e->getCode()], 500);
-		  }
-		
-		  return response()->json(['success profile'. $profile->id], 200);
+		if(!$profile->resume) {
+			$resume = new Resume;
 		}
+		$file_name = 'cv'. $profile->id . '.' . $request->file('file')->getClientOriginalExtension();
+		$resume->file_path = public_path() . "\\resumes\\" . $file_name;
+		$request->file('file')->move('resumes', $file_name);
+
+		try {
+		  //daca fisierul exista se suprascrie
+		  $profile->resume()->save($resume);			
+		} catch(\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], $e->getCode());
+		}
+		
+		return response()->json(['success profile'. $profile->id], 200);
 
 	}
 
