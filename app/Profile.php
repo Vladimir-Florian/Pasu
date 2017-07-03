@@ -158,5 +158,14 @@ class Profile extends Model {
 		
     }
 
+	/**
+	 * A Profile has one scertificate
+	 *
+	 * @return
+	 */
+	public function scertificate() {
+		return $this->hasOne('App\Scertificate');
+	}
+
 	
 }
