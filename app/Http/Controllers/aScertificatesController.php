@@ -24,7 +24,7 @@ class aScertificatesController extends Controller
     }
 
     /**
-     * Display the scertificate of the Profile.
+     * Display the description of scertificate of the Profile.
      *
      * @return Response
      */

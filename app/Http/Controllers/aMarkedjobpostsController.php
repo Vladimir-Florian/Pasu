@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Markedjobpost;
+//use App\Markedjobpost;
 use App\Profile;
 use App\Jobpost;
 use Carbon\Carbon;
@@ -61,7 +61,6 @@ class aMarkedjobpostsController extends Controller
             return response()->json(['error' => $error_code], 500);
         }        
 
-
     }
 
     /**
@@ -75,7 +74,7 @@ class aMarkedjobpostsController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created marked jobpost in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response

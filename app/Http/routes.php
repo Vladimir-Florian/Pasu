@@ -395,14 +395,14 @@ Route::group(['prefix' => 'api'], function() {
 	Route::post('/profile_sskills/{id}', 			['as' => '/profile_sskills.store', 'uses' => 'aProfile_sSkillsController@store']);
 	Route::delete('/profile_sskills/{iid}/{id}', 	['as' => '/profile_sskills.destroy', 'uses' => 'aProfile_sSkillsController@destroy']);
 
-	Route::get('/drivinglicences/{id}', 			['uses' => 'aDrivinglicenceController@index']);	
-	Route::post('/drivinglicences/{id}', 			['as' => '/drivinglicences.store', 'uses' => 'aDrivinglicenceController@store']);
-	Route::patch('/drivinglicences/{iid}/{id}', 	['as' => '/drivinglicences.update', 'uses' => 'aDrivinglicenceController@update']);
-	Route::delete('/drivinglicences/{iid}/{id}', 	['as' => '/drivinglicences.destroy', 'uses' => 'aDrivinglicenceController@destroy']);
+	Route::get('/drivinglicences', 					['uses' => 'aDrivinglicenceController@index']);	
+	Route::post('/drivinglicences', 				['as' => '/drivinglicences.store', 'uses' => 'aDrivinglicenceController@store']);
+	Route::patch('/drivinglicences/{id}', 			['as' => '/drivinglicences.update', 'uses' => 'aDrivinglicenceController@update']);
+	Route::delete('/drivinglicences/{id}', 			['as' => '/drivinglicences.destroy', 'uses' => 'aDrivinglicenceController@destroy']);
 
-	Route::get('/profile_languages/{id}', 			['uses' => 'aProfile_languagesController@index']);	
-	Route::post('/profile_languages/{id}', 			['as' => '/profile_languages.store', 'uses' => 'aProfile_languagesController@store']);
-	Route::patch('/profile_languages/{iid}/{id}', 	['as' => '/profile_languages.update', 'uses' => 'aProfile_languagesController@update']);
+	Route::get('/profile_languages', 				['uses' => 'aProfile_languagesController@index']);	
+	Route::post('/profile_languages', 				['as' => '/profile_languages.store', 'uses' => 'aProfile_languagesController@store']);
+	Route::patch('/profile_languages/{id}', 		['as' => '/profile_languages.update', 'uses' => 'aProfile_languagesController@update']);
 	Route::delete('/profile_languages/{iid}/{id}', 	['as' => '/profile_languages.destroy', 'uses' => 'aProfile_languagesController@destroy']);
 	Route::get('/levels', 							['uses' => 'aLangLevelsController@index']);	
 	Route::get('/languages', 						['uses' => 'aLanguagesController@index']);

@@ -25,31 +25,35 @@ class aDrivinglicenceController extends Controller
     /**
      * Display the licences of the profile
      *
-     * @param  int $id  profile_id
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index()
     {
-        try {
-
-            $profile = Profile::findOrFail($id);
-            if(!$profile->drivinglicences->count()) {
-                return response()->json(['error' => 'No licences entered'], 404);
-            }
-
-            $drivinglicences = $profile->drivinglicences;
-            $licences = collect([]);
-            foreach($drivinglicences as $drivinglicence){
-                $licences->push(['id' => $drivinglicence->id, 'category' => $drivinglicence->category]);
-            }
-            //dd(compact('licences'));
-            return response()->json(compact('licences'));      
-
-        } catch(ModelNotFoundException $e) {
-
-            return response()->json(['error' => 'profile does not exist'], 404);
-
+        if (! $user = JWTAuth::parseToken()->toUser()) {
+            return response()->json(['error' => 'user_not_found'], 400);
         }
+
+        try {
+          $profile = Profile::byuser_id($user->id)->firstOrFail();
+          if(!$profile->drivinglicences->count()) {
+            return response()->json(['error' => 'No licences entered'], 404);
+          }
+
+          $drivinglicences = $profile->drivinglicences;
+          $licences = collect([]);
+          foreach($drivinglicences as $drivinglicence){
+            $licences->push(['id' => $drivinglicence->id, 'category' => $drivinglicence->category]);
+          }
+          //dd(compact('licences'));
+          return response()->json(compact('licences'));      
+            
+        } catch(\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], $e->getCode());
+        } catch (QueryException $e){
+            $errorCode = $e->errorInfo[1];
+            return response()->json(['error' => $error_code], 500);
+        }        
+
     }
 
     /**
@@ -69,24 +73,31 @@ class aDrivinglicenceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($id, Request $request)
+    public function store(Request $request)
     {
-    // the token is valid and we have found the user 
+ 
+        if (! $user = JWTAuth::parseToken()->toUser()) {
+            return response()->json(['error' => 'user_not_found'], 400);
+        }
 
-        try {        
-          $profile = Profile::findOrFail($id);
+        try {
+          $profile = Profile::byuser_id($user->id)->firstOrFail();
           $drivinglicence = new Drivinglicence;
           $drivinglicence->category = $request->input('category');
 
           try {
             $profile->drivinglicences()->save($drivinglicence);            
           } catch(\Exception $e) {
-            return response()->json(["error" => $e->getMessage()], 404);
+            return response()->json(['error' => $e->getMessage()], $e->getCode());
           }      
           return response()->json(['success Licence'. $drivinglicence->id], 200);
-        } catch(ModelNotFoundException $e) {
-            return response()->json(['error' => 'profile does not exist'], 404);
-        }
+        } catch(\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], $e->getCode());
+        } catch (QueryException $e){
+            $errorCode = $e->errorInfo[1];
+            return response()->json(['error' => $error_code], 500);
+        }        
+
     }
 
     /**
@@ -116,15 +127,16 @@ class aDrivinglicenceController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
-     * @param  int  $iid        profile_id
      * @param  int  $id     licence id
      */
-    public function update($iid, $id, Request $request)
+    public function update($id, Request $request)
     {
-    // the token is valid and we have found the user 
+        if (! $user = JWTAuth::parseToken()->toUser()) {
+            return response()->json(['error' => 'user_not_found'], 400);
+        }
 
         try {
-          $profile = Profile::findOrFail($iid);
+          $profile = Profile::byuser_id($user->id)->firstOrFail();
         } catch(ModelNotFoundException $e) {
             return response()->json(['error' => 'profile does not exist'], 404);
         }
@@ -132,13 +144,13 @@ class aDrivinglicenceController extends Controller
         try {
           $drivinglicence = $profile->drivinglicences()->where('id', $id)->first();
         } catch(\Exception $e) {
-          return response()->json(["error" => $e->getMessage()], 404);
+          return response()->json(['error' => $e->getMessage()], $e->getCode());
         }
         $drivinglicence->category = $request->input('category');
         try {
             $profile->drivinglicences()->save($drivinglicence);            
         } catch(\Exception $e) {
-          return response()->json(["error" => $e->getMessage()], 404);
+          return response()->json(['error' => $e->getMessage()], $e->getCode());
         }
         return response()->json(['success Licence'. $drivinglicence->id], 200);
     }
@@ -146,14 +158,17 @@ class aDrivinglicenceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $iid        profile_id
      * @param  int  $id     licence id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($iid, $id)
+    public function destroy($id)
     {
+        if (! $user = JWTAuth::parseToken()->toUser()) {
+            return response()->json(['error' => 'user_not_found'], 400);
+        }
+
         try {
-          $profile = Profile::findOrFail($iid);
+          $profile = Profile::byuser_id($user->id)->firstOrFail();
         } catch(ModelNotFoundException $e) {
             return response()->json(['error' => 'profile does not exist'], 404);
         }
@@ -161,15 +176,16 @@ class aDrivinglicenceController extends Controller
         try {
           $drivinglicence = $profile->drivinglicences()->where('id', $id)->first();
         } catch(\Exception $e) {
-          return response()->json(["error" => $e->getMessage()], 404);
+          return response()->json(['error' => $e->getMessage()], $e->getCode());
         }
 
         try {
             $drivinglicence->delete();
         } catch(\Exception $e) {
-            return response()->json(['Cannot Delete Licence'], $e->getStatusCode());        
+          return response()->json(['error' => $e->getMessage()], $e->getCode());
+          //return response()->json(['Cannot Delete Licence'], $e->getStatusCode());        
         }
       
-        return response()->json(['success profile'. $profile->id], 200);    
+        return response()->json(['success Licence'. $profile->id], 200);    
     }
 }
