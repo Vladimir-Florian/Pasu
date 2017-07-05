@@ -403,7 +403,7 @@ Route::group(['prefix' => 'api'], function() {
 	Route::get('/profile_languages', 				['uses' => 'aProfile_languagesController@index']);	
 	Route::post('/profile_languages', 				['as' => '/profile_languages.store', 'uses' => 'aProfile_languagesController@store']);
 	Route::patch('/profile_languages/{id}', 		['as' => '/profile_languages.update', 'uses' => 'aProfile_languagesController@update']);
-	Route::delete('/profile_languages/{iid}/{id}', 	['as' => '/profile_languages.destroy', 'uses' => 'aProfile_languagesController@destroy']);
+	Route::delete('/profile_languages/{id}', 		['as' => '/profile_languages.destroy', 'uses' => 'aProfile_languagesController@destroy']);
 	Route::get('/levels', 							['uses' => 'aLangLevelsController@index']);	
 	Route::get('/languages', 						['uses' => 'aLanguagesController@index']);
 	Route::post('/languages', 						['as' => '/languages.store', 'uses' => 'aLanguagesController@store']);

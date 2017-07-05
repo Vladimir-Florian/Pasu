@@ -24,25 +24,25 @@ class aProfile_languagesController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Display Foreign languages of profile.
      *
-     * @param  int $pid  profile_id
      * @return \Illuminate\Http\Response
      */
-    public function index($pid)
+    public function index()
     {
-        // the token is valid and we have found the user 
-        try {
+        if (! $user = JWTAuth::parseToken()->toUser()) {
+            return response()->json(['error' => 'user_not_found'], 400);
+        }
 
-            $profile = Profile::findOrFail($pid);
+        try {
+            $profile = Profile::byuser_id($user->id)->firstOrFail();
             if(!$profile->languages->count()) {
                 return response()->json(['error' => 'no languages entered'], 404);
             }
 
-            //$languages = $profile->languages;
             $langs = collect([]);
             foreach($profile->languages as $language){
-                try {
+            /*    try {
                     $level = LangLevel::findOrfail($language->pivot->level_id);
                 } catch (ModelNotFoundException $e) {
                     return response()->json(["error" => $e->getMessage()], 404);                
@@ -51,14 +51,15 @@ class aProfile_languagesController extends Controller
                     'name' => $language->name,
                     'level' => $level                
                     ]);
+                    */
+                $langs->push(['id' => $language->id, 'slug' => $language->slug,
+                             'name' => $language->name,]);               
             }
             //dd(compact('langs'));
             return response()->json(compact('langs'));      
 
         } catch(ModelNotFoundException $e) {
-
-            return response()->json(['error' => 'profile does not exist'], 404);
-
+          return response()->json(['error' => 'profile does not exist'], 404);
         }
 
     }
@@ -76,27 +77,28 @@ class aProfile_languagesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  int $pid  profile_id
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($pid, Request $request)
+    public function store(Request $request)
     {
-    // the token is valid and we have found the user 
+        if (! $user = JWTAuth::parseToken()->toUser()) {
+            return response()->json(['error' => 'user_not_found'], 400);
+        }
 
         try {        
-          $profile = Profile::findOrFail($pid);
+          $profile = Profile::byuser_id($user->id)->firstOrFail();
           $lang_id = $request->input('language');
           try {
-              $profile->languages()->attach($lang_id, ['level_id' => $request->input('level')]);
+              //$profile->languages()->attach($lang_id, ['level_id' => $request->input('level')]);
+              $profile->languages()->attach($lang_id);
           } catch(\Exception $e) {
-            return response()->json(["error" => $e->getMessage()], 404);
+            return response()->json(['error' => $e->getMessage()], $e->getCode());
           }       
-          return response()->json(['success Language'. $lang_id], 200);
         } catch(ModelNotFoundException $e) {
           return response()->json(['error' => 'profile does not exist'], 404);
         }
-
+        return response()->json(['success Language'. $lang_id], 200);
 
     }
 
@@ -125,19 +127,21 @@ class aProfile_languagesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $pid        profile_id
      * @param  int  $lid        language_id
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $pid, $lid)
+    public function update(Request $request, $lid)
     {
-        // the token is valid and we have found the user 
+        // ????
+        if (! $user = JWTAuth::parseToken()->toUser()) {
+            return response()->json(['error' => 'user_not_found'], 400);
+        }
 
-        try {
-          $profile = Profile::findOrFail($pid);
+        try {        
+          $profile = Profile::byuser_id($user->id)->firstOrFail();
         } catch(ModelNotFoundException $e) {
-            return response()->json(['error' => 'profile does not exist'], 404);
+          return response()->json(['error' => 'profile does not exist'], 404);
         }
 
         try {
@@ -145,7 +149,7 @@ class aProfile_languagesController extends Controller
         } catch(\Exception $e) {
           return response()->json(["error" => $e->getMessage()], 404);
         }
-        $language->pivot->level_id = $request->input('level');       
+        //$language->pivot->level_id = $request->input('level');       
         try {
           $language->pivot->save();
         } catch(\Exception $e) {
@@ -157,14 +161,17 @@ class aProfile_languagesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $pid        profile_id
      * @param  int  $lid        language_id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($pid, $lid)
+    public function destroy($lid)
     {
+        if (! $user = JWTAuth::parseToken()->toUser()) {
+            return response()->json(['error' => 'user_not_found'], 400);
+        }
+
         try {
-          $profile = Profile::findOrFail($pid);
+          $profile = Profile::byuser_id($user->id)->firstOrFail();
         } catch(ModelNotFoundException $e) {
             return response()->json(['error' => 'profile does not exist'], 404);
         }
@@ -172,7 +179,7 @@ class aProfile_languagesController extends Controller
         try {
           $language = $profile->languages()->where('id', $lid)->first();
         } catch(\Exception $e) {
-          return response()->json(["error" => $e->getMessage()], 404);
+          return response()->json(['error' => $e->getMessage()], $e->getCode());
         }
 
         try {
